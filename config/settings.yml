@@ -2,15 +2,15 @@ defaults: &defaults
  
 :development:
   :couchdb:
-    :url: http://localhost:5984/APP_NAME_development
+    :url: http://localhost:5984/class_axis_development
   <<: *defaults
   
 :test:
   :couchdb:
-    :url: http://localhost:5984/APP_NAME_test
+    :url: http://localhost:5984/class_axis_test
     <<: *defaults
 
 :production:
   :couchdb:
-    :url: http://localhost:5984/APP_NAME_production
+    :url: http://localhost:5984/class_axis_production
     <<: *defaults
