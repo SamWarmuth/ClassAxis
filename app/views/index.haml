@@ -8,26 +8,26 @@
 
 .lists{:style => "margin-top: 50px;"}
   .users
-    %h3 Current Users
+    %h3 Users
     %ul
       -User.all.each do |user|
         %li= user.name
   .classes
-    %h3 Current Courses
+    %h3 Courses
     %ul
       -Course.all.each do |course|
         %li= course.name
   .topics
-    %h3 Current Topics
+    %h3 Topics
     %ul
       -Topic.all.each do |topic|
-        %li= topic.name
+        %li= topic.title
   .posts
-    %h3 There are currently #{Post.all.count} Posts
+    %h3 Posts: #{Post.count}
   .events
-    %h3 Current Events
+    %h3 Events
     %ul
       -Event.all.each do |event|
-        %lu= event.name
+        %li= event.name
     
     
