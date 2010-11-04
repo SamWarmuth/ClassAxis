@@ -5,3 +5,29 @@
 %p 3. Andre
 %p 4. Johnny
 
+
+.lists{:style => "margin-top: 50px;"}
+  .users
+    %h3 Current Users
+    %ul
+      -User.all.each do |user|
+        %li= user.name
+  .classes
+    %h3 Current Courses
+    %ul
+      -Course.all.each do |course|
+        %li= course.name
+  .topics
+    %h3 Current Topics
+    %ul
+      -Topic.all.each do |topic|
+        %li= topic.name
+  .posts
+    %h3 There are currently #{Post.all.count} Posts
+  .events
+    %h3 Current Events
+    %ul
+      -Event.all.each do |event|
+        %lu= event.name
+    
+    
