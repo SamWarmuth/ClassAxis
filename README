@@ -1,18 +1,20 @@
-I called this lazybones because cute names are important in the ruby world. 
+ClassAxis
 
-Lazybones = (Monk) skeleton on Couch(db). Or something. Gimme a break.
+Mockup at http://www.slidemirror.com/show/d2z#3
 
-Unlike the main monk skeleton, I didn't commit the contents of the vendor directory.
+Conversations: more like a forum than a chat.  Threaded responses.
+Probably will want them to be essentially like a tree, rather than just one thread.
+How do we want to show this on a page?  After a few nests, the text gets really skinny and annoying to read.
+Could link to post numbers a la 4chan
 
-Instead, after you check out the skeleton, be sure to use the dep tool to build them.
+Calendar
+For events, assignments, tests
+Be able to compare schedules  (  tungle.me  )
+Google Calendar embed?  (  .ics   )
 
+Chat
+Single and Group Chats?
+Persistent Chat Rooms? (like how campfire’s chat rooms [top-left of image] work)
 
-dep vendor --all
-
-
-Also, open config/settings.yml and change the CouchDB database name(s) to reflect your set-up.
-
-TODO, requests for help - stuff I would like to add:
-
-1. A task to do some env/variable injection/interpolation. For example, a tool to inject an app name into the settings.yml file.
-2. Support for memcached out of the box to cache the results of CouchDB lookups.
+Classes
+Automatic assigned and grouped with people in your class
