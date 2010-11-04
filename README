@@ -3,18 +3,18 @@ ClassAxis
 Mockup at http://www.slidemirror.com/show/d2z#3
 
 Conversations: more like a forum than a chat.  Threaded responses.
-Probably will want them to be essentially like a tree, rather than just one thread.
-How do we want to show this on a page?  After a few nests, the text gets really skinny and annoying to read.
-Could link to post numbers a la 4chan
+  Trees rather than threads.
+  How do we want to show this on a page?  After a few nests, the text gets really skinny and annoying to read.
+  Each post has a permalink.
 
 Calendar
-For events, assignments, tests
-Be able to compare schedules  (  tungle.me  )
-Google Calendar embed?  (  .ics   )
+  For events, assignments, tests
+  Be able to compare schedules  (a la tungle.me)
+  Google Calendar embed?  (.ics)
 
 Chat
-Single and Group Chats?
-Persistent Chat Rooms? (like how campfire’s chat rooms [top-left of image] work)
+  Single and Group Chats?
+  Persistent Chat Rooms? (like how campfire’s chat rooms work)
 
 Classes
-Automatic assigned and grouped with people in your class
+  Automatic assigned and grouped with people in your class
