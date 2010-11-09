@@ -5,6 +5,18 @@ class User < CouchRest::ExtendedDocument
   property :email
   property :events
   
+  property :picture_url
+  
+  def groups
+    Group.all.find_all{|g| g.class_number.nil? && g.user_ids.include?(self.id)}
+  end
+  def courses
+    Group.all.find_all{|g| !g.class_number.nil? && g.user_ids.include?(self.id)}
+  end
+  
+  
+  
+  
   def set_password(password)
     self.salt = 64.times.map{|l|('a'..'z').to_a[rand(25)]}.join
     self.password_hash = (Digest::SHA2.new(512) << (self.salt + password + "thyuhwdhlbajhrqmdwxgayegpjxjdomaj")).to_s
