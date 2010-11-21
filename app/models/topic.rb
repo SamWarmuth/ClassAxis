@@ -5,9 +5,12 @@ class Topic < CouchRest::ExtendedDocument
   property :content, :default => ""
   property :tags, :default => []
   property :creator_id
-  property :date, :default => Time.now.to_s
+  property :date, :default => Proc.new{Time.now.to_s}
   property :permalink
   
+  def topic
+    self
+  end
   def creator
     User.get(self.creator_id)
   end

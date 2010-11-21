@@ -4,13 +4,15 @@
   .container_12
     .grid_12
       .box-header
-        %b= topic.title
+        %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
         %span{:style => "margin-left: 10px; "}
           %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
           %small= topic.time_since
+          -topic.tags.each do |tag|  
+            .badge.blue= tag
           
       .box          
-        .colored-box.blue= topic.content
+        .colored-box.brown.head= topic.content
         .indent
           -topic.children.each do |post|
             .colored-box.gray

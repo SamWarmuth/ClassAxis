@@ -1,13 +1,15 @@
 #page-header
   %h1 Events
--Event.all.each do |event|
-  .container_12
-    .grid_12
+.container_12
+  -Event.all.each do |event|
+    .grid_6
       .box-header
         %b= event.name
-        %small= event.date
-      .box          
-        %h2 Attendees
-        -event.attendees.each do |user|
-          %p= user.name
+        %small= Time.parse(event.date).strftime("%b %d %I:%M%p")
+      .box
+        = event.description
+        %p
+          %b Attending:
+          -event.attendees.each do |user|
+            %a{:href => "/user/#{user.permalink}"}= user.name
 %br.cl

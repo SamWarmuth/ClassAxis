@@ -7,14 +7,18 @@
       %span{:style => "margin-left: 10px; "}
         %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name
         %small= @topic.time_since
+      -@topic.tags.each do |tag|  
+        .badge.blue= tag
+      
         
     .box          
-      .colored-box.blue= @topic.content
-      .indent
-        -@topic.children.each do |post|
-          .colored-box.gray
-            %h3{:style => "color: #444"}
-              %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name
-              %small= post.time_since
-            =post.content
+      .colored-box.brown.head
+        = @topic.content
+        %a{:href => "/reply/#{@topic.id}", :style => "float: right; position: relative; top: -2px; right: 15px;"}
+          .awesome.blue.medium Reply
+      -@topic.children.each do |@post|
+        = haml :post
+
+      
+      
 %br.cl

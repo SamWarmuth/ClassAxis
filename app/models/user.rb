@@ -5,7 +5,7 @@ class User < CouchRest::ExtendedDocument
   property :email
   property :events, :default => []
   property :permalink
-  property :date, :default => Time.now.to_s
+  property :date, :default => Proc.new{Time.now.to_s}
   
   
   property :picture_url

@@ -1,0 +1,10 @@
+.colored-box.gray
+  %a{:href => "/reply/#{@post.id}", :style => "float: right; position: relative; top: 3px;"}
+    .awesome.blue.medium Reply
+  %h3{:style => "color: #444"}
+    %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
+    %small= @post.time_since
+  =@post.content
+.indent
+  -@post.children.each do |@post|
+    = haml :post

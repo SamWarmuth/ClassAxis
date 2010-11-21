@@ -24,7 +24,7 @@
             -unread_count = @user.messages.find_all{|m| m.unread == true}.count
             %a#opener.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
             |
-            %a{:href => "#"} Settings
+            %a{:href => "/settings"} Settings
             |
             %a{:href => "/logout"} Logout
         -else
@@ -97,7 +97,7 @@
           %span.ul-header
             %a#toggle-commentsnav.toggle.visible{:href => "#"} Discussions
           %ul#commentsnav
-            -@user.topics[0...3].each do |topic|
+            -@user.topics.reverse[0...3].each do |topic|
               %li
                 %a.icon-discussion{:href => "/discussion/#{topic.permalink}"}<
                   = topic.title[0..18]

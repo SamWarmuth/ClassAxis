@@ -16,7 +16,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 body
   line-height: 1.5
-  min-width: 750px
+  min-width: 800px
   
 
 blockquote
@@ -655,10 +655,10 @@ html[xmlns] #nav
   &.green
     background: #effeb9
     border-color: #98c700
-  &.yellow
+  &.red
     background: #fccac3
     border-color: #ea5338
-  &.red
+  &.yellow
     background: #ffeaa7
     border-color: #f9b418
   &.blue
@@ -672,12 +672,16 @@ html[xmlns] #nav
     border-color: #aaa
   border-width: 1px
   border-style: solid
-  padding: 17px 17px 17px 17px
-  margin-bottom: 15px
+  padding: 10px 15px
+  margin-bottom: 10px
   -moz-border-radius: 3px
   -webkit-border: 3px
   border-radius: 3px
-
+  &.head
+    margin: -15px -15px 15px -15px
+    border-radius: 0
+    border: none
+    border-bottom: 1px solid #ccc
 
 
 /* Forms
@@ -1246,6 +1250,7 @@ html body *
 .awesome:hover
   background-color: #111
   color: #fff
+  text-decoration: none
 .awesome:active
   top: 1px
 .small.awesome, .small.awesome:visited
@@ -1314,35 +1319,76 @@ html body *
 .header-cell
   text-align: center
   float: left
-  margin: 10px 0.5%
+  margin: 10px 1px
   padding: 0
-  width: 13.28%
+  width: 13.75%
   height: 15px
   position: relative
   font-weight: bold
 .cell
-  text-align: center
   float: left
   margin: 1px 1px
-  background: #229
+  background: #6CF
   padding: 0
   width: 13.75%
-  height: 60px
+  height: 50px
   position: relative
   border-radius: 3px
   overflow: hidden
   font-size: 10px
+  .event
+    margin-left: 6px
+    position: relative
+    top: 20px
+    color: #fff
+    display: block
+    font-weight: bold
   .number
     position: absolute
     font-weight: bold
-    color: #33A
-    font-size: 28px
-    top: 0px
-    left: 10px
+    color: #19f
+    font-size: 2em
+    top: -5px
+    left: 4px
   &.lighter
-    background-color: #77C
-    color: #555
+    background-color: #DDD
+    color: #fff
     .number
-      color: #11A
+      color: #FFF
+  &.today
+    background-color: #19f
+    .number
+      color: #fff
+      
+      
+.badge
+  display: inline-block
+  margin: 5px 10px
+  border-radius: 4px
+  height: 14px
+  font-size: 12px
+  padding: 3px
+  border: 1px solid #777
+  font-weight: normal
+  color: black
+  letter-spacing: 0.1em
+  &.green
+    background: #effeb9
+    border-color: #98c700
+  &.red
+    background: #fccac3
+    border-color: #ea5338
+  &.yellow
+    background: #ffeaa7
+    border-color: #f9b418
+  &.blue
+    background: #d1e4f3
+    border-color: #4d8fcc
+  &.brown
+    background: #feeac9
+    border-color: #d38e49
+  &.gray
+    background: #eee
+    border-color: #aaa
     
 

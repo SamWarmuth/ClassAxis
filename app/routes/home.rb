@@ -150,26 +150,38 @@ class Main
     redirect "/login" unless logged_in?
     topic = Topic.new
     topic.title = params[:title]
+    topic.tags = params[:tags].split(" ")
     topic.content = params[:content]
     topic.creator_id = @user.id
     topic.save
     redirect "/discussion/#{topic.permalink}"
   end
   
-
+  get "/reply/:id" do
+    redirect "/login" unless logged_in?
+    @parent = Post.get(params[:id])
+    @parent = Topic.get(params[:id]) if @parent['couchrest-type'] == "Topic"
+    redirect "/404" if @parent.nil?
+    
+    haml :reply
+  end
   
-  get "/topics/autogenerate" do
-    topic = Topic.new
-    topic.title = random_question
-    topic.content = random_question
-    topic.save
-    rand(5).times do
-      post = Post.new
-      post.parent_id = topic.id
-      post.content = random_answer
-      post.save
-    end
-    redirect "/topics"
+  post "/reply/:id" do
+    redirect "/login" unless logged_in?
+    @parent = Post.get(params[:id])
+    @parent = Topic.get(params[:id]) if @parent['couchrest-type'] == "Topic"
+    redirect "/404" if @parent.nil?
+    puts @parent.content
+    
+    post = Post.new
+    post.content = params[:content]
+    post.parent_id = @parent.id
+    post.topic_id = @parent.topic.id
+    post.creator_id = @user.id
+    post.save
+    post.save #...yeah. Two. Permalinks need work.
+    
+    redirect "/discussion/#{@parent.topic.permalink}"
   end
   
   get "/user/:permalink" do
@@ -194,9 +206,13 @@ class Main
     return ""
   end
   
+  get "/settings" do
+    redirect "/login" unless logged_in?
+    haml :settings
+  end
+  
   get "/login" do
-    logged_in?
-    redirect "/" if @user
+    redirect "/" if logged_in?
     haml :login, :layout => false
   end
   

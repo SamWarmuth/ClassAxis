@@ -5,7 +5,7 @@ class Post < CouchRest::ExtendedDocument
   property :parent_id
   property :topic_id
   
-  property :date, :default => Time.now.to_s
+  property :date, :default => Proc.new{Time.now.to_s}
   
   property :content
   property :permalink
@@ -21,21 +21,31 @@ class Post < CouchRest::ExtendedDocument
     fuzzy_time_since(Time.parse(self.date))
   end
   
+  def depth
+    deep = 0
+    parent = self
+    while parent['couchrest-type'] == "Post"
+      parent = Post.get(parent.parent_id)
+      deep += 1
+    end
+    return deep
+  end
+  
   save_callback :before, :set_permalink
   
   def set_permalink
+    return false if self.new_record?
     self.permalink = generate_permalink(self.id)
   end
   
   def topic
     Topic.get(self.topic_id)
   end
-
 end
 
 def fuzzy_time_since(time)
   since = Time.now - time
-  if since < 180
+  if since < 80
     return since.to_i.to_s + " seconds ago"
   elsif since < 60*60
     minutes = (since/60).to_i
@@ -45,6 +55,6 @@ def fuzzy_time_since(time)
     
     return "#{hours} hour#{"s" unless hours == 1} ago"
   else
-    return Time.parse(self.date).to_s
+    return time.strftime("%b %d %l:%M%p")
   end
 end

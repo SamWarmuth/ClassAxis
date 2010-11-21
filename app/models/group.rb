@@ -5,7 +5,7 @@ class Group < CouchRest::ExtendedDocument
   property :abbreviation
   property :is_public
   
-  property :date, :default => Time.now.to_s
+  property :date, :default => Proc.new{Time.now.to_s}
   
   
   property :parent_id
