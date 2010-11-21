@@ -14,7 +14,6 @@ class Group < CouchRest::ExtendedDocument
   property :admin_id
   
   property :wall_id
-  property :event_ids, :default => []
   
   property :course_number
   
@@ -33,7 +32,7 @@ class Group < CouchRest::ExtendedDocument
     self.user_ids.map{|u_id| User.get(u_id)}
   end
   def events
-    self.event_ids.map{|e_id| Event.get(e_id)}
+    Event.all.find_all{|e| e.tags.include?(self.permalink)}
   end
 end
 

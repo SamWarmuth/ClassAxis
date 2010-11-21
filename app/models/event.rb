@@ -5,7 +5,7 @@ class Event < CouchRest::ExtendedDocument
   property :date
   property :location
   property :description
-  property :tags
+  property :tags, :default => []
   
   property :repeat, :default => false
   

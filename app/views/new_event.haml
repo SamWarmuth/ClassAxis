@@ -1,26 +1,39 @@
 #page-header
   %h1 New Event
 .container_12
-  %form{:action => "", :method => "post"}
+  %form{:action => "/new-event", :method => "post"}
   
     .grid_12
       .box-header Event
       .box
         .row
-          %label Title:
-          %input{:type => "text", :style => "width: 60%;"}
+          %label Title
+          %input{:type => "text", :name => "name", :style => "width: 60%;"}
         .row
-          %label Location:
-          %input{:type => "text", :style => "width: 60%;"}
+          %label Tags
+          %input{:type => "text", :name => "tags", :style => "width: 30%;", :value => params[:tag]}
         .row
-          %label Tags:
-          %input{:type => "text", :style => "width: 60%;", :value => params[:tag]}
+          %label Location
+          %input{:type => "text", :name => "location", :style => "width: 30%;"}
         .row
-          %label Description:
-          %textarea.textarea{:name => "content",:style => "width: 60%; height: 100px;"}
+          %label Date
+          %input.datepicker{:type => "text", :name => "date", :style => "width: 15%;"}
         .row
-          %input.button{:type => "submit", :value => "Start Discussion"}/
+          %label Time (hh:mm AM/PM)
+          %input{:type => "text", :name => "time", :style => "width: 15%"}
+
+        .row
+          %label Description
+          %textarea.textarea{:name => "description",:style => "width: 60%; height: 100px;"}
+        .row
+          %input.button{:type => "submit", :value => "Create Event"}/
         %br.cl
 
         
     %br.cl
+    
+    
+:javascript
+  $(document).ready(function(){
+    $(".datepicker").datepicker();
+  });

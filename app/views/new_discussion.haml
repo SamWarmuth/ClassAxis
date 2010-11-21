@@ -2,18 +2,17 @@
   %h1 New Discussion
 .container_12
   %form{:action => "", :method => "post"}
-  
     .grid_12
       .box-header Discussion
       .box
         .row
-          %label Title:
-          %input{:type => "text", :style => "width: 60%;"}
+          %label Title
+          %input{:type => "text", :name => "title", :style => "width: 60%;"}
         .row
-          %label Tags:
-          %input{:type => "text", :style => "width: 60%;", :value => params[:tag]}
+          %label Tags
+          %input{:type => "text", :name => "tags", :style => "width: 60%;", :value => params[:tag]}
         .row
-          %label Content:
+          %label Content
           %textarea.textarea{:name => "content",:style => "width: 60%; height: 100px;"}
         .row
           %input.button{:type => "submit", :value => "Start Discussion"}/

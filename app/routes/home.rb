@@ -61,9 +61,10 @@ class Main
   get "/course/:permalink/join" do
     redirect "/login" unless logged_in?
     @course = Group.all.find{|c| c.permalink == params[:permalink]}
-    redirect "/course/#{params[:permalink]}" if @course.user_ids.include?(@user.id)
-    @course.user_ids << @user.id
-    @course.save
+    unless @course.user_ids.include?(@user.id)
+      @course.user_ids << @user.id
+      @course.save
+    end
     redirect "/course/#{params[:permalink]}"
   end
 
@@ -100,9 +101,32 @@ class Main
     haml :event
   end
   
+  get "/event/:permalink/attend" do
+    redirect "/login" unless logged_in?
+    @event = Event.all.find{|e| e.permalink == params[:permalink]}
+    unless @event.attendee_ids.include?(@user.id)
+      @event.attendee_ids << @user.id
+      @event.save
+    end
+    redirect "/event/#{@event.permalink}"
+  end
+  
   get "/new-event" do
     redirect "/login" unless logged_in?
     haml :new_event
+  end
+  
+  post "/new-event" do
+    redirect "/login" unless logged_in?
+    event = Event.new
+    event.name = params[:name]
+    event.tags = params[:tags].split(" ")
+    event.location = params[:location]
+    event.date = Time.parse(params[:date] + " " + params[:time]).to_s 
+    event.description = params[:description]
+    event.attendee_ids << @user.id
+    event.save
+    redirect "/event/#{event.permalink}"
   end
   
   
@@ -111,9 +135,25 @@ class Main
     haml :discussions
   end
   
+  get "/discussion/:permalink" do
+    redirect "/login" unless logged_in?
+    @topic = Topic.all.find{|t| t.permalink == params[:permalink]}
+    haml :discussion
+  end
+  
   get "/new-discussion" do
     redirect "/login" unless logged_in?
     haml :new_discussion
+  end
+  
+  post "/new-discussion" do
+    redirect "/login" unless logged_in?
+    topic = Topic.new
+    topic.title = params[:title]
+    topic.content = params[:content]
+    topic.creator_id = @user.id
+    topic.save
+    redirect "/discussion/#{topic.permalink}"
   end
   
 

@@ -12,20 +12,20 @@
       .box-header Group Info
       .box
         .row
-          %label Name:
+          %label Name
           %input{:type => "text", :name => "name", :style => "width: 275px;"}
         .row
-          %label Abbreviation (optional):
+          %label Abbreviation (optional)
           %input{:type => "text", :name => "abbreviation", :style => "width: 75px;"}
         .row
-          %label Privacy:
+          %label Privacy
           %input.radio{:checked => "checked", :name => "public", :type => "radio", :value => false}
           %label.radio Public
           %input.radio{:name => "public", :type => "radio", :value => true}
           %label.radio Invite Only
           %br.cl
         .row
-          %label{:style => "color: #ccc"} Invite Users:
+          %label{:style => "color: #ccc"} Invite Users
           %input{:type => "text", :disabled => "disabled", :name => 'invite'}
 
         .row

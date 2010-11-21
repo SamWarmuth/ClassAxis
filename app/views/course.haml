@@ -6,14 +6,19 @@
         %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
         Join Course
 .container_12
-  .grid_2
+  .grid_3
     .box-header Events
     .box
       -if @course.events.empty?
         %p
           No Events.
           %a{:href => "/new-event?tag=#{@course.permalink}"} Add one.
-  .grid_10
+      -else
+        -@course.events.each do |event|
+          = Time.parse(event.date).strftime("%b %d")
+          %a{:href => "/event/#{event.permalink}"}
+            = event.name
+  .grid_9
     .box-header{:style => "text-align: center"}
       November
     .box{:style => "padding: 0 0 5px 1%"}
@@ -24,10 +29,19 @@
       .header-cell Thursday
       .header-cell Friday
       .header-cell Saturday
-
+      
+      -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
+      -day -= (day.wday + 1) * (60*60*24)
+      
+      -events = @course.events
+      
       -35.times do |i|
-        .cell
-          .number= i
+        -day += 60*60*24
+        .cell{:class => (day.mon == Time.now.mon ? "" : "lighter")}
+          .number= day.day
+          -events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
+            %p
+              %a{:href => "/event/#{event.permalink}", :style => "position: relative; top: 8px; left: 5px; color: #eee; font-weight: bold;"}= event.name
       %br.cl
 
   .grid_9

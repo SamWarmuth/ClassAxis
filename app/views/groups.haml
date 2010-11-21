@@ -1,8 +1,8 @@
 #page-header
   %h1 Groups
--Group.all.find_all{|g| g.course_number.nil? && g.is_public}.each do |group|
-  .container_12
-    .grid_12
+.container_12
+  -Group.all.find_all{|g| g.course_number.nil? && g.is_public}.each do |group|
+    .grid_4
       .box-header
         %b= group.name
       .box          

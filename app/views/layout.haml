@@ -59,7 +59,7 @@
           %form{:action => "", :method => "post"}
             %h3 New Message
             %fieldset
-              %label To:
+              %label To
               %input{:type => "text"}/
             %fieldset
               %textarea.textarea{:cols => "55", :name => "textfield", :rows => "5", :style => "width:97%"}
@@ -105,7 +105,7 @@
             %li
               %a.icon-discussions{:href => "/discussions"} Browse Discussions
             %li
-              %a.icon-discussion-add{:href => "#"} New Discussion
+              %a.icon-discussion-add{:href => "/new-discussion"} New Discussion
 
           %span.ul-header
             %a#toggle-imagesnav.toggle.visible{:href => "#"} Events
@@ -119,9 +119,7 @@
               %a.icon-event-add{:href => "/events"} Create Event
             %li
               %a.icon-events{:href => "/events"} Browse Events
-          / End Gallery Nav
-          / Start Statistics Area
-          %span.ul-header Statistics
+          %span.ul-header Stats
           %ul
             %li Users: #{User.count}
             %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
