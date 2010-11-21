@@ -41,7 +41,7 @@
           .number= day.day
           -events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
             %p
-              %a{:href => "/event/#{event.permalink}", :style => "position: relative; top: 8px; left: 5px; color: #eee; font-weight: bold;"}= event.name
+              %a{:href => "/event/#{event.permalink}", :style => "position: relative; top: 5px; left: 0px; color: #eee; font-weight: bold;"}= event.name
       %br.cl
 
   .grid_9

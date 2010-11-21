@@ -99,7 +99,7 @@
           %ul#commentsnav
             -@user.topics[0...3].each do |topic|
               %li
-                %a.icon-discussion{:href => "/discussions"}<
+                %a.icon-discussion{:href => "/discussion/#{topic.permalink}"}<
                   = topic.title[0..18]
                   = "..." if topic.title.length > 18
             %li
