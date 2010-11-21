@@ -1333,9 +1333,17 @@ html body *
   width: 13.75%
   height: 50px
   position: relative
-  border-radius: 3px
+  border-radius: 0
   overflow: hidden
   font-size: 10px
+  &.ll
+    border-radius: 0 0 0 7px
+  &.lr
+    border-radius: 0 0 7px 0
+  &.ur
+    border-radius: 0 7px 0 0
+  &.ul
+    border-radius: 7px 0 0 0
   .event
     margin-left: 6px
     position: relative

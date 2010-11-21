@@ -14,7 +14,7 @@
           No Events.
       -else
         -@course.events.each do |event|
-          = Time.parse(event.date).strftime("%b %d")
+          %b= Time.parse(event.date).strftime("%b %d")
           %a{:href => "/event/#{event.permalink}"}
             = event.name
       %a{:href => "/new-event?tag=#{@course.permalink}", :style => "display: block; margin-top: 20px;"}
@@ -24,19 +24,25 @@
     .box-header{:style => "text-align: center"}
       November
     .box{:style => "padding: 0 0 15px 2%"}
-      .header-cell Sunday
-      .header-cell Monday
-      .header-cell Tuesday
-      .header-cell Wednesday
-      .header-cell Thursday
-      .header-cell Friday
-      .header-cell Saturday
+      .header-cell Sun
+      .header-cell Mon
+      .header-cell Tues
+      .header-cell Wed
+      .header-cell Thurs
+      .header-cell Fri
+      .header-cell Sat
       -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
       -day -= (day.wday + 1) * (60*60*24)
       -events = @course.events
       -35.times do |i|
         -day += 60*60*24
-        .cell{:class => (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")}
+        -course = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
+        -course += " ul" if i == 0
+        -course += " ur" if i == 6
+        -course += " lr" if i == 34
+        -course += " ll" if i == 28
+        
+        .cell{:class => course}
           .number= day.day
           -events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
             %a.event{:href => "/event/#{event.permalink}"}= event.name
@@ -62,10 +68,9 @@
               .box          
                 .colored-box.brown.head
                   = topic.content
-                  %a{:href => "/reply/#{@topic.id}", :style => "float: right; position: relative; top: -2px; right: 15px;"}
-                    .awesome.blue.medium Reply
-                -topic.children.each do |@post|
-                  = haml :post
+                %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
+                
+                
       %a{:href => "/new-discussion?tag=#{@course.permalink}", :style => "display: block; margin-top: 20px;"}
         .awesome.blue.medium New Discussion
       %br.cl

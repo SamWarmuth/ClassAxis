@@ -1,6 +1,6 @@
 #page-header
   %h1 Discussions
--Topic.all.reverse.each do |topic|
+-Topic.all.sort_by{|t| Time.parse(t.date)}.reverse.each do |topic|
   .container_12
     .grid_12
       .box-header

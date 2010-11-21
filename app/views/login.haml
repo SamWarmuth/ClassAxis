@@ -16,6 +16,10 @@
           .notification.error
             %span.strong Error:
             Email or password incorrect.
+        -if params[:success] && params[:success] == "created"
+          .notification.success
+            %span.strong Success!
+            Your account has been created. Please log in.
         %form.login{:action => "/login", :method => "post"}
           .row
             %label Email

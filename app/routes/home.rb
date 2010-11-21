@@ -238,7 +238,7 @@ class Main
       })
       redirect "/"
     else
-      redirect "/login?error=incorrect" #TODO show an error
+      redirect "/login?error=incorrect"
     end
   end
   
@@ -258,4 +258,26 @@ class Main
     redirect "/login"
   end
 
+  get "/signup" do
+    redirect "/" if logged_in?
+    haml :signup, :layout => false
+  end
+  
+  post "/signup" do
+    
+    redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
+    perma = generate_permalink(params[:name])
+    redirect "/signup?error=name" unless User.all.find{|u| u.permalink == perma}.nil?
+    redirect "/signup?error=password" unless params[:password] == params[:password2]
+    if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
+      user = User.new
+      user.name = params[:name]
+      user.email = params[:email]
+      user.set_password(params[:password])
+      user.save
+      redirect "/login?success=created"
+    else
+      redirect "/signup?error=empty"
+    end
+  end
 end

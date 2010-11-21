@@ -10,5 +10,39 @@
       %p
         It's a website for college students to communicate and collaborate on schoolwork.
       %h2.notification.warning Watch out! We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
+  .grid_12
+    .box-header Your Events
+    .box
+      -if @user.events.empty?
+        %p
+          No Events.
+      -else
+        -@user.events.each do |event|
+          %p
+            %b= Time.parse(event.date).strftime("%b %d")
+            @ #{event.location} -
+            %a{:href => "/event/#{event.permalink}"}
+              = event.name
+      %br.cl
+  .grid_12
+    .box-header Your Discussions
+    .box
+      -@user.topics[0...1].each do |topic|
+        .grid_12
+          .box-header
+            %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
+            %span{:style => "margin-left: 10px;"}
+              %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+              %small= topic.time_since
+
+          .box          
+            .colored-box.brown.head
+              = topic.content
+              %a{:href => "/reply/#{topic.id}", :style => "float: right; position: relative; top: -2px; right: 15px;"}
+                .awesome.blue.medium Reply
+            -topic.children.each do |@post|
+              = haml :post
+      %br.cl
   %br.cl
+  
 
