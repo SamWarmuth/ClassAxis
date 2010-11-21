@@ -1,0 +1,36 @@
+/ Start Page Header
+#page-header
+  %h1 New Course
+/ End Page Header
+/ Start Grid
+.container_12
+  / Start Web Stats
+  %form{:action => "", :method => "post"}
+  
+    .grid_12
+      .box-header Course Info
+      .box
+        .row
+          %label Name:
+          %input{:type => "text", :style => "width: 275px;"}/
+        .row
+          %label Abbreviation (optional):
+          %input{:type => "text", :style => "width: 75px;"}/
+        .row
+          %label Privacy:
+          %input.radio{:checked => "checked", :name => "demoradio", :type => "radio"}/
+          %label.radio Public
+          %input.radio{:name => "demoradio", :type => "radio"}/
+          %label.radio Invite Only
+          %br.cl/
+    .grid_12
+      .box-header Invite Users
+      .box
+        .row
+          %label Type User Name:
+          %input{:type => "text"}/
+
+        .row
+          %input.button{:type => "submit", :value => "Create Course"}/
+    %br.cl/
+    

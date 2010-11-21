@@ -1,0 +1,15 @@
+#page-header
+  %h1 Discussions
+-Topic.all.each do |topic|
+  .container_12
+    .grid_12
+      .box-header
+        %b= topic.title
+        %span{:style => "margin-left: 20px; color: #666"}= topic.creator.name
+      .box          
+        .colored-box.blue= topic.content
+        %ul
+          -topic.children.each do |child|
+            %li
+              =child.content
+%br.cl/

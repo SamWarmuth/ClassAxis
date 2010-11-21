@@ -1,4 +1,12 @@
-%h1 Groups PAGE!!!!
-
-//TODO:  Groups page...
-    
+#page-header
+  %h1 Groups
+-Group.all.find_all{|g| g.course_number.nil?}.each do |group|
+  .container_12
+    .grid_12
+      .box-header
+        %b= group.name
+      .box          
+        %h2 Members
+        -group.members.each do |member|
+          %p= member.name
+%br.cl/

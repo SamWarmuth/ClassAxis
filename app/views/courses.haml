@@ -1,0 +1,12 @@
+#page-header
+  %h1 Courses
+-Group.all.find_all{|g| !g.course_number.nil?}.each do |course|
+  .container_12
+    .grid_12
+      .box-header
+        %b= course.name
+      .box          
+        %h2 Members
+        -course.members.each do |member|
+          %p= member.name
+%br.cl/

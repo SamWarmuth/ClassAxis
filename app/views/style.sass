@@ -1,19 +1,1216 @@
-/* CSS Mini Reset http://www.vcarrer.com/2010/05/css-mini-reset.html */
+/* 
+ *Admin Base Template
+ *Author: MaestroX (http://themeforest.net/user/MaestroX)
 
-html, body, div, form, fieldset, legend, label
+/* CSS Reset
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
   margin: 0
   padding: 0
+  border: 0
+  font-weight: inherit
+  font-style: inherit
+  font-size: 100%
+  font-family: inherit
+  vertical-align: baseline
+
+body
+  line-height: 1.5
+
+blockquote
+  &:before, &:after
+    content: ""
+
+q
+  &:before, &:after
+    content: ""
+
+blockquote, q
+  quotes: "" ""
+
+a img
+  border: none
+
+/* Base
+
+html
+  font-size: 100.01%
+
+body
+  font-size: 75%
+  color: #1a1a1a
+  background: #f4f4f4
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif
+
+h1, h2, h3, h4, h5, h6
+  font-weight: normal
+  color: #666
+
+h1
+  font-size: 24px
+  font-weight: bold
+  line-height: 1
+  color: #333
+
+h2
+  color: #454545
+  font-size: 18px
+  font-weight: bold
+  margin-bottom: 10px
+
+h3
+  color: #666666
+  font-size: 14px
+  font-weight: bold
+  margin-bottom: 15px
+
+h4
+  font-size: 13px
+  font-weight: bold
+  margin-bottom: 15px
+
+h5
+  font-size: 12px
+  margin-bottom: 15px
+
+h6
+  font-size: 11px
+  margin-bottom: 15px
+
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img
+  margin: 0
+
+p
+  margin: 0 0 1.5em
+  clear: both
+  line-height: 1.6
+
+a
+  &:focus, &:hover
+    color: #000
+  color: #009
+  text-decoration: underline
+
+blockquote
+  margin: 1.5em
+  color: #666
+  font-style: italic
+
+strong
+  font-weight: bold
+
+em
+  font-style: italic
+
+dfn
+  font-style: italic
+  font-weight: bold
+
+sup, sub
+  line-height: 0
+
+abbr, acronym
+  border-bottom: 1px dotted #666
+
+address
+  margin: 0 0 1.5em
+  font-style: italic
+
+/* misc
+
+.cl
+  clear: both
+  display: block
+  height: 0
+  overflow: hidden
+  visibility: hidden
+  width: 0
+  line-height: 0
+
+.fl
+  float: left
+
+.fr
+  float: right
+
+.fn
+  float: none!important
+
+.tl
+  text-align: left
+
+.tr
+  text-align: right
+
+.tc
+  text-align: center
+
+.hd
+  display: none
+
+.strong
+  font-weight: bold!important
+
+/* Main Elements
+
+#logo
+  padding: 15px 0 0 0
+
+#header
+  color: #fff
+  a
+    color: #fff
+    text-decoration: underline
+    &:hover
+      color: #fff
+      text-decoration: none
+
+.header-top
+  background: #2c2c2c
+  padding: 6px 25px 2px
+
+.header-middle
+  background: #404040 url('../img/header-middle.gif') repeat-x bottom
+  border-top: 1px solid #606060
+  border-bottom: 1px solid #050505
+  padding: 0 25px
+  height: 62px
+
+.header-bottom
+  background: #313131 url('../img/header-bottom.gif') repeat-x bottom
+  border-top: 1px solid #545454
+  border-bottom: 1px solid #545454
+  padding: 7px 25px
+
+#header
+  p
+    margin: 0 0 5px 0
+  span
+    color: #6e7d87
+
+.footer
+  background: #313131 url('../img/header-bottom.gif') repeat-x bottom
+  border-top: 1px solid #545454
+  border-bottom: 1px solid #000
+  padding: 10px 25px
+  color: #fff
+  a
+    color: #fff
+    text-decoration: underline
+    &:hover
+      color: #fff
+      text-decoration: none
+
+#page-wrapper
+  border-top: 1px solid #060606
+  border-bottom: 1px solid #000000
+  background: #f4f4f4 url('../img/page-bg.gif') repeat-x top
+
+.page
+  background: url('../img/sidebar-bg.png') repeat-y left
+
+#page-content
+  margin-left: 250px
+  padding: 25px 35px 25px 25px
+  color: #333
+
+#page-header
+  border-bottom: 1px solid #d5d5d5
+  padding-bottom: 10px
+  margin-bottom: 25px
+  margin-left: 1%
+  margin-right: 1%
+
+/* Navigation
+
+#nav
+  font-size: 16px
+  font-weight: bold
+  list-style-type: none
+  margin: 0
+  padding: 0
+  width: 78%
+  height: 62px
+  li
+    display: block
+    float: right
+    padding: 19px 21px
+    text-align: left
+    position: relative
+    height: 24px
+    font-size: 16px
+    &:hover
+      background: #2d2d2d
+      border-right: 1px solid #606060
+      border-left: 1px solid #606060
+      border-top: 0
+      border-bottom: 0
+      padding: 19px 20px
+    a
+      color: #fff
+      padding: 22px 10px 22px 40px
+      text-shadow: 0 -1px 1px #000000
+      font-size: 16px
+      text-decoration: none
+      &:hover
+        text-decoration: none
+      &.help
+        background: url('../img/icons/nav/help.png') no-repeat 0 -38px
+      &.settings
+        background: url('../img/icons/nav/settings.png') no-repeat 0 -38px
+      &.users
+        background: url('../img/icons/nav/users.png') no-repeat 0 -38px
+      &.content
+        background: url('../img/icons/nav/content.png') no-repeat 0 -38px
+      &.dashboard
+        background: url('../img/icons/nav/dashboard.png') no-repeat 0 -38px
+    &:hover > a
+      background-position: 0 16px
+  ul li:hover a, li:hover li a
+    background: none
+    border: none
+  ul a:hover
+    -webkit-border-radius: 0
+    -moz-border-radius: 0
+  li
+    &:hover > ul
+      display: block
+    &.dashboard ul
+      width: 172px
+      li ul
+        left: 172px
+    &.content ul
+      width: 151px
+      li ul
+        left: 151px
+    &.users ul
+      width: 134px
+      li ul
+        left: 134px
+    &.settings ul
+      width: 153px
+      li ul
+        left: 153px
+    &.help ul
+      width: 124px
+      li ul
+        left: 124px
+  ul
+    display: none
+    margin: 0
+    padding: 0
+    /*	width: 174px;
+    position: absolute
+    top: 62px
+    left: -1px
+    background: #2d2d2d
+    border: 1px solid #606060
+    z-index: 10
+    border-top: none
+    -webkit-border-radius: 0 0 3px 3px
+    -moz-border-radius: 0 0 3px 3px
+    border-radius: 0 0 3px 3px
+    padding-bottom: 5px
+    li
+      float: none
+      padding: 6px 0 1px
+      margin: 0
+      &:hover
+        padding: 6px 0 1px
+        background: #478db4
+        border: 0
+    a
+      font-size: 12px
+      font-weight: bold
+      margin: 0
+      padding: 0 15px
+      text-shadow: none
+      padding-left: 15px
+      vertical-align: top
+    li:hover > a
+      text-shadow: none
+      vertical-align: top
+    ul
+      /*	left: 174px;
+      top: 0
+      -moz-border-radius: 0px 5px 5px 5px
+      -webkit-border-radius: 0px 5px 5px 5px
+      border-top: 1px solid #606060
+    li:last-child > a
+      -webkit-border-bottom-left-radius: 3px
+      -moz-border-radius-bottomleft: 3px
+      -webkit-border-bottom-right-radius: 3px
+      -moz-border-radius-bottomright: 3px
+  &:after
+    content: "."
+    display: block
+    clear: both
+    visibility: hidden
+    line-height: 0
+    height: 0
+  display: inline-block
+
+/* sub levels link hover
+
+/* dropdown
+
+/* drop down widths
+
+/* level 2 list
+
+/* level 3+ list
+
+/* rounded corners of first and last link
+
+/* clearfix
+
+html[xmlns] #nav
+  display: block
+
+* html #nav
+  height: 1%
+
+/* breadcrumbs
+
+#breadcrumbs
+  list-style: none
+  padding: 0
+  margin: 0
+  li
+    display: inline
+    font-size: 12px
+    line-height: normal
+    float: none
+    font-size: 14px
+    a
+      float: none
+      display: inline
+      font-weight: bold
+      padding: 0
+      text-decoration: none
+      font-size: 12px
+    &.bold a
+      font-weight: bold
+    &:HOVER
+      background: none
+      padding: 0
+      A
+        text-decoration: underline
+        padding: 0
+
+.breadcrumbs li a:HOVER
+  text-decoration: underline
+  background: none
+  padding: 0
+
+/* sidebar
+
+#sidebar
+  float: left
+  width: 185px
+  color: #333
+  padding: 25px 25px
+  a
+    color: #333
+  ul
+    list-style-type: none
+    padding: 0
+    margin: 0 0 20px
+    li
+      border-top: 1px solid #f6f6f6
+      border-bottom: 1px solid #e0e0e0
+      padding: 6px
+      width: 175px
+      a
+        padding: 8px 25px 6px
+        text-decoration: none
+        &:hover
+          color: #333333
+          font-weight: bold
+
+.ul-header
+  border-bottom: 1px solid #e0e0e0
+  font-weight: bold
+  font-size: 14px
+  display: block
+  width: 175px
+  padding: 6px
+  color: #444444
+  margin-top: 10px
+  a
+    font-weight: bold
+    font-size: 14px
+    color: #444444
+    text-decoration: none
+
+/** sidebar icons *
+
+#sidebar ul li a
+  &.icn_manage_image
+    background: url('../img/icons/small/image_manage.png') no-repeat left
+  &.icn_add_image
+    background: url('../img/icons/small/image_add.png') no-repeat left
+  &.icn_edit_image
+    background: url('../img/icons/small/image_edit.png') no-repeat left
+  &.icn_delete_image
+    background: url('../img/icons/small/image_delete.png') no-repeat left
+  &.icn_manage_users
+    background: url('../img/icons/small/user.png') no-repeat left
+  &.icn_add_users
+    background: url('../img/icons/small/user_add.png') no-repeat left
+  &.icn_edit_users
+    background: url('../img/icons/small/user_edit.png') no-repeat left
+  &.icn_delete_users
+    background: url('../img/icons/small/user_delete.png') no-repeat left
+  &.icn_manage_pages
+    background: url('../img/icons/small/page.png') no-repeat left
+  &.icn_add_pages
+    background: url('../img/icons/small/page_add.png') no-repeat left
+  &.icn_edit_pages
+    background: url('../img/icons/small/page_edit.png') no-repeat left
+  &.icn_delete_pages
+    background: url('../img/icons/small/page_delete.png') no-repeat left
+  &.icn_manage_comments
+    background: url('../img/icons/small/comment.png') no-repeat left
+  &.icn_add_comments
+    background: url('../img/icons/small/comment_add.png') no-repeat left
+  &.icn_edit_comments
+    background: url('../img/icons/small/comment_edit.png') no-repeat left
+  &.icn_delete_comments
+    background: url('../img/icons/small/comment_delete.png') no-repeat left
+
+.toggle
+  display: block
+
+.ul-header a
+  &.visible
+    background: url('../img/icons/small/toggle_close.png') no-repeat scroll 97% 50%
+  &.hidden
+    background: url('../img/icons/small/toggle_open.png') no-repeat scroll 97% 50%
+
+/* Live Search (Sidebar)
+
+.searchform
+  display: inline-block
+  margin-bottom: 15px
+  padding: 0
+  input
+    font: 12px/100% Arial, Helvetica, sans-serif
+  .searchfield
+    -moz-border-radius: 5px 0 0 5px
+    -moz-box-shadow: 0 1px 2px #c7c6c6 inset
+    -webkit-border-radius: 5px 0 0 5px
+    -webkit-box-shadow: 0 1px 2px #c7c6c6 inset
+    background: white url(../img/search-bg.gif) no-repeat 10px center
+    border: 1px solid #c7c6c6
+    outline: medium none
+    padding: 7px 6px 6px 28px
+    width: 119px
+    float: left
+    margin: 0
+    &:focus
+      -moz-box-shadow: 0px 0px 3px #d0e1f7
+      border: 1px solid #d0e1f7
+      > input.searchbutton
+        -moz-box-shadow: 0px 0px 3px #d0e1f7
+        border: 1px solid #d0e1f7
+  .searchbutton
+    -moz-border-radius: 0 5px 5px 0
+    -moz-box-shadow: 0 1px 2px #c7c6c6
+    -webkit-border-radius: 0 5px 5px 0
+    -webkit-box-shadow: 0 1px 2px #c7c6c6
+    background: #d6d6d6 url(../img/go-bg.gif) repeat-x top
+    border: 1px solid #a9a8a8
+    color: #888888
+    font-size: 12px
+    font-weight: bold
+    height: 29px
+    text-shadow: 0 1px 1px #f6f6f6
+    width: 30px
+    float: left
+    margin: 0
+    padding: 0
+
+/* Page Blocks
+
+.box
+  background: #fff
+  border: 1px solid #9d9d9d
+  margin-bottom: 15px
+  padding: 15px
+  border-top: 0
+  -moz-border-radius-bottomleft: 3px
+  -moz-border-radius-bottomright: 3px
+  -webkit-border-bottom-left-radius: 3px
+  -webkit-border-bottom-right-radius: 3px
+  a
+    color: #1f92ff
+    text-decoration: none
+    &:hover
+      color: #1f92ff
+      text-decoration: underline
+  &.stats
+    padding: 30px 15px
+  &.table
+    padding: 0
+
+.box-header
+  border: 1px solid #9d9d9d
+  font-weight: bold
+  font-size: 14px
+  background: #cdcdcd url('../img/boxheader.gif') repeat-x top
+  padding: 10px 15px
+  color: #333333
+  -moz-border-radius-topleft: 3px
+  -moz-border-radius-topright: 3px
+  -webkit-border-top-left-radius: 3px
+  -webkit-border-top-right-radius: 3px
+  text-shadow: 1px 1px 1px #fff
+  .fr a
+    color: #333333
+    text-decoration: none
+    font-size: 12px
+    padding: 0 5px
+    &:hover
+      color: #1f92ff
+
+.box
+  h2
+    color: #454545
+    font-size: 18px
+    font-weight: bold
+    margin-bottom: 10px
+  h3
+    color: #666666
+    font-size: 14px
+    font-weight: bold
+    margin-bottom: 15px
+  h4
+    color: #666666
+    font-size: 13px
+    font-weight: bold
+    margin-bottom: 15px
+  ul
+    padding-bottom: 15px
+    padding-left: 20px
+    li
+      margin-bottom: 5px
+      padding-left: 5px
+  ol
+    list-style-position: inside
+    padding-bottom: 15px
+    padding-left: 15px
+    li
+      margin-bottom: 5px
+
+/* notifications
+
+.notification
+  &.success
+    background: #effeb9 url('../img/icons/notifications/success.png') no-repeat 10px 10px
+    border-color: #98c700
+  &.error
+    background: #fccac3 url('../img/icons/notifications/error.png') no-repeat 10px 10px
+    border-color: #ea5338
+  &.warning
+    background: #ffeaa7 url('../img/icons/notifications/warning.png') no-repeat 10px 10px
+    border-color: #f9b418
+  &.info
+    background: #d1e4f3 url('../img/icons/notifications/info.png') no-repeat 10px 10px
+    border-color: #4d8fcc
+  &.tip
+    background: #feeac9 url('../img/icons/notifications/tip.png') no-repeat 10px 10px
+    border-color: #d38e49
+  border-width: 1px
+  border-style: solid
+  padding: 17px 17px 17px 55px
+  margin-bottom: 15px
+  -moz-border-radius: 3px
+  -webkit-border: 3px
+  border-radius: 3px
+  .close
+    background: url("../img/icons/small/close.png") no-repeat scroll 0 0 transparent
+    cursor: pointer
+    display: block
+    float: right
+    height: 16px
+    margin-top: 2px
+    opacity: 0.7
+    width: 16px
+    &:hover
+      opacity: 1
+      
+      
+.colored-box
+  &.green
+    background: #effeb9
+    border-color: #98c700
+  &.yellow
+    background: #fccac3
+    border-color: #ea5338
+  &.red
+    background: #ffeaa7
+    border-color: #f9b418
+  &.blue
+    background: #d1e4f3
+    border-color: #4d8fcc
+  &.brown
+    background: #feeac9
+    border-color: #d38e49
+  border-width: 1px
+  border-style: solid
+  padding: 17px 17px 17px 17px
+  margin-bottom: 15px
+  -moz-border-radius: 3px
+  -webkit-border: 3px
+  border-radius: 3px
+
+
+
+/* Forms
+
+form
+  label
+    padding-top: 5px
+    margin-right: 8px
+    display: block
+    color: #454545
+    font-size: 13px
+    font-weight: bold
+    float: left
+  p
+    margin-bottom: 10px
+    padding-bottom: 20px
+  div.row
+    clear: both
+    padding: 4px 0
+    margin-bottom: 15px
+  .row
+    label
+      width: 150px
+    .checkbox, .radio
+      width: auto
+  input, textarea, select
+    background: white url('../img/input-bg.gif') repeat-x top
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    border: 1px solid #c7c6c6
+    outline: medium none
+    padding: 7px 6px 6px 6px
+    margin: 0
+  input
+    &.error
+      border: 1px solid #FCCAC3
+      &:focus
+        border: 1px solid #EA5338
+        -webkit-box-shadow: 0 1px 2px #EA5338 inset
+        -moz-box-shadow: 0 1px 2px #EA5338 inset
+    &[type=checkbox], &[type=radio]
+      float: left
+      border: none
+      background: none
+      margin: 0
+      padding: 0
+      margin-top: 3px
+    &[type=checkbox]:focus, &[type=radio]:focus
+      border: none
+      background: none
+  label
+    &.checkbox, &.radio
+      font-weight: normal
+      margin: 0
+      padding: 0 20px 0 6px
+      vertical-align: bottom
+  input:focus, textarea:focus, select:focus
+    -moz-box-shadow: 0px 0px 3px #d0e1f7
+    border: 1px solid #d0e1f7
+  optgroup
+    background: #f7f7f7
+
+fieldset
+  margin-bottom: 15px
+
+/* Buttons
+
+.button
+  -moz-border-radius: 0.5em 0.5em 0.5em 0.5em
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+  cursor: pointer
+  display: inline-block
+  font: 14px/100% Arial, Helvetica, sans-serif
+  margin: 0 2px
+  outline: medium none
+  padding: 0.5em 2em 0.55em
+  text-align: center
+  text-decoration: none
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3)
+  vertical-align: baseline
+  background: #868686 url('../img/btn-bg-dark.gif') repeat-x bottom
+  color: #E9E9E9
+  &:hover
+    background: #585858 url('../img/btn-bg-dark-hover.gif') repeat-x bottom
+    text-decoration: none
+  &:active
+    background: #585858 url('../img/btn-bg-dark-active.gif') repeat-x bottom
+    color: #AFAFAF
+    position: relative
+    top: 1px
+
+.medium
+  font-size: 12px
+  padding: 0.4em 1.5em 0.42em
+
+.small
+  font-size: 11px
+  padding: 0.2em 1em 0.275em
+
+/* Tables
 
 table
-  border-collapse: collapse
-  border-spacing: 0
+  border-collapse: separate
+  border-spacing: 0px
 
-th, td
- text-align: left
- vertical-align: top
-
-h1, h2, h3, h4, h5, h6, th, td, caption
+caption, th, td
+  text-align: left
   font-weight: normal
 
-img
-  border: 0
+table, td, th
+  vertical-align: middle
+
+table
+  width: 100%
+
+thead
+  td, th
+    background-color: #E6E6E6
+
+tr td, thead th
+  border-left: 1px solid #CCCCCC
+  color: #616161
+  padding: 8px
+
+tr td
+  vertical-align: middle
+
+thead
+  td, th
+    font-weight: bold
+    padding: 8px
+
+th, td
+  border-bottom: 1px solid #DEDEDE
+
+tbody th
+  padding: 0 8px
+  text-align: left
+
+/* Dialog Box
+
+.message
+  font-size: 12px
+  padding: 15px
+  margin-bottom: 10px
+  border: 1px solid #AAAAAA
+  &.new
+    background: #feeac9
+    border: 1px solid #d38e49
+  h4
+    border-bottom: 1px solid #AAAAAA
+    padding-bottom: 5px
+
+small
+  font-size: 10px
+
+/* Login Page
+
+#login-wrapper
+  margin: 0 auto
+  width: 400px
+  margin-top: 150px
+
+div#login-wrapper div.notification
+  padding: 15px 15px 15px 50px
+
+.box-header.login
+  font-size: 19px
+  padding: 10px 15px
+
+form.login
+  label
+    width: 145px
+  input
+    width: 200px
+    
+/*plugin styles
+
+.visualize
+  border: 1px solid #888
+  position: relative
+  background: #fafafa
+  margin: 0 auto
+  canvas
+    position: absolute
+  ul, li
+    margin: 0
+    padding: 0
+  .visualize-info
+    padding: 3px 5px
+    background: #fafafa
+    border: 1px solid #888
+    position: absolute
+    top: -20px
+    right: 10px
+    opacity: .8
+  .visualize-title
+    display: block
+    color: #333
+    margin-bottom: 3px
+    font-size: 1.1em
+  ul.visualize-key
+    list-style: none
+    li
+      list-style: none
+      float: left
+      margin-right: 10px
+      padding-left: 10px
+      position: relative
+    .visualize-key-color
+      width: 6px
+      height: 6px
+      left: 0
+      position: absolute
+      top: 50%
+      margin-top: -3px
+    .visualize-key-label
+      color: #000
+
+/*table title, key elements
+
+/*pie labels
+
+.visualize-pie
+  .visualize-labels
+    list-style: none
+  .visualize-label-pos
+    position: absolute
+    margin: 0
+    padding: 0
+  .visualize-label
+    position: absolute
+    margin: 0
+    padding: 0
+    display: block
+    color: #fff
+    font-weight: bold
+    font-size: 1em
+
+.visualize-pie-outside .visualize-label
+  color: #000
+  font-weight: normal
+
+/*line,bar, area labels
+
+.visualize-labels-x, .visualize-labels-y
+  position: absolute
+  left: 0
+  top: 0
+  list-style: none
+
+.visualize-labels-x li, .visualize-labels-y li
+  position: absolute
+  bottom: 0
+
+.visualize-labels-x li span.label, .visualize-labels-y li span.label
+  position: absolute
+  color: #555
+
+.visualize-labels-x li span.line, .visualize-labels-y li span.line
+  position: absolute
+  border: 0 solid #ccc
+
+.visualize-labels-x li
+  height: 100%
+  span
+    &.label
+      top: 100%
+      margin-top: 5px
+    &.line
+      border-left-width: 1px
+      height: 100%
+      display: block
+      border: 0
+
+/*hide vertical lines on area, line, bar
+
+.visualize-labels-y li
+  width: 100%
+  span
+    &.label
+      right: 100%
+      margin-right: 5px
+      display: block
+      width: 100px
+      text-align: right
+    &.line
+      border-top-width: 1px
+      width: 100%
+
+.visualize-bar .visualize-labels-x li span.label
+  width: 100%
+  text-align: center
+  
+/*
+ *	960 Grid System ~ Core CSS.
+ *	Learn more ~ http://960.gs/
+ *
+ *	Licensed under GPL and MIT.
+
+/* =Containers
+ *--------------------------------------------------------------------------------
+
+.container_12, .container_16
+  width: 100%
+
+/* =Grid >> Global
+ *--------------------------------------------------------------------------------
+
+.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12, .grid_13, .grid_14, .grid_15, .grid_16
+  display: inline
+  float: left
+  margin-left: 1%
+  margin-right: 1%
+
+.container_12 .grid_3, .container_16 .grid_4
+  width: 23%
+
+.container_12 .grid_6, .container_16 .grid_8
+  width: 48%
+
+.container_12 .grid_9, .container_16 .grid_12
+  width: 73%
+
+.container_12 .grid_12, .container_16 .grid_16
+  width: 98%
+
+/* =Grid >> Children (Alpha ~ First, Omega ~ Last)
+ *--------------------------------------------------------------------------------
+
+.alpha
+  margin-left: 0
+
+.omega
+  margin-right: 0
+
+/* =Grid >> 12 Columns
+ *--------------------------------------------------------------------------------
+
+.container_12
+  .grid_1
+    width: 6.333%
+  .grid_2
+    width: 14.666%
+  .grid_4
+    width: 31.333%
+  .grid_5
+    width: 39.666%
+  .grid_7
+    width: 56.333%
+  .grid_8
+    width: 64.666%
+  .grid_10
+    width: 81.333%
+  .grid_11
+    width: 89.666%
+
+/* =Grid >> 16 Columns
+ *--------------------------------------------------------------------------------
+
+.container_16
+  .grid_1
+    width: 4.25%
+  .grid_2
+    width: 10.5%
+  .grid_3
+    width: 16.75%
+  .grid_5
+    width: 29.25%
+  .grid_6
+    width: 35.5%
+  .grid_7
+    width: 41.75%
+  .grid_9
+    width: 54.25%
+  .grid_10
+    width: 60.5%
+  .grid_11
+    width: 66.75%
+  .grid_13
+    width: 79.25%
+  .grid_14
+    width: 85.5%
+  .grid_15
+    width: 91.75%
+
+/* =Prefix Extra Space >> Global
+ *--------------------------------------------------------------------------------
+
+.container_12 .prefix_3, .container_16 .prefix_4
+  padding-left: 25%
+
+.container_12 .prefix_6, .container_16 .prefix_8
+  padding-left: 50%
+
+.container_12 .prefix_9, .container_16 .prefix_12
+  padding-left: 75%
+
+/* =Prefix Extra Space >> 12 Columns
+ *--------------------------------------------------------------------------------
+
+.container_12
+  .prefix_1
+    padding-left: 8.333%
+  .prefix_2
+    padding-left: 16.666%
+  .prefix_4
+    padding-left: 33.333%
+  .prefix_5
+    padding-left: 41.666%
+  .prefix_7
+    padding-left: 58.333%
+  .prefix_8
+    padding-left: 66.666%
+  .prefix_10
+    padding-left: 83.333%
+  .prefix_11
+    padding-left: 91.666%
+
+/* =Prefix Extra Space >> 16 Columns
+ *--------------------------------------------------------------------------------
+
+.container_16
+  .prefix_1
+    padding-left: 6.25%
+  .prefix_2
+    padding-left: 12.5%
+  .prefix_3
+    padding-left: 18.75%
+  .prefix_5
+    padding-left: 31.25%
+  .prefix_6
+    padding-left: 37.5%
+  .prefix_7
+    padding-left: 43.75%
+  .prefix_9
+    padding-left: 56.25%
+  .prefix_10
+    padding-left: 62.5%
+  .prefix_11
+    padding-left: 68.75%
+  .prefix_13
+    padding-left: 81.25%
+  .prefix_14
+    padding-left: 87.5%
+  .prefix_15
+    padding-left: 93.75%
+
+/* =Suffix Extra Space >> Global
+ *--------------------------------------------------------------------------------
+
+.container_12 .suffix_3, .container_16 .suffix_4
+  padding-right: 25%
+
+.container_12 .suffix_6, .container_16 .suffix_8
+  padding-right: 50%
+
+.container_12 .suffix_9, .container_16 .suffix_12
+  padding-right: 75%
+
+/* =Suffix Extra Space >> 12 Columns
+ *--------------------------------------------------------------------------------
+
+.container_12
+  .suffix_1
+    padding-right: 8.333%
+  .suffix_2
+    padding-right: 16.666%
+  .suffix_4
+    padding-right: 33.333%
+  .suffix_5
+    padding-right: 41.666%
+  .suffix_7
+    padding-right: 58.333%
+  .suffix_8
+    padding-right: 66.666%
+  .suffix_10
+    padding-right: 83.333%
+  .suffix_11
+    padding-right: 91.666%
+
+/* =Suffix Extra Space >> 16 Columns
+ *--------------------------------------------------------------------------------
+
+.container_16
+  .suffix_1
+    padding-right: 6.25%
+  .suffix_2
+    padding-right: 16.5%
+  .suffix_3
+    padding-right: 18.75%
+  .suffix_5
+    padding-right: 31.25%
+  .suffix_6
+    padding-right: 37.5%
+  .suffix_7
+    padding-right: 43.75%
+  .suffix_9
+    padding-right: 56.25%
+  .suffix_10
+    padding-right: 62.5%
+  .suffix_11
+    padding-right: 68.75%
+  .suffix_13
+    padding-right: 81.25%
+  .suffix_14
+    padding-right: 87.5%
+  .suffix_15
+    padding-right: 93.75%
+
+/* =Clear Floated Elements
+ *--------------------------------------------------------------------------------
+
+/* http://sonspring.com/journal/clearing-floats
+
+html body *
+  span.clear, div.clear, li.clear, dd.clear
+    background: none
+    border: 0
+    clear: both
+    display: block
+    float: none
+    font-size: 0
+    list-style: none
+    margin: 0
+    padding: 0
+    overflow: hidden
+    visibility: hidden
+    width: 0
+    height: 0
+
+/* http://www.positioniseverything.net/easyclearing.html
+
+.clearfix
+  &:after
+    clear: both
+    content: '.'
+    display: block
+    visibility: hidden
+    height: 0
+  display: inline-block
+
+* html .clearfix
+  height: 1%
+
+.clearfix
+  display: block
+
+

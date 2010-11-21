@@ -4,6 +4,8 @@ class User < CouchRest::ExtendedDocument
   property :name
   property :email
   property :events
+  property :permalink
+  
   
   property :picture_url
   
@@ -13,8 +15,15 @@ class User < CouchRest::ExtendedDocument
   def courses
     Group.all.find_all{|g| !g.class_number.nil? && g.user_ids.include?(self.id)}
   end
+  def messages
+    Message.all.find_all{|m| m.receiver_id == self.id}
+  end
   
+  save_callback :before, :generate_permalink
   
+  def generate_permalink
+    self.permalink = self.name.downcase.split('').find_all{|l| (('a'..'z').to_a+('0'..'9').to_a).to_a.include?(l)}.join
+  end
   
   
   def set_password(password)
@@ -28,5 +37,6 @@ class User < CouchRest::ExtendedDocument
 
   property :password_hash
   property :salt
+  property :challenges
   
 end

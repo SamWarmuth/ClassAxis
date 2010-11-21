@@ -7,4 +7,7 @@ class Post < CouchRest::ExtendedDocument
   property :content
   property :permalink
 
+  def children
+    Post.all.find_all{|p| p.parent_id == self.id}
+  end
 end
