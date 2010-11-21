@@ -5,18 +5,25 @@ class User < CouchRest::ExtendedDocument
   property :email
   property :events
   property :permalink
+  property :date
   
   
   property :picture_url
   
   def groups
-    Group.all.find_all{|g| g.class_number.nil? && g.user_ids.include?(self.id)}
+    Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}
   end
   def courses
-    Group.all.find_all{|g| !g.class_number.nil? && g.user_ids.include?(self.id)}
+    Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}
   end
   def messages
     Message.all.find_all{|m| m.receiver_id == self.id}
+  end
+  def topics
+    Topic.all.find_all{|t| t.creator_id == self.id}
+  end
+  def posts
+    Post.all.find_all{|t| t.creator_id == self.id}
   end
   
   save_callback :before, :generate_permalink

@@ -5,6 +5,8 @@ class Group < CouchRest::ExtendedDocument
   property :abbreviation
   property :is_public
   
+  property :date
+  
   
   property :parent_id
   

@@ -54,6 +54,11 @@ class Main
     redirect "/topics"
   end
   
+  get "/user/:permalink" do
+    logged_in?
+    @selected_user = User.all.find{|u| u.permalink == params[:permalink]}
+    haml :user
+  end
   
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'

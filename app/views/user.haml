@@ -1,0 +1,22 @@
+#page-header
+  %h1= @selected_user.name
+.container_12
+  .grid_6
+    .box-header
+      %b Courses
+    .box          
+      -@selected_user.courses.each do |course|
+        %p= course.name
+  .grid_6
+    .box-header
+      %b Groups
+    .box          
+      -@selected_user.groups.each do |group|
+        %p= group.name
+  .grid_12
+    .box-header
+      %b Discussions
+    .box          
+      -@selected_user.topics.each do |topic|
+        .colored-box.blue= topic.subject
+%br.cl/

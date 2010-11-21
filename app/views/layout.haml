@@ -124,8 +124,8 @@
           %span.ul-header Statistics
           %ul
             %li Users: #{User.count}
-            %li Courses: #{Group.all.find_all{|g| !g.class_number.nil?}.count}
-            %li Groups: #{Group.all.find_all{|g| g.class_number.nil?}.count}
+            %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
+            %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
             %li Discussions: #{Topic.count}
             %li Messages: #{Message.count}
             

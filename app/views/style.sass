@@ -90,6 +90,9 @@ a
     color: #000
   color: #009
   text-decoration: underline
+  &.name
+    text-decoration: none
+    color: #444
 
 blockquote
   margin: 1.5em
@@ -549,6 +552,9 @@ html[xmlns] #nav
     &:hover
       color: #1f92ff
       text-decoration: underline
+    &.name
+      text-decoration: none
+      color: #444
   &.stats
     padding: 30px 15px
   &.table
@@ -640,7 +646,10 @@ html[xmlns] #nav
     &:hover
       opacity: 1
       
-      
+.indent
+  margin-left: 5%
+  
+
 .colored-box
   &.green
     background: #effeb9
@@ -657,6 +666,9 @@ html[xmlns] #nav
   &.brown
     background: #feeac9
     border-color: #d38e49
+  &.gray
+    background: #ccc
+    border-color: #aaa
   border-width: 1px
   border-style: solid
   padding: 17px 17px 17px 17px
