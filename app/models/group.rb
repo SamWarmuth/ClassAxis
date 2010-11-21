@@ -26,7 +26,7 @@ class Group < CouchRest::ExtendedDocument
   end
   
   def discussions
-    Topic.all.find_all{|t| t.tags.include?(self.abbreviation)}
+    Topic.all.find_all{|t| t.tags.include?(self.permalink)}
   end
   def members
     self.user_ids.map{|u_id| User.get(u_id)}

@@ -3,14 +3,11 @@ class Topic < CouchRest::ExtendedDocument
 
   property :title
   property :content, :default => ""
-  property :tag_ids, :default => []
+  property :tags, :default => []
   property :creator_id
   property :date, :default => Time.now.to_s
   property :permalink
   
-  def tags
-    self.tag_ids.map{|t_id| Tag.get(t_id).name}
-  end
   def creator
     User.get(self.creator_id)
   end

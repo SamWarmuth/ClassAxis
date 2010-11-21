@@ -52,9 +52,24 @@
           No discussions yet. 
           %a{:href => "/new-discussion?tag=#{@course.permalink}"} Create one.
       -else
-        -@course.discussions.each do |topic|
-          %p
-            = topic.title
+        -@course.discussions.reverse.each do |topic|
+          .container_12
+            .grid_12
+              .box-header
+                %b= topic.title
+                %span{:style => "margin-left: 10px; "}
+                  %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+                  %small= topic.time_since
+
+              .box          
+                .colored-box.blue= topic.content
+                .indent
+                  -topic.children.each do |post|
+                    .colored-box.gray
+                      %h3{:style => "color: #444"}
+                        %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+                        %small= post.time_since
+                      =post.content
       %br.cl
   .grid_3
     .box-header Members
