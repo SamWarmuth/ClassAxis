@@ -3,11 +3,15 @@ class Event < CouchRest::ExtendedDocument
 
   property :name
   property :date
-  property :time
   property :location
-  property :attendee_ids, :default => []
+  property :description
+  
   property :repeat, :default => false
+  
+  
+  property :attendee_ids, :default => []
   property :permalink
+  
   
   save_callback :before, :set_permalink
   

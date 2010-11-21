@@ -1,7 +1,21 @@
 #page-header
   %h1= @course.name
 .container_12
-  .grid_7
+  .grid_9
+    .box-header Events
+    .box
+      -if @course.events.empty?
+        %p
+          No Events.
+          %a{:href => "/new-event?tag=#{@course.permalink}"} Add one.
+      %p I need a cool calendar
+  .grid_3
+    .box-header Members
+    .box
+      -@course.members.each do |user|
+        %p
+          %a{:href => "/user/#{user.permalink}"}= user.name
+  .grid_12
     .box-header Discussions
     .box
       -if @course.discussions.empty?
@@ -13,18 +27,4 @@
           %p
             = topic.title
       %br.cl
-  .grid_5
-    .box-header Events
-    .box
-      -if @course.events.empty?
-        %p
-          No Events.
-          %a{:href => "/course/#{@course.permalink}/new-event"} Add one.
-      %p I need a cool calendar
-  .grid_12
-    .box-header Members
-    .box
-      -@course.members.each do |user|
-        %p
-          %a{:href => "/user/#{user.permalink}"}= user.name
   %br.cl

@@ -35,6 +35,11 @@ class Main
     haml :event
   end
   
+  get "/new-event" do
+    redirect "/login" unless logged_in?
+    haml :new_event
+  end
+  
   
   get "/discussions" do
     redirect "/login" unless logged_in?
