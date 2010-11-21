@@ -93,6 +93,8 @@ a
   &.name
     text-decoration: none
     color: #444
+    &:hover
+      text-decoration: underline
 
 blockquote
   margin: 1.5em
@@ -449,38 +451,30 @@ html[xmlns] #nav
 /** sidebar icons *
 
 #sidebar ul li a
-  &.icn_manage_image
-    background: url('../img/icons/small/image_manage.png') no-repeat left
-  &.icn_add_image
-    background: url('../img/icons/small/image_add.png') no-repeat left
-  &.icn_edit_image
-    background: url('../img/icons/small/image_edit.png') no-repeat left
-  &.icn_delete_image
-    background: url('../img/icons/small/image_delete.png') no-repeat left
-  &.icn_manage_users
+  &.icon-group
     background: url('../img/icons/small/user.png') no-repeat left
-  &.icn_add_users
+  &.icon-group-add
     background: url('../img/icons/small/user_add.png') no-repeat left
-  &.icn_edit_users
+  &.icon-groups
     background: url('../img/icons/small/user_edit.png') no-repeat left
-  &.icn_delete_users
-    background: url('../img/icons/small/user_delete.png') no-repeat left
-  &.icn_manage_pages
+  &.icon-course
     background: url('../img/icons/small/page.png') no-repeat left
-  &.icn_add_pages
+  &.icon-course-add
     background: url('../img/icons/small/page_add.png') no-repeat left
-  &.icn_edit_pages
+  &.icon-courses
     background: url('../img/icons/small/page_edit.png') no-repeat left
-  &.icn_delete_pages
-    background: url('../img/icons/small/page_delete.png') no-repeat left
-  &.icn_manage_comments
+  &.icon-discussion
     background: url('../img/icons/small/comment.png') no-repeat left
-  &.icn_add_comments
+  &.icon-discussion-add
     background: url('../img/icons/small/comment_add.png') no-repeat left
-  &.icn_edit_comments
-    background: url('../img/icons/small/comment_edit.png') no-repeat left
-  &.icn_delete_comments
-    background: url('../img/icons/small/comment_delete.png') no-repeat left
+  &.icon-discussions
+    background: url('../img/icons/small/comment.png') no-repeat left
+  &.icon-event
+    background: url('../img/icons/small/calendar_view_month.png') no-repeat left
+  &.icon-event-add
+    background: url('../img/icons/small/calendar_add.png') no-repeat left
+  &.icon-events
+    background: url('../img/icons/small/calendar.png') no-repeat left
 
 .toggle
   display: block
@@ -555,6 +549,8 @@ html[xmlns] #nav
     &.name
       text-decoration: none
       color: #444
+      &:hover
+        text-decoration: underline
   &.stats
     padding: 30px 15px
   &.table

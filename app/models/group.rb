@@ -19,7 +19,11 @@ class Group < CouchRest::ExtendedDocument
   
   property :permalink
   
-  save_callback :before, :generate_permalink
+  save_callback :before, :set_permalink
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.name)
+  end
   
   def discussions
     Topic.all.find_all{|t| t.tags.include?(self.abbreviation)}
@@ -30,7 +34,8 @@ class Group < CouchRest::ExtendedDocument
   def events
     self.event_ids.map{|e_id| Event.get(e_id)}
   end
-  def generate_permalink
-    self.permalink = self.name.downcase.split('').find_all{|l| (('a'..'z').to_a+('0'..'9').to_a).to_a.include?(l)}.join
-  end
+end
+
+def generate_permalink(name)
+  permalink = name.downcase.split('').find_all{|l| (('a'..'z').to_a+('0'..'9').to_a).to_a.include?(l)}.join
 end

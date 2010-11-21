@@ -1,22 +1,18 @@
-/ Start Page Header
 #page-header
   %h1= @course.name
-/ End Page Header
-/ Start Grid
 .container_12
-  / Start Web Stats
-  .grid_5
+  .grid_7
     .box-header Discussions
     .box
       -if @course.discussions.empty?
         %p
           No discussions yet. 
-          %a{:href => "/new-discussion?tag=#{@course.abbreviation}"} Create one.
+          %a{:href => "/new-discussion?tag=#{@course.permalink}"} Create one.
       -else
         -@course.discussions.each do |topic|
           %p
             = topic.title
-      %br.cl/
+      %br.cl
   .grid_5
     .box-header Events
     .box
@@ -25,12 +21,10 @@
           No Events.
           %a{:href => "/course/#{@course.permalink}/new-event"} Add one.
       %p I need a cool calendar
-  .grid_2
+  .grid_12
     .box-header Members
     .box
       -@course.members.each do |user|
         %p
           %a{:href => "/user/#{user.permalink}"}= user.name
-    
-      
-  %br.cl/
+  %br.cl

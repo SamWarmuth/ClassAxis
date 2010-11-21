@@ -3,6 +3,7 @@ class Post < CouchRest::ExtendedDocument
 
   property :creator_id
   property :parent_id
+  property :topic_id
   
   property :date, :default => Time.now.to_s
   
@@ -19,6 +20,17 @@ class Post < CouchRest::ExtendedDocument
   def time_since
     fuzzy_time_since(Time.parse(self.date))
   end
+  
+  save_callback :before, :set_permalink
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.id)
+  end
+  
+  def topic
+    Topic.get(self.topic_id)
+  end
+
 end
 
 def fuzzy_time_since(time)

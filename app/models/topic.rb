@@ -6,6 +6,7 @@ class Topic < CouchRest::ExtendedDocument
   property :tag_ids, :default => []
   property :creator_id
   property :date
+  property :permalink
   
   def tags
     self.tag_ids.map{|t_id| Tag.get(t_id).name}
@@ -19,5 +20,11 @@ class Topic < CouchRest::ExtendedDocument
   end
   def time_since
     fuzzy_time_since(Time.parse(self.date))
+  end
+  
+  save_callback :before, :set_permalink
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.title)
   end
 end

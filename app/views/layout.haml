@@ -4,7 +4,7 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
     %link{:href => "/css/style.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/css/jqui.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
-    %title ClassAxis
+    %title Class Axis
     %script{:src => "/js/jquery-1.4.2.min.js", :type => "text/javascript"}
     %script{:src => "/js/jquery-ui-1.8.4.custom.min.js", :type => "text/javascript"}
     %script{:src => "/js/excanvas.js", :type => "text/javascript"}
@@ -15,7 +15,8 @@
       .header-top.tr
         .logo{:style => 'position: absolute; font-size: 1.2em; top: 4px;'}
           %a{:href => "/", :style => "text-decoration: none;"}
-            %strong ClassAxis
+            %img{:style => "width: 11px; height: 11px; position: relative; top: 1px;", :src => "/img/asterisk_orange.png"}
+            %strong Class Axis
         -if @user
           %p
             %strong= @user.name || @user.email
@@ -81,11 +82,11 @@
           %ul#pagesnav
             -@user.courses.each do |course|
               %li
-                %a.icn_manage_pages{:href => "/course/" + course.permalink}= course.name
+                %a.icon-course{:href => "/course/" + course.permalink}= course.name
             %li
-              %a.icn_edit_pages{:href => "/edit-course"} Create Course
+              %a.icon-course-add{:href => "/edit-course"} Create Course
             %li
-              %a.icn_add_pages{:href => "/courses"} Browse Courses
+              %a.icon-courses{:href => "/courses"} Browse Courses
           / End Content Nav
           / Start Comments Nav
           %span.ul-header
@@ -93,32 +94,38 @@
           %ul#userssnav
             -@user.groups.each do |group|
               %li
-                %a.icn_manage_users{:href => "/group/" + group.permalink}= group.name
+                %a.icon-group{:href => "/group/" + group.permalink}= group.name
             %li
-              %a.icn_add_users{:href => "#"} Create Group
+              %a.icon-group-add{:href => "#"} Create Group
             %li
-              %a.icn_manage_users{:href => "/groups"} Browse Groups
+              %a.icon-groups{:href => "/groups"} Browse Groups
           %span.ul-header
             %a#toggle-commentsnav.toggle.visible{:href => "#"} Discussions
           %ul#commentsnav
+            -@user.topics[0...3].each do |topic|
+              %li
+                %a.icon-discussion{:href => "/discussions"}<
+                  = topic.title[0..18]
+                  = "..." if topic.title.length > 18
             %li
-              %a.icn_manage_comments{:href => "/discussions"} Browse Discussions
+              %a.icon-discussions{:href => "/discussions"} Browse Discussions
             %li
-              %a.icn_add_comments{:href => "#"} New Discussion
+              %a.icon-discussion-add{:href => "#"} New Discussion
 
           / End Users Nav
           / Start Gallery Nav
           %span.ul-header
-            %a#toggle-imagesnav.toggle.visible{:href => "#"} Gallery
+            %a#toggle-imagesnav.toggle.visible{:href => "#"} Events
           %ul#imagesnav
+            -@user.events[0..5].each do |event|
+              %li
+                %a.icon-event{:href => "/event/#{event.permalink}"}= event.name
+                -date = Time.parse(event.date)
+                %small= date.strftime("%b %d")
             %li
-              %a.icn_manage_image{:href => "#"} Manage Images
+              %a.icon-event-add{:href => "/events"} Create Event
             %li
-              %a.icn_add_image{:href => "#"} Add Images
-            %li
-              %a.icn_edit_image{:href => "#"} Edit Images
-            %li
-              %a.icn_delete_image{:href => "#"} Delete Images
+              %a.icon-events{:href => "/events"} Browse Events
           / End Gallery Nav
           / Start Statistics Area
           %span.ul-header Statistics
@@ -127,6 +134,7 @@
             %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
             %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
             %li Discussions: #{Topic.count}
+            %li Posts: #{Post.count}
             %li Messages: #{Message.count}
             
             / End Statistics Area
@@ -136,4 +144,4 @@
           =yield
         
 .footer
-  Copyright ©2010 ClassAxis
+  Copyright ©2010 Class Axis

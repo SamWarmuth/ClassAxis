@@ -25,11 +25,17 @@ class User < CouchRest::ExtendedDocument
   def posts
     Post.all.find_all{|t| t.creator_id == self.id}
   end
+  def events
+    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}
+  end
   
-  save_callback :before, :generate_permalink
+  def member_since
+    fuzzy_time_since(Time.parse(self.date))
+  end
   
-  def generate_permalink
-    self.permalink = self.name.downcase.split('').find_all{|l| (('a'..'z').to_a+('0'..'9').to_a).to_a.include?(l)}.join
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.name)
   end
   
   

@@ -1,42 +1,59 @@
 class Main
   get "/" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :index
+    
   end
   get "/groups" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :groups
   end
   get "/group/:permalink" do
-    logged_in?
+    redirect "/" unless logged_in?
     @course = Group.all.find{|c| c.permalink == params[:permalink]}
     haml :course
   end
   
   
   get "/courses" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :courses
   end
   get "/edit-course" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :edit_course
+  end
+  
+  get "/events" do
+    redirect "/login" unless logged_in?
+    haml :events
+  end
+  
+  get "/event/:permalink" do
+    redirect "/login" unless logged_in?
+    @event = Event.all.find{|e| e.permalink == params[:permalink]}
+    haml :event
   end
   
   
   get "/discussions" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :discussions
   end
   
+  get "/new-discussion" do
+    redirect "/login" unless logged_in?
+    haml :new_discussion
+  end
+  
   get "/course/:permalink" do
-    logged_in?
+    redirect "/login" unless logged_in?
     @course = Group.all.find{|c| c.permalink == params[:permalink]}
     haml :course
   end
   
   get "/edit-course" do
-    logged_in?
+    redirect "/login" unless logged_in?
     haml :edit_course
   end
   
@@ -55,7 +72,7 @@ class Main
   end
   
   get "/user/:permalink" do
-    logged_in?
+    redirect "/login" unless logged_in?
     @selected_user = User.all.find{|u| u.permalink == params[:permalink]}
     haml :user
   end
