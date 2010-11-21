@@ -1,21 +1,36 @@
 #page-header
-  %h1= @course.name
+  %h1
+    = @course.name
+    -unless @course.user_ids.include?(@user.id)
+      %a.awesome.blue.medium{:href => "#{@course.permalink}/join", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
+        %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
+        Join Course
 .container_12
-  .grid_9
+  .grid_2
     .box-header Events
     .box
       -if @course.events.empty?
         %p
           No Events.
           %a{:href => "/new-event?tag=#{@course.permalink}"} Add one.
-      %p I need a cool calendar
-  .grid_3
-    .box-header Members
-    .box
-      -@course.members.each do |user|
-        %p
-          %a{:href => "/user/#{user.permalink}"}= user.name
-  .grid_12
+  .grid_10
+    .box-header{:style => "text-align: center"}
+      November
+    .box{:style => "padding: 0 0 5px 1%"}
+      .header-cell Sunday
+      .header-cell Monday
+      .header-cell Tuesday
+      .header-cell Wednesday
+      .header-cell Thursday
+      .header-cell Friday
+      .header-cell Saturday
+
+      -35.times do |i|
+        .cell
+          .number= i
+      %br.cl
+
+  .grid_9
     .box-header Discussions
     .box
       -if @course.discussions.empty?
@@ -27,4 +42,10 @@
           %p
             = topic.title
       %br.cl
+  .grid_3
+    .box-header Members
+    .box
+      -@course.members.each do |user|
+        %p
+          %a{:href => "/user/#{user.permalink}"}= user.name
   %br.cl

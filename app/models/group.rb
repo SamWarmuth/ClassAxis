@@ -5,12 +5,13 @@ class Group < CouchRest::ExtendedDocument
   property :abbreviation
   property :is_public
   
-  property :date
+  property :date, :default => Time.now.to_s
   
   
   property :parent_id
   
   property :user_ids, :default => []
+  property :admin_id
   
   property :wall_id
   property :event_ids, :default => []

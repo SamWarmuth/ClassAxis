@@ -71,12 +71,9 @@
       .page
         / Start Sidebar
         #sidebar
-          / Start Live Search
           %form.searchform{:action => "#"}
             %input#livesearch.searchfield{:onblur => "if (this.value == '') {this.value = 'Live Search...';}", :onfocus => "if (this.value == 'Live Search...') {this.value = '';}", :type => "text", :value => "Live Search..."}/
             %input.searchbutton{:type => "button", :value => "Go"}/
-          / End Live Search
-          / Start Content Nav
           %span.ul-header
             %a#toggle-pagesnav.toggle.visible{:href => "#"} Courses
           %ul#pagesnav
@@ -87,8 +84,6 @@
               %a.icon-course-add{:href => "/edit-course"} Create Course
             %li
               %a.icon-courses{:href => "/courses"} Browse Courses
-          / End Content Nav
-          / Start Comments Nav
           %span.ul-header
             %a#toggle-userssnav.toggle.visible{:href => "#"} Groups
           %ul#userssnav
@@ -96,7 +91,7 @@
               %li
                 %a.icon-group{:href => "/group/" + group.permalink}= group.name
             %li
-              %a.icon-group-add{:href => "#"} Create Group
+              %a.icon-group-add{:href => "/edit-group"} Create Group
             %li
               %a.icon-groups{:href => "/groups"} Browse Groups
           %span.ul-header
@@ -112,8 +107,6 @@
             %li
               %a.icon-discussion-add{:href => "#"} New Discussion
 
-          / End Users Nav
-          / Start Gallery Nav
           %span.ul-header
             %a#toggle-imagesnav.toggle.visible{:href => "#"} Events
           %ul#imagesnav
@@ -121,7 +114,7 @@
               %li
                 %a.icon-event{:href => "/event/#{event.permalink}"}= event.name
                 -date = Time.parse(event.date)
-                %small= date.strftime("%b %d")
+                %small{:style => "margin-left: 5px"}= date.strftime("%b %d")
             %li
               %a.icon-event-add{:href => "/events"} Create Event
             %li

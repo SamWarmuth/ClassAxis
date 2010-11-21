@@ -3,9 +3,9 @@ class User < CouchRest::ExtendedDocument
   
   property :name
   property :email
-  property :events
+  property :events, :default => []
   property :permalink
-  property :date
+  property :date, :default => Time.now.to_s
   
   
   property :picture_url

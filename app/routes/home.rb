@@ -14,14 +14,79 @@ class Main
     haml :course
   end
   
+  get "/group/:permalink/join" do
+    redirect "/login" unless logged_in?
+    @group = Group.all.find{|c| c.permalink == params[:permalink]}
+    redirect "/group/#{params[:permalink]}" if @group.user_ids.include?(@user.id)
+    @group.user_ids << @user.id
+    @group.save
+    redirect "/group/#{params[:permalink]}"
+  end
+  
+  get "/edit-group" do
+    redirect "/login" unless logged_in?
+    haml :edit_group
+  end
+  
+  post "/edit-group" do
+    redirect "/login" unless logged_in?
+    if params[:group_id]
+      group = Group.find(params[:group_id])
+      return "error!" if group.nil?
+    else
+      group = Group.new
+    end
+    group.name = params[:name]
+    group.abbreviation = params[:abbreviation] unless params[:abbreviation].empty?
+    group.is_public = params[:public]
+    group.user_ids << @user.id
+    group.admin_id = @user.id
+    group.save
+    redirect "/group/"+group.permalink
+  end
+  
   
   get "/courses" do
     redirect "/login" unless logged_in?
     haml :courses
   end
+
+  
+  get "/course/:permalink" do
+    redirect "/login" unless logged_in?
+    @course = Group.all.find{|c| c.permalink == params[:permalink]}
+    haml :course
+  end
+  
+  get "/course/:permalink/join" do
+    redirect "/login" unless logged_in?
+    @course = Group.all.find{|c| c.permalink == params[:permalink]}
+    redirect "/course/#{params[:permalink]}" if @course.user_ids.include?(@user.id)
+    @course.user_ids << @user.id
+    @course.save
+    redirect "/course/#{params[:permalink]}"
+  end
+
   get "/edit-course" do
     redirect "/login" unless logged_in?
     haml :edit_course
+  end
+  
+  post "/edit-course" do
+    redirect "/login" unless logged_in?
+    if params[:course_id]
+      course = Group.find(params[:course_id])
+      return "error!" if course.nil?
+    else
+      course = Group.new
+    end
+    course.name = params[:name]
+    course.course_number = params[:course_number]
+    course.is_public = params[:public]
+    course.user_ids << @user.id
+    course.admin_id = @user.id
+    course.save
+    redirect "/course/"+course.permalink
   end
   
   get "/events" do
@@ -51,16 +116,7 @@ class Main
     haml :new_discussion
   end
   
-  get "/course/:permalink" do
-    redirect "/login" unless logged_in?
-    @course = Group.all.find{|c| c.permalink == params[:permalink]}
-    haml :course
-  end
-  
-  get "/edit-course" do
-    redirect "/login" unless logged_in?
-    haml :edit_course
-  end
+
   
   get "/topics/autogenerate" do
     topic = Topic.new

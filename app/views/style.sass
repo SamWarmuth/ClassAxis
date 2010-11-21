@@ -16,6 +16,8 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 body
   line-height: 1.5
+  min-width: 700px
+  
 
 blockquote
   &:before, &:after
@@ -451,6 +453,9 @@ html[xmlns] #nav
 /** sidebar icons *
 
 #sidebar ul li a
+  display: inline-block
+  margin: 0
+  padding: 0 0 0 25px
   &.icon-group
     background: url('../img/icons/small/user.png') no-repeat left
   &.icon-group-add
@@ -1221,4 +1226,116 @@ html body *
 .clearfix
   display: block
 
+
+.awesome, .awesome:visited 
+  border: none
+  background: #222 url(/img/alert-overlay.png) repeat-x 
+  display: inline-block 
+  padding: 5px 10px 6px 
+  color: #fff 
+  text-decoration: none
+  -moz-border-radius: 5px 
+  -webkit-border-radius: 5px
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5)
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5)
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25)
+  border-bottom: 1px solid rgba(0,0,0,0.25)
+  position: relative
+  cursor: pointer
+
+.awesome:hover
+  background-color: #111
+  color: #fff
+.awesome:active
+  top: 1px
+.small.awesome, .small.awesome:visited
+  font-size: 11px
+  padding: 0
+.medium.awesome, .medium.awesome:visited
+  font-size: 13px
+  font-weight: bold
+  line-height: 1
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25)
+.large.awesome, .large.awesome:visited
+  font-size: 14px
+  padding: 8px 14px 9px
+.huge.awesome, .huge.awesome:visited
+  font-size: 18px
+  padding: 15px 30px 15px
+.green.awesome, .green.awesome:visited
+  background-color: #91bd09
+.green.awesome:hover
+  background-color: #749a02
+.blue.awesome, .blue.awesome:visited
+  background-color: #00669D
+.blue.awesome:hover
+  background-color: #00467D
+.red.awesome, .red.awesome:visited
+  background-color: #F32100
+.red.awesome:hover
+  background-color: #A72300
+.gray-red.awesome, .gray-red.awesome:visited
+  background-color: #BBB
+.gray-red.awesome:hover
+  background-color: #e31100
+.magenta.awesome, .magenta.awesome:visited
+  background-color: #a9014b
+.magenta.awesome:hover
+  background-color: #630030
+.orange.awesome, .orange.awesome:visited
+  background-color: #ff5c00
+.orange.awesome:hover
+  background-color: #d45500
+.yellow.awesome, .yellow.awesome:visited
+  background-color: #ffb515
+.yellow.awesome:hover
+  background-color: #fc9200
+.gray.awesome, .gray.awesome:visited, .grey.awesome, .grey.awesome:visited
+  background-color: #888
+.gray.awesome:hover, .grey.awesome:hover
+  background-color: #777
+.black.awesome, .black.awesome:visited
+  background-color: #333
+.black.awesome:hover
+  background-color: #111
+
+
+
+.disabled.awesome
+  background-color: #ccc
+.disabled.awesome:hover
+  background-color: #DDD
+
+.disabled.awesome
+  background-color: #ccc
+.disabled.awesome:hover
+  background-color: #DDD
+
+.header-cell
+  text-align: center
+  float: left
+  margin: 2px 0.5%
+  padding: 0
+  width: 13.28%
+  height: 15px
+  position: relative
+  font-weight: bold
+.cell
+  text-align: center
+  float: left
+  margin: 2px 0.25%
+  background: #eee
+  padding: 0
+  width: 13.78%
+  height: 50px
+  position: relative
+  border-radius: 3px
+  .number
+    position: absolute
+    font-weight: bold
+    color: #bbb
+    font-size: 16px
+    top: 5px
+    left: 10px
+    
 

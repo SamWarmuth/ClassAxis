@@ -5,7 +5,7 @@ class Topic < CouchRest::ExtendedDocument
   property :content, :default => ""
   property :tag_ids, :default => []
   property :creator_id
-  property :date
+  property :date, :default => Time.now.to_s
   property :permalink
   
   def tags

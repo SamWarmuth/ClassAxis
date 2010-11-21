@@ -1,12 +1,15 @@
 #page-header
   %h1 Courses
--Group.all.find_all{|g| !g.course_number.nil?}.each do |course|
+-Group.all.find_all{|g| !g.course_number.nil? && g.is_public}.each do |course|
   .container_12
-    .grid_12
+    .grid_4
       .box-header
-        %b= course.name
-      .box          
-        %h2 Members
-        -course.members.each do |member|
-          %p= member.name
+        %b
+          %a.name{:href => "/course/#{course.permalink}"}= course.name
+      .box      
+        -members = course.members
+        -unless members.empty?
+          %h2 #{members.count} Member#{"s" unless members.count == 1}
+          -course.members.each do |member|
+            %p= member.name
 %br.cl

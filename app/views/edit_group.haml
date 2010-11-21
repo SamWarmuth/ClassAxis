@@ -1,18 +1,22 @@
 #page-header
-  %h1 New Course
+  %h1
+    -if @group
+      = @group.name
+    -else
+      New Group
 .container_12
-  %form{:action => "/edit-course", :method => "post"}
-    -if @course
-      %input{:type => "hidden", :name => "course_id", :value => @course.id}
+  %form{:action => "/edit-group", :method => "post"}
+    -if @group
+      %input{:type => "hidden", :name => "group_id", :value => @group.id}
     .grid_12
-      .box-header Course Info
+      .box-header Group Info
       .box
         .row
           %label Name:
           %input{:type => "text", :name => "name", :style => "width: 275px;"}
         .row
-          %label Course Number:
-          %input{:type => "text", :name => "course_number", :style => "width: 75px;"}
+          %label Abbreviation (optional):
+          %input{:type => "text", :name => "abbreviation", :style => "width: 75px;"}
         .row
           %label Privacy:
           %input.radio{:checked => "checked", :name => "public", :type => "radio", :value => false}
@@ -25,6 +29,5 @@
           %input{:type => "text", :disabled => "disabled", :name => 'invite'}
 
         .row
-          %input.button{:type => "submit", :value => "Create Course"}
+          %input.button{:type => "submit", :value => "Create Group"}
     %br.cl
-    
