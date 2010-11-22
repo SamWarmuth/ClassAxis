@@ -190,6 +190,19 @@ class Main
     haml :user
   end
   
+  post "/new-message" do
+    redirect "/login" unless logged_in?
+    @selected_user = User.all.find{|u| u.name == params[:name]}
+    redirect "/?error=notfound" if @selected_user.nil?
+    message = Message.new
+    message.sender_id = @user.id
+    message.receiver_id = @selected_user.id
+    message.subject = params[:subject]
+    message.content = params[:message]
+    message.save
+    redirect "/" #this should eventually be an ajax call.
+  end
+  
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'
     response['Expires'] = (Time.now + 60*60*24*356*3).httpdate

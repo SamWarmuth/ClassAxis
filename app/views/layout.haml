@@ -55,14 +55,24 @@
                   -sender = User.get(message.sender_id).name
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
-              
-          %form{:action => "", :method => "post"}
-            %h3 New Message (not implemented)
+          
+          :javascript
+            $(document).ready(function(){
+            var users = #{User.all.map{|u| u.name}.inspect};
+            $(".usercomplete").autocomplete({
+            source: users
+            });
+            });
+          %form{:action => "/new-message", :method => "post"}
+            %h3 New Message
             %fieldset
               %label To
-              %input{:type => "text"}/
+              %input.usercomplete{:type => "text", :name => "name"}/
             %fieldset
-              %textarea.textarea{:cols => "55", :name => "textfield", :rows => "5", :style => "width:97%"}
+              %label Subject
+              %input{:type => "text", :name => "subject", :style => "width: 60%"}/
+            %fieldset
+              %textarea.textarea{:cols => "55", :name => "message", :rows => "5", :style => "width:97%"}
             %fieldset
               %input.button.medium.fr{:type => "submit", :value => "Send"}/
     #page-wrapper
