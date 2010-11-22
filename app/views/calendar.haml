@@ -1,0 +1,25 @@
+.box-header{:style => "text-align: center"}
+  =Time.now.strftime('%B')
+.box{:style => "padding: 0 0 15px 2%"}
+  .header-cell Sun
+  .header-cell Mon
+  .header-cell Tues
+  .header-cell Wed
+  .header-cell Thurs
+  .header-cell Fri
+  .header-cell Sat
+  -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
+  -day -= (day.wday + 1) * (60*60*24)
+  -35.times do |i|
+    -day += 60*60*24
+    -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
+    -format += " ul" if i == 0
+    -format += " ur" if i == 6
+    -format += " lr" if i == 34
+    -format += " ll" if i == 28
+    
+    .cell{:class => format}
+      .number= day.day
+      -@events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
+        %a.event{:href => "/event/#{event.permalink}"}= event.name
+  %br.cl

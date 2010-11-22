@@ -2,14 +2,9 @@
   %h1
     Headlines
 .container_12
-  .grid_6
-    .box-header Class Axis
-    .box
-      %h2 What's Class Axis?
-      %p
-        It's a website for college students to communicate and collaborate on schoolwork.
-      .notification.warning <b>Watch out!</b> We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
-  .grid_6
+  .notification.warning <b>Watch out!</b> We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
+
+  .grid_3
     .box-header Your Events
     .box
       -if @user.events.empty?
@@ -23,6 +18,10 @@
             %a{:href => "/event/#{event.permalink}"}
               = event.name
       %br.cl
+  .grid_9
+    -@events = @user.events
+    =haml :calendar
+    %br.cl
   .grid_12
     .box-header Your Discussions
     .box
