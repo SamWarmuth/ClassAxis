@@ -12,12 +12,8 @@
             .badge.blue= tag
           
       .box          
-        .colored-box.brown.head= topic.content
-        .indent
-          -topic.children.each do |post|
-            .colored-box.gray
-              %h3{:style => "color: #444"}
-                %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
-                %small= post.time_since
-              =post.content
+        .colored-box.brown.head
+          = topic.content
+        %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
+        
 %br.cl

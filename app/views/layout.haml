@@ -123,6 +123,7 @@
             %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
             %li Discussions: #{Topic.count}
             %li Posts: #{Post.count}
+            %li Events: #{Event.count}
             %li Messages: #{Message.count}
         #page-content
           =yield

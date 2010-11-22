@@ -286,7 +286,7 @@ class Main
     if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
       user = User.new
       user.name = params[:name]
-      user.email = params[:email]
+      user.email = params[:email].downcase
       user.set_password(params[:password])
       user.save
       redirect "/login?success=created"
