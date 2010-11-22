@@ -2,7 +2,7 @@
   %h1 Events
 .container_12
   -Event.all.sort_by{|e| Time.parse(e.date)}.each do |event|
-    .grid_6
+    .grid_4
       .box-header
         %a.name{:href => "/event/#{event.permalink}"}
           %b= event.name

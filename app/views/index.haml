@@ -3,14 +3,14 @@
     Recent Events
     %small (eventually)
 .container_12
-  .grid_12
+  .grid_6
     .box-header Class Axis
     .box
       %h2 What's Class Axis?
       %p
         It's a website for college students to communicate and collaborate on schoolwork.
-      %h2.notification.warning Watch out! We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
-  .grid_12
+      .notification.warning Watch out! We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
+  .grid_6
     .box-header Your Events
     .box
       -if @user.events.empty?
@@ -27,7 +27,7 @@
   .grid_12
     .box-header Your Discussions
     .box
-      -@user.topics[0...1].each do |topic|
+      -@user.topics.reverse[0..5].each do |topic|
         .grid_12
           .box-header
             %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
@@ -38,10 +38,7 @@
           .box          
             .colored-box.brown.head
               = topic.content
-              %a{:href => "/reply/#{topic.id}", :style => "float: right; position: relative; top: -2px; right: 15px;"}
-                .awesome.blue.medium Reply
-            -topic.children.each do |@post|
-              = haml :post
+            %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
       %br.cl
   %br.cl
   

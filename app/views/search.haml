@@ -1,0 +1,65 @@
+#page-header
+  %h1 Search "#{params[:search]}" (#{@result_count} Result#{"s" unless @result_count == 1})
+.container_12
+  -unless @posts.empty?
+    .grid_6
+      .box-header Posts
+      .box
+        -@posts.each do |post|
+          .colored-box.blue
+            %h3{:style => "color: #444"}
+              %a.name{:href => "/user/#{post.creator.permalink}"}= post.creator.name
+              %small= post.time_since
+            =post.content
+  -unless @topics.empty?
+    .grid_6
+      .box-header Topics
+      .box
+        -@topics.each do |topic|
+          .container_12
+            .grid_12
+              .box-header
+                %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
+                %span{:style => "margin-left: 10px;"}
+                  %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+                  %small= topic.time_since
+
+              .box          
+                .colored-box.brown.head
+                  = topic.content
+                %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
+          %br.cl
+  -unless @events.empty?
+    .grid_6
+      .box-header Events
+      .box
+        -@events.each do |event|
+          %p
+            %b= Time.parse(event.date).strftime("%b %d")
+            %a{:href => "/event/#{event.permalink}"}
+              = event.name
+  -unless @users.empty?
+    .grid_6
+      .box-header Users
+      .box
+        -@users.each do |user|
+          %p
+            %a{:href => "/user/#{user.permalink}"}= user.name
+  -unless @groups.empty?
+    .grid_6
+      .box-header Groups
+      .box
+        -@groups.each do |group|
+          %p
+            %a{:href => "/group/#{group.permalink}"}= group.name
+            
+  -unless @courses.empty?
+    .grid_6
+      .box-header Courses
+      .box
+        -@courses.each do |course|
+          %p
+            %a{:href => "/course/#{course.permalink}"}= course.name
+  
+
+%br.cl

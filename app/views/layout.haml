@@ -65,15 +65,12 @@
               %textarea.textarea{:cols => "55", :name => "textfield", :rows => "5", :style => "width:97%"}
             %fieldset
               %input.button.medium.fr{:type => "submit", :value => "Send"}/
-          / end write new message
-        / end dialogue box
     #page-wrapper
       .page
-        / Start Sidebar
         #sidebar
-          %form.searchform{:action => "#"}
-            %input#livesearch.searchfield{:onblur => "if (this.value == '') {this.value = 'Live Search...';}", :onfocus => "if (this.value == 'Live Search...') {this.value = '';}", :type => "text", :value => "Live Search..."}/
-            %input.searchbutton{:type => "button", :value => "Go"}/
+          %form.searchform{:action => "/search"}
+            %input.searchfield{:onblur => "if (this.value == '') {this.value = 'Search...';}", :onfocus => "if (this.value == 'Search...') {this.value = '';}", :type => "text", :name => "search", :value => "Search..."}
+            %input.searchbutton{:type => "button", :value => "Go"}
           %span.ul-header
             %a#toggle-pagesnav.toggle.visible{:href => "#"} Courses
           %ul#pagesnav
@@ -127,10 +124,6 @@
             %li Discussions: #{Topic.count}
             %li Posts: #{Post.count}
             %li Messages: #{Message.count}
-            
-            / End Statistics Area
-        / End Sidebar
-        / Star Page Content
         #page-content
           =yield
         

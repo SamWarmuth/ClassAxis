@@ -211,6 +211,20 @@ class Main
     haml :settings
   end
   
+  get "/search" do
+    redirect "/login" unless logged_in?
+    search = params[:search].downcase
+    @posts = Post.all.find_all{|p| p.content.downcase.include?(search)}
+    @topics = Topic.all.find_all{|t| t.title.downcase.include?(search) || t.content.downcase.include?(search)}
+    @events = Event.all.find_all{|e| e.name.downcase.include?(search) || e.description.to_s.downcase.include?(search)}
+    @users = User.all.find_all{|u| u.name.downcase.include?(search)}
+    @groups = Group.all.find_all{|g| g.course_number.nil? && g.name.downcase.include?(search)}
+    @courses = Group.all.find_all{|g| !g.course_number.nil? && g.name.downcase.include?(search)}
+    
+    @result_count = @posts.count + @events.count + @users.count + @topics.count + @courses.count + @groups.count
+    haml :search
+  end
+  
   get "/login" do
     redirect "/" if logged_in?
     haml :login, :layout => false
