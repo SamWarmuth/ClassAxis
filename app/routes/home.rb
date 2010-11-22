@@ -202,10 +202,6 @@ class Main
     sass :jqui
   end
   
-  get "/favicon.ico" do
-    return ""
-  end
-  
   get "/settings" do
     redirect "/login" unless logged_in?
     haml :settings
