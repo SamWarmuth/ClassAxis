@@ -37,21 +37,12 @@
         #dialog{:title => "Messages"}
           -if @user.messages.empty?
             %p You have no messages.
-          -@user.messages.find_all{|m| m.unread == true}.each do |message|
-            .message.new
+          -@user.messages.reverse.each do |message|
+            .message{:class => ("new" if message.unread)}
               %h4
                 = message.subject
                 %small.fr
-                  #{Time.parse(message.date).to_s} from
-                  -sender = User.get(message.sender_id)
-                  %a{:href => "/user/#{sender.permalink}"}= sender.name
-              %p= message.content
-          -@user.messages.find_all{|m| m.unread != true}.each do |message|
-            .message
-              %h4
-                = message.subject
-                %small.fr
-                  #{Time.parse(message.date).to_s} from
+                  #{Time.parse(message.date).strftime("%b %d %l:%M%p")} from
                   -sender = User.get(message.sender_id)
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
