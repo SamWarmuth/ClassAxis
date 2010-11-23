@@ -1,0 +1,36 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %link{:href => "css/style.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "css/jqui.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %script{:src => "js/jquery-1.4.2.min.js", :type => "text/javascript"}
+    %script{:src => "js/jquery-ui-1.8.4.custom.min.js", :type => "text/javascript"}
+    %title Class Axis - Login
+  %body
+    #login-wrapper
+      .box-header.login
+        Log In to Class Axis
+      .box
+        -if params[:error] && params[:error] == "incorrect"
+          .notification.error
+            %span.strong Error:
+            Email or password incorrect.
+        -if params[:success] && params[:success] == "created"
+          .notification.success
+            %span.strong Success!
+            Your account has been created. Please log in.
+        %form.login{:action => "/login", :method => "post"}
+          .row
+            %label Email
+            %input{:type => "text", :name => "email"}
+          .row
+            %label Password
+            %input{:type => "password", :name => "password"}
+          .row.tr
+            %input#rememberme.checkbox{:checked => "checked", :type => "checkbox"}
+            %label.checkbox.tl.strong{:for => "rememberme", :style => "width:105px"} Remember me
+            %input.button{:style => "width:90px!important;", :type => "submit", :value => "Login"}
+            
+      .colored-box.blue{:style => "text-align: center; font-size: 1.3em"}
+        %a.name{:href => "/signup"} Create a New Account

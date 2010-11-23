@@ -1,0 +1,13 @@
+#page-header
+  %h1 Groups
+.container_12
+  -Group.all.find_all{|g| g.course_number.nil? && g.is_public}.each do |group|
+    .grid_4
+      .box-header
+        %a.name{:href => "/group/#{group.permalink}"}
+          %b= group.name
+      .box          
+        %h2 Members
+        -group.members.each do |member|
+          %p= member.name
+%br.cl

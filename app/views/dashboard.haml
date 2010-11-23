@@ -1,0 +1,463 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
+    %link{:href => "css/style.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "css/jqui.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %title Class Axis
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", :type => "text/javascript"}
+    %script{:src => "js/excanvas.js", :type => "text/javascript"}
+    %script{:src => "js/visualize.jQuery.js", :type => "text/javascript"}
+    %script{:src => "js/functions.js", :type => "text/javascript"}
+  %body
+    #header
+      .header-top.tr
+        .logo{:style => 'position: absolute; font-size: 1.2em'}
+          %strong Class Axis
+        %p
+          Hello
+          %strong John Doe
+          | You have
+          %a#opener.strong{:href => "#"} 1 new message
+          |
+          %a{:href => "#"} Settings
+          |
+          %a{:href => "#"} Logout
+        / start dialogue box
+        #dialog{:title => "Messages"}
+          .notification.info
+            %span.strong INFORMATION!
+            You have 1 new message.
+          / start new message
+          .message.new
+            %h4
+              Welcome...
+              %small.fr
+                28rd April 2010 from
+                %a{:href => "#"} MaestroX
+            %p This is an example of the dialog box. It's powered by jQuery UI so there's tons of options and it's flexible. Checkout the documentation for more information.
+          / end new message
+          / start old message
+          .message
+            %h4
+              Old Message
+              %small.fr
+                28rd April 2010 from
+                %a{:href => "#"} System
+            %p Welcome to your shiny new admin panel. Take a look around!
+          / end old message
+          / start write new message
+          %form{:action => "", :method => "post"}
+            %h3 New Message
+            %fieldset
+              %textarea.textarea{:cols => "55", :name => "textfield", :rows => "5", :style => "width:97%"}
+            %fieldset
+              %input.button.medium.fr{:type => "submit", :value => "Send"}/
+          / end write new message
+        / end dialogue box
+    #page-wrapper
+      .page
+        / Start Sidebar
+        #sidebar
+          / Start Live Search
+          %form.searchform{:action => "#"}
+            %input#livesearch.searchfield{:onblur => "if (this.value == '') {this.value = 'Live Search...';}", :onfocus => "if (this.value == 'Live Search...') {this.value = '';}", :type => "text", :value => "Live Search..."}/
+            %input.searchbutton{:type => "button", :value => "Go"}/
+          / End Live Search
+          / Start Content Nav
+          %span.ul-header
+            %a#toggle-pagesnav.toggle.visible{:href => "#"} Content
+          %ul#pagesnav
+            %li
+              %a.icn_manage_pages{:href => "#"} Manage Pages
+            %li
+              %a.icn_add_pages{:href => "#"} Add Pages
+            %li
+              %a.icn_edit_pages{:href => "#"} Edit Pages
+            %li
+              %a.icn_delete_pages{:href => "#"} Delete Pages
+          / End Content Nav
+          / Start Comments Nav
+          %span.ul-header
+            %a#toggle-commentsnav.toggle.visible{:href => "#"} Comments
+          %ul#commentsnav
+            %li
+              %a.icn_manage_comments{:href => "#"} Manage Comments
+            %li
+              %a.icn_add_comments{:href => "#"} Add Comments
+            %li
+              %a.icn_edit_comments{:href => "#"} Edit Comments
+            %li
+              %a.icn_delete_comments{:href => "#"} Delete Comments
+          / End Comments Nav
+          / Start Users Nav
+          %span.ul-header
+            %a#toggle-userssnav.toggle.visible{:href => "#"} Users
+          %ul#userssnav
+            %li
+              %a.icn_manage_users{:href => "#"} Manage Users
+            %li
+              %a.icn_add_users{:href => "#"} Add Users
+            %li
+              %a.icn_edit_users{:href => "#"} Edit Users
+            %li
+              %a.icn_delete_users{:href => "#"} Delete Users
+          / End Users Nav
+          / Start Gallery Nav
+          %span.ul-header
+            %a#toggle-imagesnav.toggle.visible{:href => "#"} Gallery
+          %ul#imagesnav
+            %li
+              %a.icn_manage_image{:href => "#"} Manage Images
+            %li
+              %a.icn_add_image{:href => "#"} Add Images
+            %li
+              %a.icn_edit_image{:href => "#"} Edit Images
+            %li
+              %a.icn_delete_image{:href => "#"} Delete Images
+          / End Gallery Nav
+          / Start Statistics Area
+          %span.ul-header Statistics
+          %ul
+            %li Pages: 183
+            %li Comments: 432
+            %li Users: 1094
+            / End Statistics Area
+        / End Sidebar
+        / Star Page Content
+        #page-content
+          / Start Page Header
+          #page-header
+            %h1 Dashboard
+          / End Page Header
+          / Start Grid
+          .container_12
+            / Start Web Stats
+            .grid_12
+              .box-header
+                %span.fr
+                  %a{:href => "#"} Week
+                  |
+                  %a{:href => "#"} Month
+                Web Stats
+              .box.stats
+                %table#stats{:cellpadding => "0", :cellspacing => "0", :style => "display: none;", :width => "100%"}
+                  %thead
+                    %tr
+                      %td &nbsp;
+                      %th{:scope => "col"} 1st
+                      %th{:scope => "col"} 2nd
+                      %th{:scope => "col"} 3rd
+                      %th{:scope => "col"} 4th
+                      %th{:scope => "col"} 5th
+                      %th{:scope => "col"} 6th
+                      %th{:scope => "col"} 7th
+                      %th{:scope => "col"} 8th
+                      %th{:scope => "col"} 9th
+                      %th{:scope => "col"} 10th
+                      %th{:scope => "col"} 11th
+                      %th{:scope => "col"} 12th
+                      %th{:scope => "col"} 13th
+                      %th{:scope => "col"} 14th
+                  %tbody
+                    %tr{:style => "background-color: rgb(251, 251, 251);"}
+                      %th{:scope => "row"} New Pages
+                      %td 2
+                      %td 1
+                      %td 0
+                      %td 3
+                      %td 2
+                      %td 2
+                      %td 3
+                      %td 1
+                      %td 4
+                      %td 2
+                      %td 0
+                      %td 2
+                      %td 3
+                      %td 1
+                    %tr
+                      %th{:scope => "row"} New Comments
+                      %td 10
+                      %td 15
+                      %td 14
+                      %td 16
+                      %td 20
+                      %td 24
+                      %td 20
+                      %td 25
+                      %td 28
+                      %td 26
+                      %td 30
+                      %td 28
+                      %td 30
+                      %td 32
+                    %tr
+                      %th{:scope => "row"} New Users
+                      %td 5
+                      %td 8
+                      %td 9
+                      %td 5
+                      %td 10
+                      %td 14
+                      %td 12
+                      %td 10
+                      %td 8
+                      %td 12
+                      %td 14
+                      %td 19
+                      %td 22
+                      %td 24
+                %br/
+            / End Web Stats
+            / Start Table
+            .grid_8
+              .box-header Table Example
+              .box.table
+                %table{:cellspacing => "0"}
+                  %thead
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td Name
+                      %td Email
+                      %td Joined
+                      %td Usergroup
+                      %td Options
+                  %tbody
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+                    %tr
+                      %td.tc
+                        %input.checkbox{:type => "checkbox", :value => ""}/
+                      %td John
+                      %td lorm@ipsum.com
+                      %td 9/5/2010
+                      %td Member
+                      %td.tc
+                        %a{:href => "#", :title => "Edit User"}
+                          %img{:alt => "edit user", :border => "0", :src => "./img/icons/small/user_edit.png"}/
+                        %a{:href => "#", :title => "Delete User"}
+                          %img{:alt => "delete user", :border => "0", :src => "./img/icons/small/user_delete.png"}/
+            / End Table
+            / Start Formatting
+            .grid_4
+              .box-header Formatting
+              .box
+                %h2 Headline
+                %p
+                  Lorem ipsum dolor sit amet, consectetur
+                  %a{:href => "#"} adipisicing
+                  elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                %h3 Headline
+                %ul
+                  %li Cupidatat non
+                  %li Officia deserunt mollit
+                  %li Velit esse cillum
+                %h4 Headline
+                %ol
+                  %li Ullamco laboris
+                  %li Pcupidatat non proident
+                  %li Duis aute irure dolor
+            %br.cl
+            / End Formatting
+            / Start Forms
+            .grid_7
+              .box-header Forms
+              .box
+                %form{:action => "", :method => "post"}
+                  .row
+                    %label Input label
+                    %input{:type => "text"}/
+                  .row
+                    %label Error example
+                    %input.error{:type => "text"}/
+                  .row
+                    %label Select label
+                    %select
+                      %optgroup{:label => "Group 1"}
+                        %option Option one
+                        %option Option two
+                        %option Option three
+                  .row
+                    %label Checkbox buttons
+                    %input{:checked => "checked", :type => "checkbox"}/
+                    %label.checkbox This
+                    %input{:type => "checkbox"}/
+                    %label.checkbox That
+                    %input{:type => "checkbox"}/
+                    %label.checkbox The Other
+                    %input{:type => "checkbox"}/
+                    %label.checkbox Them
+                    %br.cl
+                  .row
+                    %label Radio buttons
+                    %input.radio{:checked => "checked", :name => "demoradio", :type => "radio"}/
+                    %label.radio Yes
+                    %input.radio{:name => "demoradio", :type => "radio"}/
+                    %label.radio No
+                    %br.cl
+                  .row
+                    %label Text area
+                    %textarea{:cols => "34", :name => "text area", :rows => "6"}
+                  .row
+                    %label Big Button
+                    %input.button{:type => "submit", :value => "Large Button"}/
+                  .row
+                    %label Smaller Buttons
+                    %input.button.medium{:type => "submit", :value => "Medium Button"}/
+                    %input.button.small{:type => "submit", :value => "Small Button"}/
+            / Start Forms
+            / Start Notifcations
+            .grid_5
+              .box-header Notifications
+              .box
+                .notification.success
+                  %span.strong SUCCESS!
+                  This is a success message.
+                .notification.error
+                  %span.strong ERROR!
+                  This is a error message.
+                .notification.warning
+                  %span.strong WARNING!
+                  This is a warning message.
+                .notification.info
+                  %span.strong INFORMATION!
+                  This is a informative message.
+                .notification.tip
+                  %span.strong TIP:
+                  This is a tip message.
+            %br.cl
+            / End Notifcations
+            / Start Layout Example
+            .grid_12
+              .box-header Grids within grids
+              .box
+                %p The fluid grid system is flexible enough for grids to be nested inside grids of grids.
+                .container_12
+                  .grid_4
+                    .box-header Column One
+                    .box
+                      .container_12
+                        .grid_6
+                          .box-header Inner Column
+                          .box This is the content of the inner column.
+                        .grid_6
+                          .box-header Inner Column
+                          .box This is the content of the inner column.
+                        %br.cl
+                  .grid_4
+                    .box-header Column Two
+                    .box This is the content for column two.
+                  .grid_4
+                    .box-header Column Three
+                    .box This is the content for column three.
+                  %br.cl
+            %br.cl
+            / End Layout Example
+            / End Grid
+          / End Page Wrapper
+        / End Page Content
+    / Start Footer
+    .footer
+      Copyright ©2010, A
+      %a{:href => "http://www.mudodesigns.com"} Mudo Design
+      for
+      = succeed "." do
+        %a{:href => "http://themeforest.net?ref=maestrox"} Theme Forest
+    / End Footer

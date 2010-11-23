@@ -3,9 +3,24 @@ class Event < CouchRest::ExtendedDocument
 
   property :name
   property :date
-  property :time
   property :location
-  property :attendee_ids
-  property :repeat
-
+  property :description
+  property :tags, :default => []
+  
+  property :repeat, :default => false
+  
+  
+  property :attendee_ids, :default => []
+  property :permalink
+  
+  
+  save_callback :before, :set_permalink
+  
+  def attendees
+    attendee_ids.map{|a_id| User.get(a_id)}
+  end
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.name)
+  end
 end

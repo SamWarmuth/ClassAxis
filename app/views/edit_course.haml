@@ -1,0 +1,30 @@
+#page-header
+  %h1 New Course
+.container_12
+  %form{:action => "/edit-course", :method => "post"}
+    -if @course
+      %input{:type => "hidden", :name => "course_id", :value => @course.id}
+    .grid_12
+      .box-header Course Info
+      .box
+        .row
+          %label Name
+          %input{:type => "text", :name => "name", :style => "width: 275px;"}
+        .row
+          %label Course Number
+          %input{:type => "text", :name => "course_number", :style => "width: 75px;"}
+        .row
+          %label Privacy
+          %input.radio{:checked => "checked", :name => "public", :type => "radio", :value => false}
+          %label.radio Public
+          %input.radio{:name => "public", :type => "radio", :value => true}
+          %label.radio Invite Only
+          %br.cl
+        .row
+          %label{:style => "color: #ccc"} Invite Users
+          %input{:type => "text", :disabled => "disabled", :name => 'invite'}
+
+        .row
+          %input.button{:type => "submit", :value => "Create Course"}
+    %br.cl
+    

@@ -1,5 +1,142 @@
 !!!
-%head
-  %title ClassAxis
-%body
-  = yield
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
+    %link{:href => "/css/style.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/css/jqui.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %title Class Axis
+    %script{:src => "/js/jquery-1.4.2.min.js", :type => "text/javascript"}
+    %script{:src => "/js/jquery-ui-1.8.4.custom.min.js", :type => "text/javascript"}
+    %script{:src => "/js/excanvas.js", :type => "text/javascript"}
+    %script{:src => "/js/visualize.jQuery.js", :type => "text/javascript"}
+    %script{:src => "/js/functions.js", :type => "text/javascript"}
+  %body
+    #header
+      .header-top.tr
+        .logo{:style => 'position: absolute; font-size: 1.2em; top: 4px;'}
+          %a{:href => "/", :style => "text-decoration: none;"}
+            %img{:style => "width: 11px; height: 11px; position: relative; top: 1px;", :src => "/img/asterisk_orange.png"}
+            %strong Class Axis
+        -if @user
+          %p
+            %strong= @user.name || @user.email
+            |
+            -unread_count = @user.messages.find_all{|m| m.unread == true}.count
+            %a#opener.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
+            |
+            %a{:href => "/settings"} Settings
+            |
+            %a{:href => "/logout"} Logout
+        -else
+          %p
+            You're not currently logged in.
+            |
+            %a{:href => "/login"} Log In
+            |
+            %a{:href => "/signup"} Sign Up
+        #dialog{:title => "Messages"}
+          -if @user.messages.empty?
+            %p You have no messages.
+          -@user.messages.find_all{|m| m.unread == true}.each do |message|
+            .message.new
+              %h4
+                = message.subject
+                %small.fr
+                  #{Time.parse(message.date).to_s} from
+                  -sender = User.get(message.sender_id)
+                  %a{:href => "/user/#{sender.permalink}"}= sender.name
+              %p= message.content
+          -@user.messages.find_all{|m| m.unread != true}.each do |message|
+            .message
+              %h4
+                = message.subject
+                %small.fr
+                  #{Time.parse(message.date).to_s} from
+                  -sender = User.get(message.sender_id)
+                  %a{:href => "/user/#{sender.permalink}"}= sender.name
+              %p= message.content
+          
+          :javascript
+            $(document).ready(function(){
+            var users = #{User.all.map{|u| u.name}.inspect};
+            $(".usercomplete").autocomplete({
+            source: users
+            });
+            });
+          %form{:action => "/new-message", :method => "post"}
+            %h3 New Message
+            %fieldset
+              %label To
+              %input.usercomplete{:type => "text", :name => "name"}/
+            %fieldset
+              %label Subject
+              %input{:type => "text", :name => "subject", :style => "width: 60%"}/
+            %fieldset
+              %textarea.textarea{:cols => "55", :name => "message", :rows => "5", :style => "width:97%"}
+            %fieldset
+              %input.button.medium.fr{:type => "submit", :value => "Send"}/
+    #page-wrapper
+      .page
+        #sidebar
+          %form.searchform{:action => "/search"}
+            %input.searchfield{:onblur => "if (this.value == '') {this.value = 'Search...';}", :onfocus => "if (this.value == 'Search...') {this.value = '';}", :type => "text", :name => "search", :value => "Search..."}
+            %input.searchbutton{:type => "button", :value => "Go"}
+          %span.ul-header
+            %a#toggle-pagesnav.toggle.visible{:href => "#"} Courses
+          %ul#pagesnav
+            -@user.courses.each do |course|
+              %li
+                %a.icon-course{:href => "/course/" + course.permalink}= course.name
+            %li
+              %a.icon-course-add{:href => "/edit-course"} New Course
+            %li
+              %a.icon-courses{:href => "/courses"} Browse Courses
+          %span.ul-header
+            %a#toggle-userssnav.toggle.visible{:href => "#"} Groups
+          %ul#userssnav
+            -@user.groups.each do |group|
+              %li
+                %a.icon-group{:href => "/group/" + group.permalink}= group.name
+            %li
+              %a.icon-group-add{:href => "/edit-group"} New Group
+            %li
+              %a.icon-groups{:href => "/groups"} Browse Groups
+          %span.ul-header
+            %a#toggle-commentsnav.toggle.visible{:href => "#"} Discussions
+          %ul#commentsnav
+            -@user.topics.reverse[0...3].each do |topic|
+              %li
+                %a.icon-discussion{:href => "/discussion/#{topic.permalink}"}<
+                  = topic.title[0..18]
+                  = "..." if topic.title.length > 18
+            %li
+              %a.icon-discussion-add{:href => "/new-discussion"} New Discussion
+            %li
+              %a.icon-discussions{:href => "/discussions"} Browse Discussions
+
+          %span.ul-header
+            %a#toggle-imagesnav.toggle.visible{:href => "#"} Events
+          %ul#imagesnav
+            -@user.events[0..5].each do |event|
+              %li
+                %a.icon-event{:href => "/event/#{event.permalink}"}= event.name
+                -date = Time.parse(event.date)
+                %small{:style => "margin-left: 5px"}= date.strftime("%b %d")
+            %li
+              %a.icon-event-add{:href => "/events"} New Event
+            %li
+              %a.icon-events{:href => "/events"} Browse Events
+          %span.ul-header Stats
+          %ul
+            %li Users: #{User.count}
+            %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
+            %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
+            %li Discussions: #{Topic.count}
+            %li Posts: #{Post.count}
+            %li Events: #{Event.count}
+            %li Messages: #{Message.count}
+        #page-content
+          =yield
+        
+.footer
+  Copyright ©2010 Class Axis

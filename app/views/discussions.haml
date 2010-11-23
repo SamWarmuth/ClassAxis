@@ -1,0 +1,19 @@
+#page-header
+  %h1 Discussions
+-Topic.all.sort_by{|t| Time.parse(t.date)}.reverse.each do |topic|
+  .container_12
+    .grid_12
+      .box-header
+        %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
+        %span{:style => "margin-left: 10px; "}
+          %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+          %small= topic.time_since
+          -topic.tags.each do |tag|  
+            .badge.blue= tag
+          
+      .box          
+        .colored-box.brown.head
+          = topic.content
+        %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
+        
+%br.cl

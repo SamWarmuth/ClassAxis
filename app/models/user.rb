@@ -3,7 +3,45 @@ class User < CouchRest::ExtendedDocument
   
   property :name
   property :email
-  property :events
+  property :events, :default => []
+  property :permalink
+  property :date, :default => Proc.new{Time.now.to_s}
+  
+  
+  property :picture_url
+  
+  def groups
+    Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}
+  end
+  def courses
+    Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}
+  end
+  def messages
+    Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| Time.parse(m.date)}
+  end
+  def topics
+    Topic.all.find_all{|t| t.creator_id == self.id}.sort_by{|t| Time.parse(t.date)}
+  end
+  def posts
+    Post.all.find_all{|t| t.creator_id == self.id}.sort_by{|p| Time.parse(p.date)}
+  end
+  def discussions
+    self.posts.map{|p| p.topic}.uniq.sort_by{|t| Time.parse(t.date)}
+  end
+  def events
+    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| Time.parse(e.date)}
+  end
+  
+  def member_since
+    fuzzy_time_since(Time.parse(self.date))
+  end
+  
+  save_callback :before, :set_permalink
+  
+  def set_permalink
+    self.permalink = generate_permalink(self.name)
+  end
+  
   
   def set_password(password)
     self.salt = 64.times.map{|l|('a'..'z').to_a[rand(25)]}.join
@@ -16,5 +54,6 @@ class User < CouchRest::ExtendedDocument
 
   property :password_hash
   property :salt
+  property :challenges
   
 end

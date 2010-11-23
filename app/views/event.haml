@@ -1,0 +1,21 @@
+#page-header
+  %h1
+    = @event.name
+    -unless @event.attendee_ids.include?(@user.id)
+      %a.awesome.blue.medium{:href => "#{@event.permalink}/attend", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
+        %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
+        Attend
+.container_12
+  .grid_6
+    .box-header
+      = Time.parse(@event.date).strftime("%b %d %I:%M%p")
+      at
+      = @event.location
+    .box
+      %h3= @event.description
+  .grid_6
+    .box-header Attendees
+    .box
+      -@event.attendees.each do |user|
+        %p= user.name
+%br.cl

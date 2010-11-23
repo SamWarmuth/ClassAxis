@@ -1,38 +1,46 @@
+<<<<<<< HEAD
 
 
-%h1 Hello, the Worlds!
-
-%p 1. Mike
-%p 2. Kellene
-%p 3. Andre
-%p 4. Johnny
-%p 5. Corey
-%p 6. Dex (Is better than Corey)
-%p 7. Johnny 2.0 is actually understanding this now!
+#page-header
+  %h1= @user.name
+.container_12
+  .notification.warning <b>Watch out!</b> We're constantly working on this site. We'll try not to lose your data, but we can't make any promises.
 
 
-.lists{:style => "margin-top: 50px;"}
-  .users
-    %h3 Users
-    %ul
-      -User.all.each do |user|
-        %li= user.name
-  .classes
-    %h3 Courses
-    %ul
-      -Course.all.each do |course|
-        %li= course.name
-  .topics
-    %h3 Topics
-    %ul
-      -Topic.all.each do |topic|
-        %li= topic.title
-  .posts
-    %h3 Posts: #{Post.count}
-  .events
-    %h3 Events
-    %ul
-      -Event.all.each do |event|
-        %li= event.name
-    
-    
+  .grid_3
+    .box-header Your Events
+    .box
+      -if @user.events.empty?
+        %p
+          No Events.
+      -else
+        -@user.events.each do |event|
+          %p
+            %b= Time.parse(event.date).strftime("%b %d")
+            @ #{event.location} -
+            %a{:href => "/event/#{event.permalink}"}
+              = event.name
+      %br.cl
+  .grid_9
+    -@events = @user.events
+    =haml :calendar
+    %br.cl
+  .grid_12
+    .box-header Your Discussions
+    .box
+      -@user.topics.reverse[0..5].each do |topic|
+        .grid_12
+          .box-header
+            %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
+            %span{:style => "margin-left: 10px;"}
+              %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
+              %small= topic.time_since
+
+          .box          
+            .colored-box.brown.head
+              = topic.content
+            %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
+      %br.cl
+  %br.cl
+  
+
