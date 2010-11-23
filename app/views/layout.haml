@@ -52,7 +52,7 @@
                 = message.subject
                 %small.fr
                   #{Time.parse(message.date).to_s} from
-                  -sender = User.get(message.sender_id).name
+                  -sender = User.get(message.sender_id)
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
           
