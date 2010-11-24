@@ -35,6 +35,7 @@
             |
             %a{:href => "/signup"} Sign Up
         #dialog{:title => "Messages"}
+          %a{:href => "/messages"} All Messages
           -if @user.messages.empty?
             %p You have no messages.
           -@user.messages.reverse.each do |message|

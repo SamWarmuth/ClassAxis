@@ -19,6 +19,9 @@ class User < CouchRest::ExtendedDocument
   def messages
     Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| Time.parse(m.date)}
   end
+  def sent_messages
+    Message.all.find_all{|m| m.sender_id == self.id}.sort_by{|m| Time.parse(m.date)}
+  end
   def topics
     Topic.all.find_all{|t| t.creator_id == self.id}.sort_by{|t| Time.parse(t.date)}
   end

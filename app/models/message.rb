@@ -10,4 +10,7 @@ class Message < CouchRest::ExtendedDocument
 
   property :unread, :default => true
   
+  property :previous
+  property :next
+
 end

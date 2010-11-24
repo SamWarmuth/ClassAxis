@@ -110,6 +110,11 @@ class Main
     end
     redirect "/event/#{@event.permalink}"
   end
+
+  get "/messages" do
+    redirect "/login" unless logged_in?
+    haml :messages
+  end
   
   get "/new-event" do
     redirect "/login" unless logged_in?
