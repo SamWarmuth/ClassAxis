@@ -34,10 +34,9 @@
     .header-cell Thurs
     .header-cell Fri
     .header-cell Sat
-    -day = Time.now - Time.now.wday*60*60*24
-    -day -= (day.wday + 1) * (60*60*24)
-    -7.times do |i|
-      -day += 60*60*24
+    -days = (0..6).map{|d| Time.now + d*60*60*24}
+    -(7 - Time.now.wday).times{days.push days.shift} #rotate array to correct position
+    -days.each_with_index do |day, i|
       -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
       -format += " ul ll" if i == 0
       -format += " ur lr" if i == 6
