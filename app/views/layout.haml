@@ -119,14 +119,17 @@
             %li
               %a.icon-events{:href => "/events"} Browse Events
           %span.ul-header Stats
-          %ul
-            %li Users: #{User.count}
-            %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
-            %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
-            %li Discussions: #{Topic.count}
-            %li Posts: #{Post.count}
-            %li Events: #{Event.count}
-            %li Messages: #{Message.count}
+          -if true
+            %ul
+              %li Users: #{User.count}
+              %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
+              %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
+              %li Discussions: #{Topic.count}
+              %li Posts: #{Post.count}
+              %li Events: #{Event.count}
+              %li Messages: #{Message.count}
+          -else
+            Statistics Disabled.
         #page-content
           -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
             .notification{:class => broadcast.type, :id => broadcast.id}

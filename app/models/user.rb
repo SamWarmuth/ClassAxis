@@ -3,7 +3,6 @@ class User < CouchRest::ExtendedDocument
   
   property :name
   property :email
-  property :events, :default => []
   property :permalink
   property :date, :default => Proc.new{Time.now.to_s}
   property :calendar_id, :default => Proc.new{c = Calendar.create({:name => self.name}); c.id}
@@ -33,6 +32,9 @@ class User < CouchRest::ExtendedDocument
   end
   def discussions
     self.posts.map{|p| p.topic}.uniq.sort_by{|t| Time.parse(t.date)}
+  end
+  def calendar
+    Calendar.get(self.calendar_id)
   end
   def events
     Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| Time.parse(e.date)}
