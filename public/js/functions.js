@@ -34,21 +34,6 @@ jQuery(function ($) {
 	if($("[id^='toggle']").length){fluid.Toggle();}
 });
 
-// Notification Animations
-$(function () { 
-$('.notification').hide().append('<span class="close" title="Dismiss"></span>').fadeIn('slow');
-$('.notification .close').hover(
-function() { $(this).addClass('hover'); },
-function() { $(this).removeClass('hover'); }
-);
-$('.notification .close').click(function() {
-  $(this).parent().fadeOut('slow', function() {
-    $.post("/ajax/hide-broadcast/" + $(this).attr("id"))
-    $(this).remove(); 
-  });
-}); 
-
-});
 
 
 
