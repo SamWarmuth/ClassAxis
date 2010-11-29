@@ -6,7 +6,7 @@ class Group < CouchRest::ExtendedDocument
   property :is_public
   
   property :date, :default => Proc.new{Time.now.to_s}
-  
+  property :calendar_id, :default => Proc.new{c = Calendar.create({:name => self.name}); c.id}
   
   property :parent_id
   
@@ -32,7 +32,7 @@ class Group < CouchRest::ExtendedDocument
     self.user_ids.map{|u_id| User.get(u_id)}
   end
   def events
-    Event.all.find_all{|e| e.tags.include?(self.permalink)}
+    Calendar.get(self.calendar_id).events
   end
 end
 

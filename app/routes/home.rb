@@ -124,6 +124,9 @@ class Main
   post "/new-event" do
     redirect "/login" unless logged_in?
     event = Event.new
+    calendar = Calendar.get(params[:calendar_id])
+    redirect "/404" if calendar.nil?
+    #error check.
     event.name = params[:name]
     event.tags = params[:tags].split(" ")
     event.location = params[:location]
@@ -131,6 +134,8 @@ class Main
     event.description = params[:description]
     event.attendee_ids << @user.id
     event.save
+    calendar.event_ids << event.id
+    calendar.save
     redirect "/event/#{event.permalink}"
   end
   

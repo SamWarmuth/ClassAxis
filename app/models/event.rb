@@ -16,6 +16,10 @@ class Event < CouchRest::ExtendedDocument
   
   save_callback :before, :set_permalink
   
+  def calendar
+    Calendar.all.find{|c| c.event_ids.include?(self.id)}
+  end
+  
   def attendees
     attendee_ids.map{|a_id| User.get(a_id)}
   end

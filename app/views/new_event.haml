@@ -2,6 +2,7 @@
   %h1 New Event
 .container_12
   %form{:action => "/new-event", :method => "post"}
+    %input{:type => "hidden", :name => "calendar_id", :value => params[:calendar_id]}
   
     .grid_12
       .box-header Event

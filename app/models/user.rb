@@ -6,6 +6,7 @@ class User < CouchRest::ExtendedDocument
   property :events, :default => []
   property :permalink
   property :date, :default => Proc.new{Time.now.to_s}
+  property :calendar_id, :default => Proc.new{c = Calendar.create({:name => self.name}); c.id}
   
   property :is_admin, :default => false
   property :broadcast_ids, :default => []

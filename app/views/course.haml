@@ -17,7 +17,7 @@
           %b= Time.parse(event.date).strftime("%b %d")
           %a{:href => "/event/#{event.permalink}"}
             = event.name
-      %a{:href => "/new-event?tag=#{@course.permalink}", :style => "display: block; margin-top: 20px;"}
+      %a{:href => "/new-event?calendar_id=#{@course.calendar_id}", :style => "display: block; margin-top: 20px;"}
         .awesome.blue.medium New Event
         
   .grid_9
