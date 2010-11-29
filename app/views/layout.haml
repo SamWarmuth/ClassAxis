@@ -128,6 +128,9 @@
             %li Events: #{Event.count}
             %li Messages: #{Message.count}
         #page-content
+          -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
+            .notification{:class => broadcast.type, :id => broadcast.id}
+              = broadcast.content
           =yield
         
 .footer

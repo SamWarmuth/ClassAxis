@@ -42,7 +42,10 @@ function() { $(this).addClass('hover'); },
 function() { $(this).removeClass('hover'); }
 );
 $('.notification .close').click(function() {
-$(this).parent().fadeOut('slow', function() { $(this).remove(); });
+  $(this).parent().fadeOut('slow', function() {
+    $.post("/ajax/hide-broadcast/" + $(this).attr("id"))
+    $(this).remove(); 
+  });
 }); 
 
 });

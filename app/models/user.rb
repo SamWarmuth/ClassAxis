@@ -7,6 +7,8 @@ class User < CouchRest::ExtendedDocument
   property :permalink
   property :date, :default => Proc.new{Time.now.to_s}
   
+  property :is_admin, :default => false
+  property :broadcast_ids, :default => []
   
   property :picture_url
   

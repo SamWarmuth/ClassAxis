@@ -308,4 +308,21 @@ class Main
       redirect "/signup?error=empty"
     end
   end
+  
+  ## AJAX routes
+  
+  post "/ajax/hide-broadcast/:broadcast_id" do
+    return 403 unless logged_in? #forbidden
+    broadcast = Broadcast.get(params[:broadcast_id])
+    return 404 if broadcast.nil? #not found
+    @user.broadcast_ids.delete(broadcast.id)
+    @user.save
+    return 200 #success
+  end
+  
+
 end
+
+
+
+
