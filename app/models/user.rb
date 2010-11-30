@@ -13,10 +13,10 @@ class User < CouchRest::ExtendedDocument
   property :picture_url
   
   def groups
-    Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}
+    Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
   end
   def courses
-    Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}
+    Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
   end
   def messages
     Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| m.date}
