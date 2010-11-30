@@ -132,15 +132,15 @@
             Statistics Disabled.
         #page-content
           -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
-            .notification{:class => broadcast.type, :id => broadcast.id}
+            .notification{:class => broadcast.type}
               = broadcast.content
-              .close
+              .close{:id => broadcast.id}
                 //close box style is in style.sass
                 
             :javascript
               $(".notification .close").click(function(){
                 $(this).parent().fadeOut('slow');
-                $.post("/ajax/hide-broadcast/" + $(this).parent().attr("id"));
+                $.post("/ajax/hide-broadcast/" + $(this).attr("id"));
               });
           =yield
         
