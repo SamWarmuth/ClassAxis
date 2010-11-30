@@ -131,7 +131,7 @@ class Main
     event.name = params[:name]
     event.tags = params[:tags].split(" ")
     event.location = params[:location]
-    event.date = Time.parse(params[:date] + " " + params[:time]).to_s 
+    event.date = Time.parse(params[:date] + " " + params[:time]).to_i
     event.description = params[:description]
     event.attendee_ids << @user.id
     event.save
