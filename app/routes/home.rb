@@ -30,6 +30,7 @@ class Main
   
   post "/edit-group" do
     redirect "/login" unless logged_in?
+    return "Need a name!" if params[:name].empty?
     if params[:group_id]
       group = Group.find(params[:group_id])
       return "error!" if group.nil?
@@ -41,6 +42,7 @@ class Main
     group.is_public = params[:public]
     group.user_ids << @user.id
     group.admin_id = @user.id
+    group.calendar_id ||= Calendar.create(:name => group.name).id
     group.save
     redirect "/group/"+group.permalink
   end
