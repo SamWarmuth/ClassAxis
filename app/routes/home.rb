@@ -43,6 +43,7 @@ class Main
     group.user_ids << @user.id
     group.admin_id = @user.id
     group.calendar_id ||= Calendar.create(:name => group.name).id
+    group.permalink ||= generate_permalink(group.name)
     group.save
     redirect "/group/"+group.permalink
   end
@@ -89,6 +90,7 @@ class Main
     course.user_ids << @user.id
     course.admin_id = @user.id
     course.calendar_id ||= Calendar.create(:name => course.name).id
+    course.permalink ||= generate_permalink(course.name)
     course.save
     redirect "/course/"+course.permalink
   end
@@ -257,7 +259,8 @@ class Main
     
     if user && user.valid_password?(params[:password])
       user.challenges ||= []
-      user.challenges << (Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s
+      user.challenges = user.challenges[0...4]
+      user.challenges.unshift((Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s)
       user.save
       
       response.set_cookie("user", {
@@ -311,6 +314,7 @@ class Main
       user.email = params[:email].downcase
       user.set_password(params[:password])
       user.calendar_id = Calendar.create(:name => user.name).id
+      user.permalink = generate_permalink(user.name)
       user.save
       redirect "/login?success=created"
     else

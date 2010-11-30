@@ -19,11 +19,6 @@ class Group < CouchRest::ExtendedDocument
   
   property :permalink
   
-  save_callback :before, :set_permalink
-  
-  def set_permalink
-    self.permalink = generate_permalink(self.name)
-  end
   
   def discussions
     Topic.all.find_all{|t| t.tags.include?(self.permalink)}

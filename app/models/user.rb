@@ -41,11 +41,6 @@ class User < CouchRest::ExtendedDocument
     fuzzy_time_since(Time.at(self.date))
   end
   
-  save_callback :before, :set_permalink
-  
-  def set_permalink
-    self.permalink = generate_permalink(self.name)
-  end
   
   
   def set_password(password)
