@@ -1,0 +1,43 @@
+%a{:href => "/"} Back Home
+%ul
+  %li Users: #{User.count}
+  %li Courses: #{Group.all.find_all{|g| !g.course_number.nil?}.count}
+  %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
+  %li Discussions: #{Topic.count}
+  %li Posts: #{Post.count}
+  %li Events: #{Event.count}
+  %li Messages: #{Message.count}
+|||||
+%ul
+  %li
+    -t = Time.now
+    -haml ""
+    Layout: #{Time.now - t} sec
+  %li
+    -t = Time.now
+    -haml :index, :layout => false
+    Index: #{Time.now - t} sec
+  %li
+    -t = Time.now
+    -haml :groups, :layout => false
+    Groups: #{Time.now - t} sec
+  %li
+    -t = Time.now
+    -haml :events, :layout => false
+    Events: #{Time.now - t} sec
+  %li
+    -t = Time.now
+    -haml :discussions, :layout => false
+    Discussions: #{Time.now - t} sec
+    
+%ul
+  %li
+    -@event = Event.first
+    -t = Time.now
+    -haml :event, :layout => false
+    Event (#{@event.name}): #{Time.now - t} sec
+  %li
+    -@course = Group.first
+    -t = Time.now
+    -haml :course, :layout => false
+    Course (#{@course.name}): #{Time.now - t} sec

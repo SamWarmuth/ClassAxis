@@ -15,6 +15,7 @@
       .header-top.tr
         .logo{:style => 'position: absolute; font-size: 1.2em; top: 4px;'}
           %a{:href => "/", :style => "text-decoration: none;"}
+            - time = Time.now
             %img{:style => "width: 11px; height: 11px; position: relative; top: 1px;", :src => "/img/asterisk_orange.png"}
             %strong Class Axis
         -if @user
@@ -80,7 +81,7 @@
           %ul#pagesnav
             -@user.courses.each do |course|
               %li
-                %a.icon-course{:href => "/course/" + course.permalink}= course.name
+                %a.icon-course{:href => "/course/" + course.permalink}= course.name 
             %li
               %a.icon-course-add{:href => "/edit-course"} New Course
             %li

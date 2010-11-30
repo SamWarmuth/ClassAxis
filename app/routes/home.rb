@@ -314,6 +314,11 @@ class Main
     end
   end
   
+  get "/stats" do
+    redirect "/" unless logged_in?
+    haml :stats, :layout => false
+  end
+  
   ## AJAX routes
   
   post "/ajax/hide-broadcast/:broadcast_id" do

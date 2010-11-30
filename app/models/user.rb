@@ -19,25 +19,25 @@ class User < CouchRest::ExtendedDocument
     Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}
   end
   def messages
-    Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| Time.parse(m.date)}
-  end
-  def sent_messages
-    Message.all.find_all{|m| m.sender_id == self.id}.sort_by{|m| Time.parse(m.date)}
-  end
-  def topics
-    Topic.all.find_all{|t| t.creator_id == self.id}.sort_by{|t| Time.parse(t.date)}
-  end
-  def posts
-    Post.all.find_all{|t| t.creator_id == self.id}.sort_by{|p| Time.parse(p.date)}
+    Message.all.find_all{|m| m.receiver_id == self.id}
+  end                                                 
+  def sent_messages                                   
+    Message.all.find_all{|m| m.sender_id == self.id}
+  end                                                 
+  def topics                                          
+    Topic.all.find_all{|t| t.creator_id == self.id}
+  end                                                 
+  def posts                                           
+    Post.all.find_all{|t| t.creator_id == self.id}
   end
   def discussions
-    self.posts.map{|p| p.topic}.uniq.sort_by{|t| Time.parse(t.date)}
+    self.posts.map{|p| p.topic}.uniq
   end
   def calendar
     Calendar.get(self.calendar_id)
   end
   def events
-    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| Time.parse(e.date)}
+    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}
   end
   
   def member_since
