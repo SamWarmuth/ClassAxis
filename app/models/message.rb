@@ -4,7 +4,7 @@ class Message < CouchRest::ExtendedDocument
   property :sender_id
   property :receiver_id
   
-  property :date, :default => Proc.new{Time.now.to_s}
+  property :date, :default => Proc.new{Time.now.to_i}
   property :subject, :default => ""
   property :content, :default => ""
 

@@ -5,7 +5,7 @@ class Post < CouchRest::ExtendedDocument
   property :parent_id
   property :topic_id
   
-  property :date, :default => Proc.new{Time.now.to_s}
+  property :date, :default => Proc.new{Time.now.to_i}
   
   property :content
   property :permalink
@@ -18,7 +18,7 @@ class Post < CouchRest::ExtendedDocument
   end
   
   def time_since
-    fuzzy_time_since(Time.parse(self.date))
+    fuzzy_time_since(Time.at(self.date))
   end
   
   def depth

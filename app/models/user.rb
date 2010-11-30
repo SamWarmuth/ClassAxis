@@ -4,8 +4,8 @@ class User < CouchRest::ExtendedDocument
   property :name
   property :email
   property :permalink
-  property :date, :default => Proc.new{Time.now.to_s}
-  property :calendar_id, :default => Proc.new{c = Calendar.create({:name => self.name}); c.id}
+  property :date, :default => Proc.new{Time.now.to_i}
+  property :calendar_id
   
   property :is_admin, :default => false
   property :broadcast_ids, :default => []
@@ -19,29 +19,26 @@ class User < CouchRest::ExtendedDocument
     Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}
   end
   def messages
-    Message.all.find_all{|m| m.receiver_id == self.id}
-  end                                                 
-  def sent_messages                                   
-    Message.all.find_all{|m| m.sender_id == self.id}
-  end                                                 
-  def topics                                          
-    Topic.all.find_all{|t| t.creator_id == self.id}
-  end                                                 
-  def posts                                           
-    Post.all.find_all{|t| t.creator_id == self.id}
+    Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| m.date}
+  end
+  def sent_messages
+    Message.all.find_all{|m| m.sender_id == self.id}.sort_by{|m| m.date}
+  end
+  def topics
+    Topic.all.find_all{|t| t.creator_id == self.id}.sort_by{|t| t.date}
+  end
+  def posts
+    Post.all.find_all{|t| t.creator_id == self.id}.sort_by{|p| p.date}
   end
   def discussions
-    self.posts.map{|p| p.topic}.uniq
-  end
-  def calendar
-    Calendar.get(self.calendar_id)
+    self.posts.map{|p| p.topic}.uniq.sort_by{|t| t.date}
   end
   def events
-    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}
+    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| e.date}
   end
   
   def member_since
-    fuzzy_time_since(Time.parse(self.date))
+    fuzzy_time_since(Time.at(self.date))
   end
   
   save_callback :before, :set_permalink

@@ -5,8 +5,8 @@ class Group < CouchRest::ExtendedDocument
   property :abbreviation
   property :is_public
   
-  property :date, :default => Proc.new{Time.now.to_s}
-  property :calendar_id, :default => Proc.new{c = Calendar.create({:name => self.name}); c.id}
+  property :date, :default => Proc.new{Time.now.to_i}
+  property :calendar_id
   
   property :parent_id
   

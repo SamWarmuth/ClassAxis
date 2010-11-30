@@ -5,6 +5,7 @@
   %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
   %li Discussions: #{Topic.count}
   %li Posts: #{Post.count}
+  %li Calendars: #{Calendar.count}
   %li Events: #{Event.count}
   %li Messages: #{Message.count}
 |||||
@@ -33,11 +34,13 @@
 %ul
   %li
     -@event = Event.first
-    -t = Time.now
-    -haml :event, :layout => false
-    Event (#{@event.name}): #{Time.now - t} sec
+    -unless @event.nil?
+      -t = Time.now
+      -haml :event, :layout => false
+      Event (#{@event.name}): #{Time.now - t} sec
   %li
     -@course = Group.first
-    -t = Time.now
-    -haml :course, :layout => false
-    Course (#{@course.name}): #{Time.now - t} sec
+    -unless @course.nil?
+      -t = Time.now
+      -haml :course, :layout => false
+      Course (#{@course.name}): #{Time.now - t} sec

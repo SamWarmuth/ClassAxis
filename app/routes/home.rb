@@ -86,6 +86,7 @@ class Main
     course.is_public = params[:public]
     course.user_ids << @user.id
     course.admin_id = @user.id
+    course.calendar_id ||= Calendar.create(:name => course.name).id
     course.save
     redirect "/course/"+course.permalink
   end
@@ -307,6 +308,7 @@ class Main
       user.name = params[:name]
       user.email = params[:email].downcase
       user.set_password(params[:password])
+      user.calendar_id = Calendar.create(:name => user.name).id
       user.save
       redirect "/login?success=created"
     else

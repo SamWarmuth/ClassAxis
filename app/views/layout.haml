@@ -44,7 +44,7 @@
               %h4
                 = message.subject
                 %small.fr
-                  #{Time.parse(message.date).strftime("%b %d %l:%M%p")} from
+                  #{Time.at(message.date).strftime("%b %d %l:%M%p")} from
                   -sender = User.get(message.sender_id)
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
@@ -115,7 +115,7 @@
             -@user.events[0..5].each do |event|
               %li
                 %a.icon-event{:href => "/event/#{event.permalink}"}= event.name
-                -date = Time.parse(event.date)
+                -date = Time.at(event.date)
                 %small{:style => "margin-left: 5px"}= date.strftime("%b %d")
             %li
               %a.icon-event-add{:href => "/events"} New Event
@@ -129,6 +129,7 @@
               %li Groups: #{Group.all.find_all{|g| g.course_number.nil?}.count}
               %li Discussions: #{Topic.count}
               %li Posts: #{Post.count}
+              %li Calendars: #{Calendar.count}
               %li Events: #{Event.count}
               %li Messages: #{Message.count}
           -else

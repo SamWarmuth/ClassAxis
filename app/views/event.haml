@@ -8,7 +8,7 @@
 .container_12
   .grid_6
     .box-header
-      = Time.parse(@event.date).strftime("%b %d %I:%M%p")
+      = Time.at(@event.date).strftime("%b %d %I:%M%p")
       at
       = @event.location
     .box

@@ -8,7 +8,7 @@
         %h4
           = message.subject
           %small.fr
-            #{Time.parse(message.date).strftime("%b %d %l:%M%p")} from
+            #{Time.at(message.date).strftime("%b %d %l:%M%p")} from
             -sender = User.get(message.sender_id)
             %a{:href => "/user/#{sender.permalink}"}= sender.name
         %p= message.content
@@ -20,7 +20,7 @@
         %h4
           = message.subject
           %small.fr
-            #{Time.parse(message.date).strftime("%b %d %l:%M%p")} to
+            #{Time.at(message.date).strftime("%b %d %l:%M%p")} to
             -receiver = User.get(message.receiver_id)
             %a{:href => "/user/#{receiver.permalink}"}= receiver.name
         %p= message.content

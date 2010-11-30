@@ -5,7 +5,7 @@ class Topic < CouchRest::ExtendedDocument
   property :content, :default => ""
   property :tags, :default => []
   property :creator_id
-  property :date, :default => Proc.new{Time.now.to_s}
+  property :date, :default => Proc.new{Time.now.to_i}
   property :permalink
   
   def topic
@@ -19,7 +19,7 @@ class Topic < CouchRest::ExtendedDocument
     Post.all.find_all{|p| p.parent_id == self.id}
   end
   def time_since
-    fuzzy_time_since(Time.parse(self.date))
+    fuzzy_time_since(Time.at(self.date))
   end
   
   save_callback :before, :set_permalink

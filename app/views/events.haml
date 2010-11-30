@@ -1,11 +1,11 @@
 #page-header
   %h1 Events
 .container_12
-  -Event.all.sort_by{|e| Time.parse(e.date)}.each do |event|
+  -Event.all.sort_by{|e| e.date}.each do |event|
     .grid_4
       .box-header
         %a.name{:href => "/event/#{event.permalink}"}= event.name
-        %small= Time.parse(event.date).strftime("%b %d %I:%M%p")
+        %small= Time.at(event.date).strftime("%b %d %I:%M%p")
       .box
         = event.description
         %p

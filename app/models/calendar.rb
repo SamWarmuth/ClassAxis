@@ -1,7 +1,7 @@
 class Calendar < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
 
-  property :date, :default => Proc.new{Time.now.to_s}
+  property :date, :default => Proc.new{Time.now.to_i}
   property :name
   property :event_ids, :default => []
   

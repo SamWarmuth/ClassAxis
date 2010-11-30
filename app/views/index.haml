@@ -10,7 +10,7 @@
       -else
         -@user.events.each do |event|
           %p
-            %b= Time.parse(event.date).strftime("%b %d")
+            %b= Time.at(event.date).strftime("%b %d")
             @ #{event.location} -
             %a{:href => "/event/#{event.permalink}"}
               = event.name

@@ -24,7 +24,7 @@
       
       .cell{:class => format}
         .number= day.day
-        -@events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
+        -@events.find_all{|e| d = Time.at(e.date);  d.year == day.year && d.yday == day.yday}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
   .week-calendar{:style => "display: none;"}
     .header-cell Sun
@@ -43,7 +43,7 @@
       
       .cell.week{:class => format}
         .number= day.day
-        -@events.find_all{|e| Time.parse(e.date).year == day.year && Time.parse(e.date).yday == day.yday}.each do |event|
+        -@events.find_all{|e| Time.at(e.date).year == day.year && Time.at(e.date).yday == day.yday}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
   %br.cl
   
