@@ -42,4 +42,4 @@
     -@course = Group.first
     -unless @course.nil?
       -haml :course, :layout => false
-      Course (#{@course.name}): #{result} sec
+      Course (#{@course.name}): #{Time.now - t} sec
