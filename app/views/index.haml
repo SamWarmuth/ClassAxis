@@ -1,21 +1,7 @@
 #page-header
   %h1= @user.name
 .container_12
-  .grid_3
-    .box-header Your Events
-    .box
-      -if @user.events.empty?
-        %p
-          No Events.
-      -else
-        -@user.events.each do |event|
-          %p
-            %b= Time.at(event.date).strftime("%b %d")
-            @ #{event.location} -
-            %a{:href => "/event/#{event.permalink}"}
-              = event.name
-      %br.cl
-  .grid_9
+  .grid_12
     -@events = @user.events
     =haml :calendar
     %br.cl

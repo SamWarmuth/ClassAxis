@@ -1,6 +1,7 @@
 .box-header{:style => "text-align: center; position: relative;"}
   =Time.now.strftime('%B')
   .calendartype{:style => "position: absolute; right: 15px; top: 10px; float: right"}
+    .roundtab.list List
     .roundtab.month.toggled Month
     .roundtab.week Week
 .box{:style => "padding: 0 0 15px 2%"}
@@ -45,6 +46,17 @@
         .number= day.day
         -@events.find_all{|e| Time.at(e.date).year == day.year && Time.at(e.date).yday == day.yday}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
+  .list-calendar{:style => "display: none; padding: 10px;"}
+    -if @events.empty?
+      %p
+        No Events.
+    -else
+      -@events.each do |event|
+        %b= Time.at(event.date).strftime("%b %d")
+        %a{:href => "/event/#{event.permalink}"}
+          = event.name
+    %a{:href => "/new-event?calendar_id=#{@calendar.id}", :style => "display: block; margin-top: 20px;"}
+      .awesome.green.medium New Event
   %br.cl
   
 :javascript
@@ -55,10 +67,16 @@
       tab.addClass("toggled");
       if (tab.hasClass("month")){
         $(".week-calendar").hide();
+        $(".list-calendar").hide();
         $(".month-calendar").show();
+      } else if (tab.hasClass("week")) {
+        $(".month-calendar").hide();
+        $(".list-calendar").hide();
+        $(".week-calendar").show();
       } else {
         $(".month-calendar").hide();
-        $(".week-calendar").show();
+        $(".week-calendar").hide();
+        $(".list-calendar").show();
       }
     });
   });
