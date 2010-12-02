@@ -11,13 +11,45 @@
         .badge.blue= tag
       
     .box          
-      .colored-box.brown.head
+      .colored-box.brown.head{:id => @topic.id}
         = @topic.content
-        %a{:href => "/reply/#{@topic.id}", :style => "float: right; position: relative; top: -2px; right: 15px;"}
-          .awesome.blue.medium Reply
+        %form.response{:autocomplete => "off", :style => "display: none;"}
+          %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
+          %input.content{:type => "text", :size => 30, :name => 'content'}
+          %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
       -@topic.children.each do |@post|
         = haml :post
-
-      
       
 %br.cl
+
+%script{:src => "http://js.pusherapp.com/1.6/pusher.min.js", :type => "text/javascript"}
+
+:javascript
+  $(document).ready(function(){
+    var server = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
+    server.bind('addPost', function(data) {
+      addPost(data.parentID, data.content);
+    });
+    $(".colored-box").live("click", function(){
+      $(".response").hide();
+      $(this).children(".response").show();
+      $(this).find(".content").focus();
+    });
+    
+    $(".response").live("submit", function(){
+      var formData = $(this).serialize();
+      $(this).hide();
+      $.post("/ajax/add-post", formData);
+      return false;
+    });
+    
+    $('.reply').live("click", function(){
+      return true;
+    });
+    
+    
+  });
+  
+  function addPost(parentID, content){
+    $("#"+parentID).after("<div class='indent'>"+content+"</div>");
+  }

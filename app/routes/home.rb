@@ -186,7 +186,6 @@ class Main
     @parent = Post.get(params[:id])
     @parent = Topic.get(params[:id]) if @parent['couchrest-type'] == "Topic"
     redirect "/404" if @parent.nil?
-    puts @parent.content
     
     post = Post.new
     post.content = params[:content]
@@ -194,7 +193,8 @@ class Main
     post.topic_id = @parent.topic.id
     post.creator_id = @user.id
     post.save
-    post.save #...yeah. Two. Permalinks need work.
+    post.permalink = generate_permalink(@post.id)
+    post.save
     
     redirect "/discussion/#{@parent.topic.permalink}"
   end
@@ -336,6 +336,26 @@ class Main
     @user.broadcast_ids.delete(broadcast.id)
     @user.save
     return 200 #success
+  end
+  
+  post "/ajax/add-post" do
+    return 403 unless logged_in? #forbidden
+    @parent = Post.get(params[:parent_id])
+    @parent = Topic.get(params[:parent_id]) if @parent['couchrest-type'] == "Topic"
+    return 404 if @parent.nil? #not found
+    @topic = @parent.topic
+    
+    @post = Post.new
+    @post.content = params[:content]
+    @post.parent_id = @parent.id
+    @post.topic_id = @topic.id
+    @post.creator_id = @user.id
+    @post.save
+    @post.permalink = generate_permalink(@post.id)
+    @post.save    
+    Thread.new{Pusher[@topic.id].trigger('addPost', {:parentID => @parent.id, :content => (haml :post, :layout => false)})}
+    
+    return 200
   end
   
 

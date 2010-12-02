@@ -13,6 +13,7 @@ require "couchrest"
 require "haml"
 require "sass"
 require "json"
+require "pusher"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
@@ -22,6 +23,11 @@ end
 # Connect to couchdb.
 couchdb_url = monk_settings(:couchdb)[:url]
 COUCHDB_SERVER = CouchRest.database!(couchdb_url)
+
+#Pusher Credentials
+Pusher.app_id = '3031'
+Pusher.key = '84d6245235e5b198d8aa'
+Pusher.secret = 'a75d798c2cb2abd65dd1'
 
 
 # Load all application files.

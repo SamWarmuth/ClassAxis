@@ -1,10 +1,12 @@
-.colored-box.gray
-  %a{:href => "/reply/#{@post.id}", :style => "float: right; position: relative; top: 3px;"}
-    .awesome.blue.medium Reply
+.colored-box.gray{:id => @post.id}
   %h3{:style => "color: #444"}
     %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
     %small= @post.time_since
   =@post.content
+  %form.response{:style => "display: none;"}
+    %input{:type => "hidden", :name => 'parent_id', :value => @post.id}
+    %input.content{:type => "text", :size => 30, :name => 'content'}
+    %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
 .indent
   -@post.children.each do |@post|
     = haml :post

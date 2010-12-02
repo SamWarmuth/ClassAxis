@@ -14,7 +14,7 @@ class Post < CouchRest::ExtendedDocument
     User.get(self.creator_id)
   end
   def children
-    Post.all.find_all{|p| p.parent_id == self.id}
+    Post.all.find_all{|p| p.parent_id == self.id}.sort_by{|p| p.date}.reverse
   end
   
   def time_since
@@ -29,13 +29,6 @@ class Post < CouchRest::ExtendedDocument
       deep += 1
     end
     return deep
-  end
-  
-  save_callback :before, :set_permalink
-  
-  def set_permalink
-    return false if self.new_record?
-    self.permalink = generate_permalink(self.id)
   end
   
   def topic

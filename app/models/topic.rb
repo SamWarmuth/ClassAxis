@@ -16,7 +16,7 @@ class Topic < CouchRest::ExtendedDocument
   end
   
   def children
-    Post.all.find_all{|p| p.parent_id == self.id}
+    Post.all.find_all{|p| p.parent_id == self.id}.sort_by{|p| p.date}.reverse
   end
   def time_since
     fuzzy_time_since(Time.at(self.date))
