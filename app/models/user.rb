@@ -14,6 +14,9 @@ class User < CouchRest::ExtendedDocument
   
   property :picture_url
   
+  def calendar
+    Calendar.get(self.calendar_id)
+  end
   def groups
     Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
   end
