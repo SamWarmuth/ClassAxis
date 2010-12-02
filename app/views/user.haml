@@ -1,5 +1,8 @@
 #page-header
-  %h1= @selected_user.name
+  %h1
+    = @selected_user.name
+    -if $current_users.has_key?(@selected_user.id)
+      %span{:style => "font-size: 0.5em; color: white; background: #0d0; border-radius: 10px; padding: 3px"} online
 .container_12
   .grid_4
     .box-header

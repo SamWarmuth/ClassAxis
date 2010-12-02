@@ -26,6 +26,10 @@ class Main
       @user = nil unless @user.challenges && @user.challenges.include?(request.cookies['user_challenge'])
       return false if @user.nil?
       
+      current_time = Time.now.to_i
+      $current_users[@user.id] = current_time
+      $current_users.delete_if{|u_id, time| (time + 5*60) < current_time}
+      
       return true
     end
 

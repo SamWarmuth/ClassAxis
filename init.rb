@@ -29,6 +29,8 @@ Pusher.app_id = '3031'
 Pusher.key = '84d6245235e5b198d8aa'
 Pusher.secret = 'a75d798c2cb2abd65dd1'
 
+$current_users = {}
+
 
 # Load all application files.
 Dir[root_path("app/**/*.rb")].each do |file|

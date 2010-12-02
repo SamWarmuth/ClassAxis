@@ -1,4 +1,6 @@
 class Main
+  
+  
   get "/" do
     redirect "/login" unless logged_in?
     haml :index
