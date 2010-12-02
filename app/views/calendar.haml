@@ -14,7 +14,6 @@
     .header-cell Fri
     .header-cell Sat
     -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
-    -day_int = day.to_i
     -day -= (day.wday + 1) * (60*60*24)
     -35.times do |i|
       -day += 60*60*24
@@ -25,6 +24,7 @@
       -format += " ll" if i == 28
       
       .cell{:class => format}
+        %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
         .number= day.day
         -@events.find_all{|e| d = Time.at(e.date);  d.year == day.year && d.yday == day.yday}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
