@@ -5,7 +5,7 @@
   =@post.content
   %form.response{:style => "display: none;"}
     %input{:type => "hidden", :name => 'parent_id', :value => @post.id}
-    %input.content{:type => "text", :size => 30, :name => 'content'}
+    %input.content{:type => "text", :style => "width: 70%", :name => 'content'}
     %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
 .indent
   -@post.children.each do |@post|
