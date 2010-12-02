@@ -45,7 +45,7 @@ class Main
     group.user_ids << @user.id
     group.admin_id = @user.id
     group.calendar_id ||= Calendar.create(:name => group.name).id
-    group.permalink ||= generate_permalink(group.name)
+    group.permalink ||= generate_permalink(group, group.name)
     group.save
     redirect "/group/"+group.permalink
   end
@@ -92,7 +92,7 @@ class Main
     course.user_ids << @user.id
     course.admin_id = @user.id
     course.calendar_id ||= Calendar.create(:name => course.name).id
-    course.permalink ||= generate_permalink(course.name)
+    course.permalink ||= generate_permalink(course, course.name)
     course.save
     redirect "/course/"+course.permalink
   end
@@ -195,7 +195,7 @@ class Main
     post.topic_id = @parent.topic.id
     post.creator_id = @user.id
     post.save
-    post.permalink = generate_permalink(@post.id)
+    post.permalink = generate_permalink(post, post.id)
     post.save
     
     redirect "/discussion/#{@parent.topic.permalink}"
@@ -307,8 +307,7 @@ class Main
   post "/signup" do
     
     redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
-    perma = generate_permalink(params[:name])
-    redirect "/signup?error=name" unless User.all.find{|u| u.permalink == perma}.nil?
+    redirect "/signup?error=name" unless User.by_permalink(:key => params[:name]).empty?
     redirect "/signup?error=password" unless params[:password] == params[:password2]
     if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
       user = User.new
@@ -316,7 +315,7 @@ class Main
       user.email = params[:email].downcase
       user.set_password(params[:password])
       user.calendar_id = Calendar.create(:name => user.name).id
-      user.permalink = generate_permalink(user.name)
+      user.permalink = generate_permalink(user, user.name)
       user.save
       redirect "/login?success=created"
     else
@@ -353,7 +352,7 @@ class Main
     @post.topic_id = @topic.id
     @post.creator_id = @user.id
     @post.save
-    @post.permalink = generate_permalink(@post.id)
+    @post.permalink = generate_permalink(@post, @post.id)
     @post.save
     content = haml :post, :layout => false
     content = "<div class='indent'>" + content + "</div>" if @parent.id != @topic.id

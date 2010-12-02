@@ -18,6 +18,7 @@ class Group < CouchRest::ExtendedDocument
   property :course_number
   
   property :permalink
+  view_by :permalink
   
   
   def discussions
@@ -31,6 +32,12 @@ class Group < CouchRest::ExtendedDocument
   end
 end
 
-def generate_permalink(name)
-  permalink = name.downcase.split('').find_all{|l| (('a'..'z').to_a+('0'..'9').to_a).to_a.include?(l)}.join
+def generate_permalink(object, string)
+  #remove all characters that aren't a-z or 0-9
+  permalink = string.downcase.gsub(/[^a-z^0-9]/,'')
+  object_class = CouchRest.constantize(object['couchrest-type'])
+  until (object_class.by_permalink(:key => permalink).empty?)
+    permalink += rand(10).to_s #add a number to the end.
+  end
+  return permalink
 end

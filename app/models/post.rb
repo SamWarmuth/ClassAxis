@@ -9,12 +9,16 @@ class Post < CouchRest::ExtendedDocument
   
   property :content
   property :permalink
+  view_by :permalink
+  
+  view_by :topic_id
+  view_by :parent_id
 
   def creator
     User.get(self.creator_id)
   end
   def children
-    Post.all.find_all{|p| p.parent_id == self.id}.sort_by{|p| p.date}.reverse
+    Post.by_parent_id(:key => self.id).sort_by{|p| p.date}.reverse
   end
   
   def time_since

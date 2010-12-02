@@ -7,6 +7,7 @@ class Topic < CouchRest::ExtendedDocument
   property :creator_id
   property :date, :default => Proc.new{Time.now.to_i}
   property :permalink
+  view_by :permalink
   
   def topic
     self
@@ -16,7 +17,7 @@ class Topic < CouchRest::ExtendedDocument
   end
   
   def children
-    Post.all.find_all{|p| p.parent_id == self.id}.sort_by{|p| p.date}.reverse
+    Post.by_parent_id(:key => self.id).sort_by{|p| p.date}.reverse
   end
   def time_since
     fuzzy_time_since(Time.at(self.date))
@@ -25,6 +26,6 @@ class Topic < CouchRest::ExtendedDocument
   save_callback :before, :set_permalink
   
   def set_permalink
-    self.permalink = generate_permalink(self.title)
+    self.permalink = generate_permalink(self, self.title)
   end
 end

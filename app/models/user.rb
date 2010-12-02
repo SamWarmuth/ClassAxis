@@ -3,10 +3,12 @@ class User < CouchRest::ExtendedDocument
   
   property :name
   property :email
-  property :permalink
   property :date, :default => Proc.new{Time.now.to_i}
   property :calendar_id
+  property :permalink
+  view_by :permalink
   
+
   property :is_admin, :default => false
   property :broadcast_ids, :default => []
   

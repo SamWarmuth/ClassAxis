@@ -12,6 +12,7 @@ class Event < CouchRest::ExtendedDocument
   
   property :attendee_ids, :default => []
   property :permalink
+  view_by :permalink
   
   
   save_callback :before, :set_permalink
@@ -25,6 +26,6 @@ class Event < CouchRest::ExtendedDocument
   end
   
   def set_permalink
-    self.permalink = generate_permalink(self.name)
+    self.permalink = generate_permalink(self, self.name)
   end
 end
