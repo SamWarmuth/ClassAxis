@@ -24,16 +24,16 @@ class User < CouchRest::ExtendedDocument
     Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
   end
   def messages
-    Message.all.find_all{|m| m.receiver_id == self.id}.sort_by{|m| m.date}
+    Message.by_receiver_id(:key => self.id).sort_by{|m| m.date}
   end
   def sent_messages
-    Message.all.find_all{|m| m.sender_id == self.id}.sort_by{|m| m.date}
+    Message.by_sender_id(:key => self.id).sort_by{|m| m.date}
   end
   def topics
-    Topic.all.find_all{|t| t.creator_id == self.id}.sort_by{|t| t.date}
+    Topic.by_creator_id(:key => self.id).sort_by{|t| t.date}
   end
   def posts
-    Post.all.find_all{|t| t.creator_id == self.id}.sort_by{|p| p.date}
+    Post.by_creator_id(:key => self.id).sort_by{|p| p.date}
   end
   def discussions
     self.posts.map{|p| p.topic}.uniq.sort_by{|t| t.date}

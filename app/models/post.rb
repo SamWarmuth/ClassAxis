@@ -2,6 +2,8 @@ class Post < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
 
   property :creator_id
+  view_by :creator_id
+  
   property :parent_id
   property :topic_id
   

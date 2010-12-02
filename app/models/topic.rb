@@ -4,8 +4,12 @@ class Topic < CouchRest::ExtendedDocument
   property :title
   property :content, :default => ""
   property :tags, :default => []
+  
   property :creator_id
+  view_by :creator_id
+  
   property :date, :default => Proc.new{Time.now.to_i}
+  
   property :permalink
   view_by :permalink
   
