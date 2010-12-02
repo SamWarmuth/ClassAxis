@@ -6,7 +6,7 @@
     .roundtab.week Week
 .box{:style => "padding: 0 0 15px 2%"}
   .month-calendar
-    .header-cell Sun
+    .header-cell Sun #{@events.count}
     .header-cell Mon
     .header-cell Tues
     .header-cell Wed
@@ -14,6 +14,7 @@
     .header-cell Fri
     .header-cell Sat
     -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
+    -day_int = day.to_i
     -day -= (day.wday + 1) * (60*60*24)
     -35.times do |i|
       -day += 60*60*24

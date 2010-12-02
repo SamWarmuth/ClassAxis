@@ -22,12 +22,10 @@
       
 %br.cl
 
-%script{:src => "http://js.pusherapp.com/1.6/pusher.min.js", :type => "text/javascript"}
-
 :javascript
   $(document).ready(function(){
-    var server = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
-    server.bind('addPost', function(data) {
+    pusher = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
+    pusher.bind('addPost', function(data) {
       addPost(data.parentID, data.content);
     });
     $(".colored-box").live("click", function(){
@@ -51,5 +49,5 @@
   });
   
   function addPost(parentID, content){
-    $("#"+parentID).after("<div class='indent'>"+content+"</div>");
+    $("<div>"+content+"</div>").hide().insertAfter("#"+parentID).fadeIn(300);
   }

@@ -352,8 +352,10 @@ class Main
     @post.creator_id = @user.id
     @post.save
     @post.permalink = generate_permalink(@post.id)
-    @post.save    
-    Thread.new{Pusher[@topic.id].trigger('addPost', {:parentID => @parent.id, :content => (haml :post, :layout => false)})}
+    @post.save
+    content = haml :post, :layout => false
+    content = "<div class='indent'>" + content + "</div>" if @parent.id != @topic.id
+    Thread.new{Pusher[@topic.id].trigger('addPost', {:parentID => @parent.id, :content => content})}
     
     return 200
   end
