@@ -18,7 +18,9 @@
           %a{:href => "/", :style => "text-decoration: none;"}
             - time = Time.now
             %img{:style => "width: 11px; height: 11px; position: relative; top: 1px;", :src => "/img/asterisk_orange.png"}
-            %strong Class Axis (#{$current_users.size})
+            %strong Class Axis
+            &nbsp;&nbsp;
+            %small{:style => 'color: #444' } #{$current_users.size}
         -if @user
           %p
             %strong= @user.name || @user.email
