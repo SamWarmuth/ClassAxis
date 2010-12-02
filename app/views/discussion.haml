@@ -15,7 +15,7 @@
         = @topic.content
         %form.response{:autocomplete => "off", :style => "display: none;"}
           %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
-          %input.content{:type => "text", :size => 30, :name => 'content'}
+          %input.content{:type => "text", :style => "width: 70%", :name => 'content'}
           %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
       -@topic.children.each do |@post|
         = haml :post
