@@ -32,6 +32,23 @@ class Main
       
       return true
     end
+    
+    def events_by_visible_month(events, date)
+      #returns all events that will be visible date's month view
+      day = date - date.mday.days
+      day = Time.parse(date.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
+      day -= (day.wday + 1).days
+    end
+    
+    def events_by_day(events, date)
+      #returns all events that are on the same day as date
+    end
+    
+    def events_by_hour(events, date)
+      #returns all events that are between date and date + 1 hour
+      
+    end
+
 
     # Your helpers go here. You can also create another file in app/helpers with the same format.
     # All helpers defined here will be available across all the application.

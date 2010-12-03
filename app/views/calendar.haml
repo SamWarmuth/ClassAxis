@@ -13,10 +13,10 @@
     .header-cell Thurs
     .header-cell Fri
     .header-cell Sat
-    -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
-    -day -= (day.wday + 1) * (60*60*24)
+    -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 2.hours #safeguard against daylight savings time
+    -day -= (day.wday + 1).days
     -35.times do |i|
-      -day += 60*60*24
+      -day += 1.day
       -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
       -format += " ul" if i == 0
       -format += " ur" if i == 6
@@ -36,7 +36,7 @@
     .header-cell Thurs
     .header-cell Fri
     .header-cell Sat
-    -days = (0..6).map{|d| Time.now + d*60*60*24}
+    -days = (0..6).map{|d| Time.now + d.days}
     -(7 - Time.now.wday).times{days.push days.shift} #rotate array to correct position
     -days.each_with_index do |day, i|
       -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")

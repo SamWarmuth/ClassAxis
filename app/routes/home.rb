@@ -222,13 +222,13 @@ class Main
   
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'
-    response['Expires'] = (Time.now + 60*60*24*356*3).httpdate
+    response['Expires'] = (Time.now + 3.years).httpdate
     sass :style
   end
   
   get "/css/jqui.css" do
     content_type 'text/css', :charset => 'utf-8'
-    response['Expires'] = (Time.now + 60*60*24*356*3).httpdate
+    response['Expires'] = (Time.now + 3.years).httpdate
     sass :jqui
   end
   

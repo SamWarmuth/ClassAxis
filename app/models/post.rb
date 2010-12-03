@@ -44,13 +44,13 @@ end
 
 def fuzzy_time_since(time)
   since = Time.now - time
-  if since < 80
+  if since < 80.seconds
     return since.to_i.to_s + " seconds ago"
-  elsif since < 60*60
-    minutes = (since/60).to_i
+  elsif since < 1.hour
+    minutes = (since/1.minute).to_i
     return "#{minutes} minute#{"s" unless minutes == 1} ago"
-  elsif since < (60*60*12)
-    hours = (since/(60*60)).to_i
+  elsif since < (12.hours)
+    hours = (since/(1.hour)).to_i
     
     return "#{hours} hour#{"s" unless hours == 1} ago"
   else
