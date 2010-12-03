@@ -35,9 +35,17 @@ class Main
     
     def events_by_visible_month(events, date)
       #returns all events that will be visible date's month view
-      day = date - date.mday.days
-      day = Time.parse(date.mon.to_s + "/" + Time.now.year.to_s) + 60*60*2 #add two hours to safeguard against daylight savings time
-      day -= (day.wday + 1).days
+      
+      start_date = (date.beginning_of_month.beginning_of_week).to_i
+      end_date = (start_date + 35.days).to_i
+      return events.find_all{|e| e.date > start_date && e.date < end_date}
+    end
+    
+    def events_by_week(events, date)
+      #returns all events within a given week
+      start_date = (date.beginning_of_week).to_i
+      end_date = (start_date + 7.days).to_i
+      return events.find_all{|e| e.date > start_date && e.date < end_date}
     end
     
     def events_by_day(events, date)

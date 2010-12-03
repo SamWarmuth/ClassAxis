@@ -4,20 +4,20 @@
     .roundtab.list &nbsp;List&nbsp;
     .roundtab.month.toggled Month
     .roundtab.week Week
+-@events = events_by_visible_month(@events, Time.now)
 .box{:style => "padding: 0 0 15px 2%"}
   .month-calendar
-    .header-cell Sun #{@events.count}
     .header-cell Mon
     .header-cell Tues
     .header-cell Wed
     .header-cell Thurs
     .header-cell Fri
     .header-cell Sat
-    -day = Time.parse(Time.now.mon.to_s + "/" + Time.now.year.to_s) + 2.hours #safeguard against daylight savings time
-    -day -= (day.wday + 1).days
+    .header-cell Sun
+    -day = Time.now.beginning_of_month.beginning_of_week - 1.day
     -35.times do |i|
       -day += 1.day
-      -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
+      -format = (day.mon == Time.now.mon ? (day == Time.now.midnight ? "today" : "") : "lighter")
       -format += " ul" if i == 0
       -format += " ur" if i == 6
       -format += " lr" if i == 34
@@ -26,7 +26,7 @@
       .cell{:class => format}
         %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
         .number= day.day
-        -@events.find_all{|e| d = Time.at(e.date);  d.year == day.year && d.yday == day.yday}.each do |event|
+        -@events.find_all{|e| Time.at(e.date).midnight == day}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
   .week-calendar{:style => "display: none;"}
     .header-cell Sun
@@ -36,16 +36,19 @@
     .header-cell Thurs
     .header-cell Fri
     .header-cell Sat
-    -days = (0..6).map{|d| Time.now + d.days}
-    -(7 - Time.now.wday).times{days.push days.shift} #rotate array to correct position
-    -days.each_with_index do |day, i|
-      -format = (day.mon == Time.now.mon ? (day.yday == Time.now.yday ? "today" : "") : "lighter")
+    -events_this_week = events_by_week(@events, Time.now)
+    
+    
+    -day = Time.now.beginning_of_week - 1.day
+    -7.times do |i|
+      -day += 1.day
+      -format = (day.mon == Time.now.mon ? (day == Time.now.midnight ? "today" : "") : "lighter")
       -format += " ul ll" if i == 0
       -format += " ur lr" if i == 6
       
       .cell.week{:class => format}
         .number= day.day
-        -@events.find_all{|e| Time.at(e.date).year == day.year && Time.at(e.date).yday == day.yday}.each do |event|
+        -events_this_week.find_all{|e| Time.at(e.date).midnight == day}.each do |event|
           %a.event{:href => "/event/#{event.permalink}"}= event.name
   .list-calendar{:style => "display: none; padding: 10px;"}
     -if @events.empty?
