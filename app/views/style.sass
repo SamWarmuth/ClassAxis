@@ -1329,20 +1329,24 @@ html body *
   height: 15px
   position: relative
   font-weight: bold
+  &.week
+    width: 13%
+  
 .cell
   position: relative
   float: left
   margin: 1px 1px
-  background: #6CF
+  background: #4AF
   padding: 0
   width: 13.75%
-  height: 50px
+  height: 75px
   position: relative
   border-radius: 0
   overflow: hidden
   font-size: 10px
   &.week
-    height: 250px
+    width: 13%
+    height: auto
   &.ll
     border-bottom-left-radius: 7px
   &.lr
@@ -1352,34 +1356,45 @@ html body *
   &.ul
     border-top-left-radius: 7px
   .event
-    margin-left: 6px
-    position: relative
-    top: 20px
+    margin-left: 5px
     color: #fff
     font-weight: bold
     &:hover
       color: #fff
   .number
-    position: absolute
+    margin-left: 5px
     font-weight: bold
-    color: #19f
+    color: #08f
     font-size: 2em
-    top: -5px
-    left: 4px
   &.lighter
     background-color: #DDD
     color: #fff
     .number
       color: #FFF
   &.today
-    background-color: #19f
+    background-color: #08f
     .number
       color: #fff
   &:hover
-    background-color: #4AF
+    background-color: #39F
     cursor: pointer
     .number
       color: #fff
+  .time-period
+    padding: 5px
+    margin: 0
+    width: 100%
+    height: 30px
+    background: none
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5)
+    &.label
+      padding: 5px 0
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15)
+      
+      
+    &.last
+      border-bottom: none
+      
       
       
 .badge
