@@ -14,3 +14,4 @@ couchrest 0.33 git://github.com/couchrest/couchrest.git
 json git://github.com/genki/json.git
 kramdown git://github.com/gettalong/kramdown.git
 pusher git://github.com/newbamboo/pusher-gem.git
+activesupport 2.3.8
