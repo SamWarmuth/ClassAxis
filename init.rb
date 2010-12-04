@@ -14,7 +14,7 @@ require "haml"
 require "sass"
 require "json"
 require "pusher"
-require 'active_support'
+require "activesupport"
 
 class Main < Monk::Glue
   set :app_file, __FILE__
