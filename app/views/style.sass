@@ -1344,9 +1344,6 @@ html body *
   border-radius: 0
   overflow: hidden
   font-size: 10px
-  &.week
-    width: 13%
-    height: auto
   &.ll
     border-bottom-left-radius: 7px
   &.lr
@@ -1380,21 +1377,65 @@ html body *
     cursor: pointer
     .number
       color: #fff
+      
+      
+.week-column
+  position: relative
+  float: left
+  margin: 1px 1px
+  padding: 0
+  width: 13%
+  height: auto
+  position: relative
+  border-radius: 0
+  overflow: hidden
+  font-size: 10px
+  .event
+    margin-left: 5px
+    color: #fff
+    font-weight: bold
+    &:hover
+      color: #fff
+  .number
+    margin-left: 5px
+    font-weight: bold
+    color: #08f
+    font-size: 2em
+  &.lighter
+    background-color: #DDD
+    color: #fff
+    .number
+      color: #FFF
   .time-period
-    padding: 5px
+    padding: 0
     margin: 0
     width: 100%
-    height: 30px
+    height: 40px
     background: none
     border-bottom: 1px solid rgba(255, 255, 255, 0.5)
+    overflow: auto
+    background-color: #DDD
+    color: #fff
+    &.occupied
+      background-color: #08f
+      color: #fff
     &.label
-      padding: 5px 0
+      background: none
+      color: #333
       border-bottom: 1px solid rgba(0, 0, 0, 0.15)
-      
-      
+    &.first
+      border-top-left-radius: 7px
+      border-top-right-radius: 7px
     &.last
       border-bottom: none
-      
+      border-bottom-left-radius: 7px
+      border-bottom-right-radius: 7px
+    &:hover:not(.label)
+      background-color: #39F
+      cursor: pointer
+      .number
+        color: #fff
+    
       
       
 .badge

@@ -5,7 +5,7 @@
     .roundtab.month Month
     .roundtab.week.toggled Week
 -@events = events_by_visible_month(@events, Time.now)
-.box{:style => "padding: 0 0 15px 2%"}
+.box{:style => "padding: 0 0 10px 2%"}
   .month-calendar{:style => "display: none;"}
     .header-cell Mon
     .header-cell Tues
@@ -35,30 +35,33 @@
   .week-calendar{:style => "display: block;"}
     -start_date = Time.now.beginning_of_week
     .scroll-width{:style => "margin-right: 15px; padding: 0"}
-      .header-cell{:style => "width: 5%"}
+      .header-cell{:style => "width: 5.2%"}
       -7.times do |i|
-        .header-cell.week{:style => "height: 25px"}= (start_date + i.days).strftime("%A <br/> %b %e")
+        .header-cell.week{:style => "height: 35px; border-bottom: 3px solid #aaa; margin-bottom: 0;"}= (start_date + i.days).strftime("%A <br/> %b %e")
     
-    .week-scroller{:style => "height: 400px; overflow: auto; width: 100%; margin: 0; padding: 10px 0"}
+    .week-scroller{:style => "height: 350px; overflow: auto; width: 100%; margin: 0; padding: 0 0"}
       -events_this_week = events_by_week(@events, Time.now)    
-      .cell.week{:style => "width: 5.2%; background: none;"}
+      .week-column{:style => "width: 5.2%; background: none;"}
         -24.times do |hour|
           .time-period.label{:class => ("last" if hour == 23)}
-            %div{:style => "font-size: 1.2em; width: 90%; text-align: right; margin: 5px 0 0 0"}= (start_date + hour.hours).strftime("%l%p").downcase
+            %div{:style => "font-size: 1.2em; width: 90%; text-align: right; margin: 8px 0 0 0"}= (start_date + hour.hours).strftime("%l %p").downcase
           
       -7.times do |i|
         -day = start_date + i.days
-        -format = (day.mon == Time.now.mon ? (day == Time.now.midnight ? "today" : "") : "lighter")
+        -format = ""
         -format += " ul ll" if i == 0
         -format += " ur lr" if i == 6
         -events_today = events_this_week.find_all{|e| Time.at(e.date).midnight == day}
-        .cell.week{:class => format}
+        .week-column{:class => format}
           -24.times do |hour|
-            .time-period{:class => ("last" if hour == 23)}
-              -events_today.find_all{|e| Time.at(e.date).hour == hour}.each do |event|
+            -events_this_hour = events_today.find_all{|e| Time.at(e.date).hour == hour}
+            .time-period{:class => (events_this_hour.empty? ? "" : "occupied") + (hour == 23 ? " last" : "") + (hour == 0 ? " first" : "")}
+              -events_this_hour.each do |event|
                 %a.event{:href => "/event/#{event.permalink}"}
                   = event.name
                 %br
+              %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}&hour=#{hour.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
+              
   .list-calendar{:style => "display: none; padding: 10px;"}
     -if @events.empty?
       %p
@@ -93,4 +96,5 @@
         $(".list-calendar").show();
       }
     });
+    $(".week-scroller").attr("scrollTop",258);
   });

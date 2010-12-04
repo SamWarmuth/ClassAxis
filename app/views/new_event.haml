@@ -21,7 +21,12 @@
           %input.datepicker{:type => "text", :name => "date", :style => "width: 15%;", :value => (params[:day] ? Time.at(params[:day].to_i).strftime("%m/%d/%y") : "")}
         .row
           %label Time (hh:mm AM/PM)
-          %input{:type => "text", :name => "time", :style => "width: 15%"}
+          -if params[:hour]
+            -hour = (params[:hour].to_i - 1)%12 + 1
+            -hour = hour.to_s + ":00 " + (params[:hour].to_i < 12 ? "am" : "pm")
+          -else
+            -hour = ""
+          %input{:type => "text", :name => "time", :style => "width: 15%", :value => hour}
 
         .row
           %label Description
