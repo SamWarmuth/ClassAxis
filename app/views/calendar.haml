@@ -61,23 +61,23 @@
                 %br
               %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}&hour=#{hour.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
               
-  .list-calendar{:style => "display: block; padding: 10px;"}
+  .list-calendar{:style => "display: block; padding: 10px; background: #fff; -webkit-column-width: 140px; -webkit-column-gap: 5px;-moz-column-width: 140px; -moz-column-gap: 5px; min-height: 220px"}
     -if @events.empty?
       %p
         No Events.
     -else
       -events_by_day(@events).sort.each do |date, events|
-        .calendar-page{:style => "display: inline-block; width: 150px; margin: 5px;"}
-          .date{:style => "background: #FF2700; color: white; font-size: 1.5em; text-align: center; border-radius: 8px 8px 0 0; border: 4px solid #bb0700; border-bottom: none;"}
+        .calendar-page{:style => "display: inline-block; width: 139px; margin: 5px;"}
+          .date{:style => "background: #FF2700; color: white; font-size: 1.5em; text-align: center; border-radius: 8px 8px 0 0; border: 4px solid #cc1700; border-bottom: none;"}
             %b= Time.at(date).strftime("%b %d")
-          .event-info{:style => "border: 2px solid #ccc; border-top: none; padding: 5px; border-radius: 0 0 8px 8px;"}
+          .event-info{:style => "border: 4px solid #ccc; border-top: none; padding: 5px; border-radius: 0 0 8px 8px; background: #fff;"}
             -events.each do |event|
               %div
-                =Time.at(event.date).strftime("%l%p").downcase
+                %div{:style => 'display: inline-block; width: 30px'}= Time.at(event.date).strftime("%l%p").downcase
                 %a{:href => "/event/#{event.permalink}"}
                   = event.name
-    %a{:href => "/new-event?calendar_id=#{@calendar.id}", :style => "display: block; margin-top: 20px;"}
-      .awesome.red.medium New Event
+    -#%a{:href => "/new-event?calendar_id=#{@calendar.id}", :style => "margin: auto 15px;"}
+      -#.awesome.red.large New Event
   %br.cl
   
 :javascript
