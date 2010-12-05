@@ -651,7 +651,8 @@ html[xmlns] #nav
       opacity: 1
       
 .indent
-  margin-left: 5%
+  padding-left: 5%
+  border-left: 1px dotted #ddf
 
   
 
@@ -1363,15 +1364,26 @@ html body *
     font-weight: bold
     color: #08f
     font-size: 2em
+  .event-time
+    color: #ddd
+    font-weight: bold
+    width: 21px
+    margin-left: 3px
+    display: inline-block
+  
   &.lighter
     background-color: #DDD
     color: #fff
     .number
       color: #FFF
+    .event-time
+      color: #fff
   &.today
     background-color: #08f
     .number
       color: #fff
+    .event-time
+      color: #ccc
   &:hover
     background-color: #39F
     cursor: pointer

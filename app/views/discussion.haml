@@ -10,7 +10,7 @@
       -@topic.tags.each do |tag|  
         .badge.blue= tag
       
-    .box          
+    .box
       .colored-box.brown.head{:id => @topic.id}
         = @topic.content
         %form.response{:autocomplete => "off", :style => "display: none;"}
@@ -24,10 +24,6 @@
 
 :javascript
   $(document).ready(function(){
-    pusher = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
-    pusher.bind('addPost', function(data) {
-      addPost(data.parentID, data.content);
-    });
     $(".colored-box").live("click", function(){
       $(".response").hide();
       $(this).children(".response").show();
@@ -44,10 +40,12 @@
     $('.reply').live("click", function(){
       return true;
     });
-    
-    
   });
   
   function addPost(parentID, content){
     $("<div>"+content+"</div>").hide().insertAfter("#"+parentID).fadeIn(300);
   }
+  pusher = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
+  pusher.bind('addPost', function(data) {
+    addPost(data.parentID, data.content);
+  });

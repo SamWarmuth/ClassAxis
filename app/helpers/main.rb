@@ -33,7 +33,7 @@ class Main
       return true
     end
     
-    def events_by_visible_month(events, date)
+    def events_from_visible_month(events, date)
       #returns all events that will be visible date's month view
       
       start_date = (date.beginning_of_month.beginning_of_week).to_i
@@ -41,20 +41,33 @@ class Main
       return events.find_all{|e| e.date > start_date && e.date < end_date}
     end
     
-    def events_by_week(events, date)
+    def events_from_week(events, date)
       #returns all events within a given week
       start_date = (date.beginning_of_week).to_i
       end_date = (start_date + 7.days).to_i
       return events.find_all{|e| e.date > start_date && e.date < end_date}
     end
     
-    def events_by_day(events, date)
+    def events_from_day(events, date)
       #returns all events that are on the same day as date
     end
     
-    def events_by_hour(events, date)
+    def events_from_hour(events, date)
       #returns all events that are between date and date + 1 hour
       
+    end
+    
+    def events_by_day(events)
+      #returns events split up into days
+      #dates[day] = events on that day
+      
+      dates = {}
+      events.each do |event|
+        day = Time.at(event.date).midnight.to_i
+        dates[day] ||= []
+        dates[day] << event
+      end
+      return dates
     end
 
 

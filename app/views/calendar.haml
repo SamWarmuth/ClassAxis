@@ -1,10 +1,10 @@
 .box-header{:style => "text-align: center; position: relative;"}
   =Time.now.strftime('%B')
   .calendartype{:style => "position: absolute; right: 15px; top: 10px; float: right"}
-    .roundtab.list &nbsp;List&nbsp;
+    .roundtab.list.toggled &nbsp;List&nbsp;
     .roundtab.month Month
-    .roundtab.week.toggled Week
--@events = events_by_visible_month(@events, Time.now)
+    .roundtab.week Week
+-@events = events_from_visible_month(@events, Time.now)
 .box{:style => "padding: 0 0 0 0"}
   .month-calendar{:style => "display: none; padding-left: 2%;"}
     .header-cell Mon
@@ -26,13 +26,12 @@
       .cell{:class => format}
         .number= day.day
         -@events.find_all{|e| Time.at(e.date).midnight == day}.each do |event|
-          %a.event{:href => "/event/#{event.permalink}"}
-            %div{:style => "color: #05C; font-weight: bold; width: 27px; display: inline-block;"}= Time.at(event.date).strftime("%l%p").downcase
-            = event.name
+          .event-time= Time.at(event.date).strftime("%l%p").downcase
+          %a.event{:href => "/event/#{event.permalink}"}= event.name
           %br
         %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
     %br.cl
-  .week-calendar{:style => "display: block;"}
+  .week-calendar{:style => "display: none;"}
     -start_date = Time.now.beginning_of_week
     .scroll-width{:style => "margin-right: 15px; padding: 0"}
       .header-cell{:style => "width: 5%"}
@@ -40,7 +39,7 @@
         .header-cell.week{:style => "height: 35px; border-bottom: 3px solid #aaa; margin-bottom: 0;"}= (start_date + i.days).strftime("%A <br/> %b %e")
     
     .week-scroller{:style => "height: 365px; overflow: auto; width: 100%; margin: 0; padding: 0"}
-      -events_this_week = events_by_week(@events, Time.now)    
+      -events_this_week = events_from_week(@events, Time.now)    
       .week-column{:style => "width: 5%; background: none;"}
         -24.times do |hour|
           .time-period.label{:class => ("last" if hour == 23)}
@@ -62,18 +61,23 @@
                 %br
               %a{:href => "/new-event?calendar_id=#{@calendar.id}&day=#{day.to_i}&hour=#{hour.to_i}", :style => "position: absolute; display: block; width: 100%; height: 100%;"}
               
-  .list-calendar{:style => "display: none; padding: 10px;"}
+  .list-calendar{:style => "display: block; padding: 10px;"}
     -if @events.empty?
       %p
         No Events.
     -else
-      -@events.each do |event|
-        %p
-          %b= Time.at(event.date).strftime("%b %d")
-          %a{:href => "/event/#{event.permalink}"}
-            = event.name
+      -events_by_day(@events).sort.each do |date, events|
+        .calendar-page{:style => "display: inline-block; width: 150px; margin: 5px;"}
+          .date{:style => "background: #FF2700; color: white; font-size: 1.5em; text-align: center; border-radius: 8px 8px 0 0; border: 4px solid #bb0700; border-bottom: none;"}
+            %b= Time.at(date).strftime("%b %d")
+          .event-info{:style => "border: 2px solid #ccc; border-top: none; padding: 5px; border-radius: 0 0 8px 8px;"}
+            -events.each do |event|
+              %div
+                =Time.at(event.date).strftime("%l%p").downcase
+                %a{:href => "/event/#{event.permalink}"}
+                  = event.name
     %a{:href => "/new-event?calendar_id=#{@calendar.id}", :style => "display: block; margin-top: 20px;"}
-      .awesome.green.medium New Event
+      .awesome.red.medium New Event
   %br.cl
   
 :javascript
@@ -90,6 +94,7 @@
         $(".month-calendar").hide();
         $(".list-calendar").hide();
         $(".week-calendar").show();
+        $(".week-scroller").attr("scrollTop",370);
       } else {
         $(".month-calendar").hide();
         $(".week-calendar").hide();
