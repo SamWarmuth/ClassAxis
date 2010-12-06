@@ -1,0 +1,40 @@
+#page-header
+  %h1 Post
+.container_12
+  .grid_12
+    .box-header
+      %b= Post
+      
+      
+    .box
+      = haml :post
+      
+%br.cl
+
+:javascript
+  $(document).ready(function(){
+    $(".colored-box").live("click", function(){
+      $(".response").hide();
+      $(this).children(".response").show();
+      $(this).find(".content").focus();
+    });
+    
+    $(".response").live("submit", function(){
+      var formData = $(this).serialize();
+      $(this).hide();
+      $.post("/ajax/add-post", formData);
+      return false;
+    });
+    
+    $('.reply').live("click", function(){
+      return true;
+    });
+  });
+  
+  function addPost(parentID, content){
+    $("<div>"+content+"</div>").hide().insertAfter("#"+parentID).fadeIn(300);
+  }
+  pusher = new Pusher('84d6245235e5b198d8aa', '#{@post.topic.id}');
+  pusher.bind('addPost', function(data) {
+    addPost(data.parentID, data.content);
+  });

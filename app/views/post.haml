@@ -3,7 +3,7 @@
     %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
     %small
       = @post.time_since
-      perma
+    %a{:href => "/post/#{@post.permalink}"} &infin;
   =@post.content
   %form.response{:style => "display: none;"}
     %input{:type => "hidden", :name => 'parent_id', :value => @post.id}

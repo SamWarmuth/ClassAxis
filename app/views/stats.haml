@@ -41,5 +41,13 @@
   %li
     -@course = Group.first
     -unless @course.nil?
+      -t = Time.now
       -haml :course, :layout => false
       Course (#{@course.name}): #{Time.now - t} sec
+  %li
+    -@topic = Topic.first
+    -unless @topic.nil?
+      -t = Time.now
+      -haml :discussion, :layout => false
+      -result = Time.now - t
+      Discussion (#{@topic.title}): #{result} sec

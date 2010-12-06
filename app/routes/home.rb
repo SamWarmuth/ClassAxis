@@ -154,7 +154,8 @@ class Main
   
   get "/discussion/:permalink" do
     redirect "/login" unless logged_in?
-    @topic = Topic.all.find{|t| t.permalink == params[:permalink]}
+    @topic = Topic.by_permalink(:key => params[:permalink]).first
+    redirect "/404" if @topic.nil?
     haml :discussion
   end
   
@@ -199,6 +200,13 @@ class Main
     post.save
     
     redirect "/discussion/#{@parent.topic.permalink}"
+  end
+  
+  get "/post/:permalink" do
+    redirect "/login" unless logged_in?
+    @post = Post.by_permalink(:key => params[:permalink]).first
+    redirect "/404" if @post.nil?
+    haml :posts
   end
   
   get "/user/:permalink" do
