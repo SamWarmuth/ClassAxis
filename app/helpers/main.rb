@@ -68,13 +68,11 @@ class Main
       #returns events split up into days
       #dates[day] = events on that day
       
-      dates = {}
-      events.each do |event|
+      return events.each_with_object({}) do |event, dates|
         day = Time.at(event.date).midnight.to_i
         dates[day] ||= []
         dates[day] << event
       end
-      return dates
     end
 
 

@@ -12,13 +12,13 @@ class Main
   end
   get "/group/:permalink" do
     redirect "/" unless logged_in?
-    @course = Group.all.find{|c| c.permalink == params[:permalink]}
+    @course = Group.by_permalink(:key => params[:permalink]).first
     haml :course
   end
   
   get "/group/:permalink/join" do
     redirect "/login" unless logged_in?
-    @group = Group.all.find{|c| c.permalink == params[:permalink]}
+    @group = Group.by_permalink(:key => params[:permalink]).first
     redirect "/group/#{params[:permalink]}" if @group.user_ids.include?(@user.id)
     @group.user_ids << @user.id
     @group.save
@@ -34,7 +34,7 @@ class Main
     redirect "/login" unless logged_in?
     return "Need a name!" if params[:name].empty?
     if params[:group_id]
-      group = Group.find(params[:group_id])
+      group = Group.get(params[:group_id])
       return "error!" if group.nil?
     else
       group = Group.new
@@ -59,13 +59,13 @@ class Main
   
   get "/course/:permalink" do
     redirect "/login" unless logged_in?
-    @course = Group.all.find{|c| c.permalink == params[:permalink]}
+    @course = Group.by_permalink(:key => params[:permalink]).first
     haml :course
   end
   
   get "/course/:permalink/join" do
     redirect "/login" unless logged_in?
-    @course = Group.all.find{|c| c.permalink == params[:permalink]}
+    @course = Group.by_permalink(:key => params[:permalink]).first
     unless @course.user_ids.include?(@user.id)
       @course.user_ids << @user.id
       @course.save
@@ -81,7 +81,7 @@ class Main
   post "/edit-course" do
     redirect "/login" unless logged_in?
     if params[:course_id]
-      course = Group.find(params[:course_id])
+      course = Group.get(params[:course_id])
       return "error!" if course.nil?
     else
       course = Group.new
@@ -104,13 +104,14 @@ class Main
   
   get "/event/:permalink" do
     redirect "/login" unless logged_in?
-    @event = Event.all.find{|e| e.permalink == params[:permalink]}
+    @event = Event.by_permalink(:key => params[:permalink]).first
+    
     haml :event
   end
   
   get "/event/:permalink/attend" do
     redirect "/login" unless logged_in?
-    @event = Event.all.find{|e| e.permalink == params[:permalink]}
+    @event = Event.by_permalink(:key => params[:permalink]).first
     unless @event.attendee_ids.include?(@user.id)
       @event.attendee_ids << @user.id
       @event.save
@@ -211,7 +212,7 @@ class Main
   
   get "/user/:permalink" do
     redirect "/login" unless logged_in?
-    @selected_user = User.all.find{|u| u.permalink == params[:permalink]}
+    @selected_user = User.by_permalink(:key => params[:permalink]).first
     haml :user
   end
   

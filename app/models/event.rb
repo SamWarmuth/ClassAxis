@@ -2,10 +2,12 @@ class Event < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
 
   property :name
-  property :date
   property :location
   property :description
   property :tags, :default => []
+  
+  property :date
+  view_by :date
   
   property :repeat, :default => false
   
