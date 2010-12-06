@@ -41,6 +41,13 @@ class Main
       return events.find_all{|e| e.date > start_date && e.date < end_date}
     end
     
+    def events_from_month(events, date)
+      #returns all events that will be visible date's month view
+      
+      start_date = (date.beginning_of_month)
+      return events.find_all{|e| Time.at(e.date).beginning_of_month == start_date}
+    end
+    
     def events_from_week(events, date)
       #returns all events within a given week
       start_date = (date.beginning_of_week).to_i

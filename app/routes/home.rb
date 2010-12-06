@@ -191,7 +191,7 @@ class Main
     redirect "/404" if @parent.nil?
     
     post = Post.new
-    post.content = params[:content]
+    post.content = params[:content].gsub(/[\r]?\n/, '<br/>')
     post.parent_id = @parent.id
     post.topic_id = @parent.topic.id
     post.creator_id = @user.id
@@ -355,7 +355,7 @@ class Main
     @topic = @parent.topic
     
     @post = Post.new
-    @post.content = params[:content]
+    @post.content = params[:content].gsub(/[\r]?\n/, '<br/>')
     @post.parent_id = @parent.id
     @post.topic_id = @topic.id
     @post.creator_id = @user.id

@@ -13,10 +13,11 @@
     .box
       .colored-box.brown.head{:id => @topic.id}
         = @topic.content
-        %form.response{:autocomplete => "off", :style => "display: none;"}
-          %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
-          %input.content{:type => "text", :style => "width: 70%", :name => 'content'}
-          %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
+      %form.indent.response.colored-box.yellow{:autocomplete => "off", :style => "display: none;", :id => "r" + @topic.id}
+        %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
+        %textarea.content{:style => "width: 70%; height: 75px", :name => 'content'}
+        %br
+        %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
       -@topic.children.each do |@post|
         = haml :post
       
@@ -24,9 +25,9 @@
 
 :javascript
   $(document).ready(function(){
-    $(".colored-box").live("click", function(){
+    $(".colored-box:not(.yellow)").live("click", function(){
       $(".response").hide();
-      $(this).children(".response").show();
+      $("#r" + $(this).attr("id")).show();
       $(this).find(".content").focus();
     });
     

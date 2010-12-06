@@ -5,10 +5,11 @@
       = @post.time_since
     %a{:href => "/post/#{@post.permalink}"} &infin;
   =@post.content
-  %form.response{:style => "display: none;"}
-    %input{:type => "hidden", :name => 'parent_id', :value => @post.id}
-    %input.content{:type => "text", :style => "width: 70%", :name => 'content'}
-    %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
 .indent
+  %form.response.colored-box.yellow{:style => "display: none;", :id => "r" + @post.id}
+    %input{:type => "hidden", :name => 'parent_id', :value => @post.id}
+    %textarea.content{:style => "width: 97%; height: 75px", :name => 'content'}
+    %br
+    %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
   -@post.children.each do |@post|
     = haml :post
