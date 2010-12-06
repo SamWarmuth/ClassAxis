@@ -1,0 +1,31 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
+    %link{:href => "/css/style.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/css/jqui.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %title Class Axis
+    %script{:src => "/js/jquery-1.4.2.min.js", :type => "text/javascript"}
+    %script{:src => "/js/jquery-ui-1.8.4.custom.min.js", :type => "text/javascript"}
+    %script{:src => "/js/excanvas.js", :type => "text/javascript"}
+    %script{:src => "/js/visualize.jQuery.js", :type => "text/javascript"}
+    %script{:src => "/js/functions.js", :type => "text/javascript"}
+  %body
+    .welcome-container{:style => "margin: 75px auto 0 auto; width: 700px;  text-shadow: 1px 1px 1px #fff;"}
+      .container_12
+        .grid_12
+          %h1{:style => "text-align: center; font-size: 3em;"} Welcome to ClassAxis.
+        .grid_12{:style => "font-size: 2em; font-weight: bold;"}
+          =(0..2).map{"<br/>"}
+          %ul
+            %li
+              ClassAxis is a way to work on group projects with your classmates.
+            
+            %li ClassAxis helps you with scheduling.
+            %li It's also a great way to have a discussion.
+            %li You can share links, pictures, and documents.
+          
+        .grid_12{:style => "text-align: center"}
+          =(0..3).map{"<br/>"}
+          %a.awesome.green.huge{:style => "font-size: 3em; font-weight: bold;", :href => "/signup"} Join Now
+        
