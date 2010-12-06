@@ -11,7 +11,14 @@
     %script{:src => "/js/visualize.jQuery.js", :type => "text/javascript"}
     %script{:src => "/js/functions.js", :type => "text/javascript"}
   %body
-    .welcome-container{:style => "margin: 75px auto 0 auto; width: 700px;  text-shadow: 1px 1px 1px #fff;"}
+    
+    .welcome-container{:style => "margin: 0 auto 0 auto; width: 700px;  text-shadow: 1px 1px 1px #fff;"}
+      .container_12
+        %br
+        .already-member{:style => 'text-align: right;'}
+          Already a member?
+          %a{:href => '/login'} Login
+          =(0..4).map{"<br/>"}
       .container_12
         .grid_12
           %h1{:style => "text-align: center; font-size: 3em;"} Welcome to ClassAxis.

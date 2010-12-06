@@ -28,7 +28,7 @@
     $(".colored-box:not(.yellow)").live("click", function(){
       $(".response").hide();
       $("#r" + $(this).attr("id")).show();
-      $(this).find(".content").focus();
+      $("#r" + $(this).attr("id")).find(".content").focus();
     });
     
     $(".response").live("submit", function(){
@@ -44,7 +44,7 @@
   });
   
   function addPost(parentID, content){
-    $("<div>"+content+"</div>").hide().insertAfter("#"+parentID).fadeIn(300);
+    $("<div>"+content+"</div>").hide().insertAfter("#r"+parentID).fadeIn(300);
   }
   pusher = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
   pusher.bind('addPost', function(data) {
