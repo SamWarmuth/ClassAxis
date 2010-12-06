@@ -5,6 +5,7 @@
       = @post.time_since
     %a{:href => "/post/#{@post.permalink}"} &infin;
   =@post.content
+  
 .indent
   %form.response.colored-box.yellow{:style => "display: none;", :id => "r" + @post.id}
     %input{:type => "hidden", :name => 'parent_id', :value => @post.id}
