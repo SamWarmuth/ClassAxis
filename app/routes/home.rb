@@ -174,6 +174,7 @@ class Main
     topic.title = params[:title]
     topic.tags = params[:tags].split(" ")
     topic.content = params[:content]
+    topic.permalink = generate_permalink(self, self.title)
     topic.creator_id = @user.id
     topic.save
     redirect "/discussion/#{topic.permalink}"

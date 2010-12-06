@@ -27,9 +27,5 @@ class Topic < CouchRest::ExtendedDocument
     fuzzy_time_since(Time.at(self.date))
   end
   
-  save_callback :before, :set_permalink
-  
-  def set_permalink
-    self.permalink = generate_permalink(self, self.title)
-  end
+
 end
