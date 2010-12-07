@@ -9,6 +9,7 @@ class Topic < CouchRest::ExtendedDocument
   view_by :creator_id
   
   property :date, :default => Proc.new{Time.now.to_i}
+  view_by :date
   
   property :permalink
   view_by :permalink
@@ -27,5 +28,7 @@ class Topic < CouchRest::ExtendedDocument
     fuzzy_time_since(Time.at(self.date))
   end
   
-
+  def self.newest(count)
+    self.by_date(:endkey => Time.now.to_i).reverse[0...count]
+  end
 end

@@ -5,6 +5,8 @@ class User < CouchRest::ExtendedDocument
   
   property :email
   property :date, :default => Proc.new{Time.now.to_i}
+  view_by :date
+  
   property :calendar_id
   
   property :permalink
@@ -63,4 +65,8 @@ class User < CouchRest::ExtendedDocument
   property :salt
   property :challenges
   
+  
+  def self.newest(count)
+    self.by_date(:endkey => Time.now.to_i).reverse[0...count]
+  end
 end

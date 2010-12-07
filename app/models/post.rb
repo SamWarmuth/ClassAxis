@@ -8,6 +8,7 @@ class Post < CouchRest::ExtendedDocument
   property :topic_id
   
   property :date, :default => Proc.new{Time.now.to_i}
+  view_by :date
   
   property :content
   property :permalink
@@ -40,6 +41,10 @@ class Post < CouchRest::ExtendedDocument
   def topic
     Topic.get(self.topic_id)
   end
+  
+  def self.newest(count)
+    self.by_date(:endkey => Time.now.to_i).reverse[0...count]
+  end
 end
 
 def fuzzy_time_since(time)
@@ -54,6 +59,6 @@ def fuzzy_time_since(time)
     
     return "#{hours} hour#{"s" unless hours == 1} ago"
   else
-    return time.strftime("%b %d %l:%M%p")
+    return time.strftime("on %b %d %l:%M%p")
   end
 end

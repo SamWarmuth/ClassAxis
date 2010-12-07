@@ -16,5 +16,4 @@ class Message < CouchRest::ExtendedDocument
   property :previous
   property :next
   
-
 end
