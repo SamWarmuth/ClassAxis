@@ -2,8 +2,6 @@ class User < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
   
   property :name
-  #user.name => the name
-  #user.name = "stuff" => sets name
   
   property :email
   property :date, :default => Proc.new{Time.now.to_i}

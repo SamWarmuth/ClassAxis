@@ -317,7 +317,6 @@ class Main
   end
   
   post "/signup" do
-    #fix permalink name
     redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
     redirect "/signup?error=password" unless params[:password] == params[:password2]
     redirect "/signup?error=empty" if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
