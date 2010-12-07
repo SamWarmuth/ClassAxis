@@ -20,15 +20,15 @@ class Main
     def logged_in?
       return false unless request.cookies.has_key?("user_challenge") && request.cookies.has_key?("user")
       
-      @user = User.get(request.cookies['user'])
-      return false if @user.nil?
+      user = User.get(request.cookies['user'])
+      return false if user.nil?
       
-      @user = nil unless @user.challenges && @user.challenges.include?(request.cookies['user_challenge'])
-      return false if @user.nil?
-      
+      return false unless user.challenges && user.challenges.include?(request.cookies['user_challenge'])
+
+      @user = user
       current_time = Time.now.to_i
       $current_users[@user.id] = current_time
-      $current_users.delete_if{|u_id, time| (time + 5*60) < current_time}
+      $current_users.delete_if{|u_id, time| (time + 5.minutes) < current_time}
       
       return true
     end

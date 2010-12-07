@@ -271,7 +271,6 @@ class Main
   
   post "/login" do
     user = User.all.find{|u| u.email == params[:email].downcase}
-    
     if user && user.valid_password?(params[:password])
       user.challenges ||= []
       user.challenges = user.challenges[0...4]
@@ -288,7 +287,7 @@ class Main
         :path => "/",
         :expires => Time.now + 2**20,
         :httponly => true,
-        :value => user.challenges.last
+        :value => user.challenges.first
       })
       redirect "/"
     else
@@ -318,22 +317,19 @@ class Main
   end
   
   post "/signup" do
-    
+    #fix permalink name
     redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
-    redirect "/signup?error=name" unless User.by_permalink(:key => params[:name]).empty?
     redirect "/signup?error=password" unless params[:password] == params[:password2]
-    if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
-      user = User.new
-      user.name = params[:name]
-      user.email = params[:email].downcase
-      user.set_password(params[:password])
-      user.calendar_id = Calendar.create(:name => user.name).id
-      user.permalink = generate_permalink(user, user.name)
-      user.save
-      redirect "/login?success=created"
-    else
-      redirect "/signup?error=empty"
-    end
+    redirect "/signup?error=empty" if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
+    
+    user = User.new
+    user.name = params[:name]
+    user.email = params[:email].downcase
+    user.set_password(params[:password])
+    user.calendar_id = Calendar.create(:name => user.name).id
+    user.permalink = generate_permalink(user, user.name)
+    user.save
+    redirect "/login?success=created"
   end
   
   get "/stats" do
@@ -375,7 +371,3 @@ class Main
   
 
 end
-
-
-
-
