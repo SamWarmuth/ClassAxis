@@ -56,7 +56,6 @@ def fuzzy_time_since(time)
     return "#{minutes} minute#{"s" unless minutes == 1} ago"
   elsif since < (12.hours)
     hours = (since/(1.hour)).to_i
-    
     return "#{hours} hour#{"s" unless hours == 1} ago"
   else
     return time.strftime("on %b %d %l:%M%p")
