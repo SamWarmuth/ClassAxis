@@ -8,7 +8,7 @@
       -@headlines.each do |object|
         -time = fuzzy_time_since(Time.at(object.date)).capitalize
         -if object.class == Post
-          %img{:src => "/img/icons/small/comment.png"}
+          %img{:src => "/img/icons/small/comment.png", :style => "height: 16px; width: 16px;"}
           = time
           %b= object.creator.name
           said
@@ -16,13 +16,13 @@
           in
           %a{:href => "/discussion/#{object.topic.permalink}"}= object.topic.title
         -if object.class == Topic
-          %img{:src => "/img/icons/small/comment_add.png"}
+          %img{:src => "/img/icons/small/comment_add.png", :style => "height: 16px; width: 16px;"}
           = time
           %b.icon-discussion= object.creator.name
           started a discussion:
           %a{:href => "/discussion/#{object.permalink}"}= object.title
         -if object.class == User
-          %img{:src => "/img/icons/small/user.png"}
+          %img{:src => "/img/icons/small/user.png", :style => "height: 16px; width: 16px;"}
           = time
           %a.icon-discussion{:style => "font-weight: bold;", :href => "/user/#{object.permalink}"}= object.name
           joined ClassAxis!

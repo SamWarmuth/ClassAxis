@@ -1,4 +1,4 @@
-.colored-box.gray{:id => @post.id}
+.colored-box{:id => @post.id, :class => (@new_post ? "green" : "gray")}
   %h3{:style => "color: #444"}
     %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
     %small

@@ -319,7 +319,7 @@ class Main
   post "/signup" do
     redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
     redirect "/signup?error=password" unless params[:password] == params[:password2]
-    redirect "/signup?error=empty" if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
+    redirect "/signup?error=empty" if params[:name].empty? || params[:email].empty? || params[:password].empty?
     
     user = User.new
     user.name = params[:name]
@@ -327,6 +327,7 @@ class Main
     user.set_password(params[:password])
     user.calendar_id = Calendar.create(:name => user.name).id
     user.permalink = generate_permalink(user, user.name)
+    user.broadcast_ids = Broadcast.all.find_all{|b| b.announce_to_new_users == true}.map(&:id)
     user.save
     redirect "/login?success=created"
   end
@@ -362,6 +363,7 @@ class Main
     @post.save
     @post.permalink = generate_permalink(@post, @post.id)
     @post.save
+    @new_post = true #post.haml uses this -- the new post will be yellow.
     content = haml :post, :layout => false
     Thread.new{Pusher[@topic.id].trigger('addPost', {:parentID => @parent.id, :content => content})}
     

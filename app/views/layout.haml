@@ -140,7 +140,7 @@
         #page-content
           -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
             .notification{:class => broadcast.type}
-              = broadcast.content
+              = broadcast.content.gsub("^^name^^", @user.name)
               .close{:id => broadcast.id}
                 //close box style is in style.sass
                 

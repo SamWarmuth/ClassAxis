@@ -7,6 +7,8 @@
       %span{:style => "margin-left: 10px; "}
         %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name
         %small= @topic.time_since
+      .mark-read.awesome.small.green{:style => "float: right;"}
+        Mark posts read
       -@topic.tags.each do |tag|  
         .badge.blue= tag
       
@@ -29,6 +31,10 @@
       $(".response").hide();
       $("#r" + $(this).attr("id")).show();
       $("#r" + $(this).attr("id")).find(".content").focus();
+    });
+    
+    $(".mark-read").click(function(){
+      $(".colored-box.green").removeClass("green").addClass("gray");
     });
     
     

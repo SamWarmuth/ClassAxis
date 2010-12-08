@@ -5,6 +5,8 @@ class Broadcast < CouchRest::ExtendedDocument
   property :type, :default => "info"
   property :content
   
+  property :announce_to_new_users, :default => false
+  
   property :creator_id
   
   def announce
