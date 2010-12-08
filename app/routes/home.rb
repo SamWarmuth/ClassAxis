@@ -219,7 +219,7 @@ class Main
   
   get "/messages" do
     redirect "/login" unless logged_in?
-    haml :messages
+    haml :messages, :layout => false
   end
   
   post "/ajax/mark-messages-read" do
@@ -228,10 +228,10 @@ class Main
     return 200
   end
   
-  post "/new-message" do
-    redirect "/login" unless logged_in?
+  post "/ajax/new-message" do
+    return 403 unless logged_in?
     @selected_user = User.all.find{|u| u.name == params[:name]}
-    redirect "/?error=notfound" if @selected_user.nil?
+    redirect 404 if @selected_user.nil?
     message = Message.new
     message.sender_id = @user.id
     message.receiver_id = @selected_user.id

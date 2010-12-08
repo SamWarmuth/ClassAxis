@@ -26,7 +26,7 @@
             %strong= @user.name || @user.email
             |
             -unread_count = @user.messages.find_all{|m| m.unread == true}.count
-            %a#opener.mark-read.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
+            %a#opener.read-messages.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
             |
             %a{:href => "/settings"} Settings
             |
@@ -86,12 +86,12 @@
           source: users
         });
         
-        $(".mark-read").click(function(){
+        $(".read-messages").click(function(){
           $.post("/ajax/mark-messages-read");
           $(this).text("0 new messages");
         });
         $(".message-form").submit(function(){
-          $.post("/new-message", $(this).serialize());
+          $.post("/ajax/new-message", $(this).serialize());
           $('#dialog').dialog("close");
           return false;
         });
@@ -173,7 +173,8 @@
                 $(this).parent().fadeOut('slow');
                 $.post("/ajax/hide-broadcast/" + $(this).attr("id"));
               });
-          =yield
+          .inner-haml
+            =yield
         
 .footer
   Copyright ©2010 Class Axis
