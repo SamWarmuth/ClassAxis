@@ -61,13 +61,19 @@
               });
               
               $(".mark-read").click(function(){
-                $.post("/ajax/mark-messages-read")
+                $.post("/ajax/mark-messages-read");
+                $(this).text("0 new messages");
+              });
+              
+              $(".message-form").submit(function(){
+                $.post("/new-message", $(this).serialize());
+                return false;
               });
               
             });
             
             
-          %form{:action => "/new-message", :method => "post"}
+          %form.message-form{:action => "/new-message", :method => "post"}
             %h3 New Message
             %fieldset
               %label To
@@ -78,7 +84,7 @@
             %fieldset
               %textarea.textarea{:cols => "55", :name => "message", :rows => "5", :style => "width:97%"}
             %fieldset
-              %input.button.medium.fr{:type => "submit", :value => "Send"}/
+              %input.awesome.blue.medium{:type => "submit", :value => "Send"}/
     #page-wrapper
       .page
         #sidebar

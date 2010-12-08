@@ -122,16 +122,7 @@ class Main
     redirect "/event/#{@event.permalink}"
   end
 
-  get "/messages" do
-    redirect "/login" unless logged_in?
-    haml :messages
-  end
-  
-  post "/ajax/mark-messages-read" do
-    return 403 unless logged_in?
-    @user.messages.each{|m| m.unread = false; m.save}
-    return 200
-  end
+
   
   get "/new-event" do
     redirect "/login" unless logged_in?
@@ -226,6 +217,17 @@ class Main
     haml :user
   end
   
+  get "/messages" do
+    redirect "/login" unless logged_in?
+    haml :messages
+  end
+  
+  post "/ajax/mark-messages-read" do
+    return 403 unless logged_in?
+    @user.messages.each{|m| m.unread = false; m.save}
+    return 200
+  end
+  
   post "/new-message" do
     redirect "/login" unless logged_in?
     @selected_user = User.all.find{|u| u.name == params[:name]}
@@ -236,7 +238,7 @@ class Main
     message.subject = params[:subject]
     message.content = params[:message]
     message.save
-    redirect "/" #this should eventually be an ajax call.
+    return 200 #this should eventually be an ajax call.
   end
   
   get "/css/style.css" do
