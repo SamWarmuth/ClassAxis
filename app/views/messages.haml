@@ -1,28 +1,34 @@
 #page-header
   %h1 Messages
 .container_12
-  %h2 Received
+  
   .grid_12
-    -@user.messages.each do |message|
-      .message{:class => ("new" if message.unread)}
-        %h4
-          = message.subject
-          %small.fr
-            #{Time.at(message.date).strftime("%b %d %l:%M%p")} from
-            -sender = User.get(message.sender_id)
-            %a{:href => "/user/#{sender.permalink}"}= sender.name
-        %p= message.content
+    .box-header
+      %h2 Received
+    .box
+      -@user.messages.each do |message|
+        .message{:class => ("new" if message.unread)}
+          %h4
+            = message.subject
+            %small.fr
+              #{Time.at(message.date).strftime("%b %d %l:%M%p")} from
+              -sender = User.get(message.sender_id)
+              %a{:href => "/user/#{sender.permalink}"}= sender.name
+          %p= message.content
 
-  %h2 Sent
+  
   .grid_12
-    -@user.sent_messages.each do |message|
-      .message
-        %h4
-          = message.subject
-          %small.fr
-            #{Time.at(message.date).strftime("%b %d %l:%M%p")} to
-            -receiver = User.get(message.receiver_id)
-            %a{:href => "/user/#{receiver.permalink}"}= receiver.name
-        %p= message.content
+    .box-header
+      %h2 Sent
+    .box  
+      -@user.sent_messages.each do |message|
+        .message
+          %h4
+            = message.subject
+            %small.fr
+              #{Time.at(message.date).strftime("%b %d %l:%M%p")} to
+              -receiver = User.get(message.receiver_id)
+              %a{:href => "/user/#{receiver.permalink}"}= receiver.name
+          %p= message.content
 %br.cl
      

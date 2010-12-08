@@ -127,6 +127,12 @@ class Main
     haml :messages
   end
   
+  post "/ajax/mark-messages-read" do
+    return 403 unless logged_in?
+    @user.messages.each{|m| m.unread = false; m.save}
+    return 200
+  end
+  
   get "/new-event" do
     redirect "/login" unless logged_in?
     haml :new_event

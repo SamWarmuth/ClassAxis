@@ -26,7 +26,7 @@
             %strong= @user.name || @user.email
             |
             -unread_count = @user.messages.find_all{|m| m.unread == true}.count
-            %a#opener.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
+            %a#opener.mark-read.strong{:href => "#"} #{unread_count} new message#{"s" if unread_count != 1}
             |
             %a{:href => "/settings"} Settings
             |
@@ -51,16 +51,22 @@
                   -sender = User.get(message.sender_id)
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
-              -message.unread = false
-              -message.save
           
           :javascript
             $(document).ready(function(){
-            var users = #{User.all.map{|u| u.name}.inspect};
-            $(".usercomplete").autocomplete({
-            source: users
+              var users = #{User.all.map{|u| u.name}.inspect};
+              
+              $(".usercomplete").autocomplete({
+                source: users
+              });
+              
+              $(".mark-read").click(function(){
+                $.post("/ajax/mark-messages-read")
+              });
+              
             });
-            });
+            
+            
           %form{:action => "/new-message", :method => "post"}
             %h3 New Message
             %fieldset
