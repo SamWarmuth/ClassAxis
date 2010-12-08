@@ -141,6 +141,7 @@ class Main
     event.date = Time.parse(params[:date] + " " + params[:time]).to_i
     event.description = params[:description]
     event.attendee_ids << @user.id
+    event.set_permalink
     event.save
     calendar.event_ids << event.id
     calendar.save
