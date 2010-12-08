@@ -52,25 +52,6 @@
                   %a{:href => "/user/#{sender.permalink}"}= sender.name
               %p= message.content
           
-          :javascript
-            $(document).ready(function(){
-              var users = #{User.all.map{|u| u.name}.inspect};
-              
-              $(".usercomplete").autocomplete({
-                source: users
-              });
-              
-              $(".mark-read").click(function(){
-                $.post("/ajax/mark-messages-read");
-                $(this).text("0 new messages");
-              });
-              
-              $(".message-form").submit(function(){
-                $.post("/new-message", $(this).serialize());
-                return false;
-              });
-              
-            });
             
             
           %form.message-form{:action => "/new-message", :method => "post"}
@@ -85,6 +66,37 @@
               %textarea.textarea{:cols => "55", :name => "message", :rows => "5", :style => "width:97%"}
             %fieldset
               %input.awesome.blue.medium{:type => "submit", :value => "Send"}/
+    :javascript
+      $(function() {
+        $('#dialog').dialog({
+          autoOpen: false,
+          modal: true,
+          width: 500
+        })
+        $('#opener').click(function() {
+          $('#dialog').dialog('open');
+          return false;
+        });
+      });
+      
+      $(document).ready(function(){
+        var users = #{User.all.map{|u| u.name}.inspect};
+        
+        $(".usercomplete").autocomplete({
+          source: users
+        });
+        
+        $(".mark-read").click(function(){
+          $.post("/ajax/mark-messages-read");
+          $(this).text("0 new messages");
+        });
+        $(".message-form").submit(function(){
+          $.post("/new-message", $(this).serialize());
+          $('#dialog').dialog("close");
+          return false;
+        });
+        
+      });
     #page-wrapper
       .page
         #sidebar

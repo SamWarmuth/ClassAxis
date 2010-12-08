@@ -41,18 +41,3 @@ jQuery(function ($) {
 
 
 
-// jQuery UI - Dialog Box
-	$(function() {
-		$('#dialog').dialog({
-			autoOpen: false,
-			modal: true,
-			width: 500
-		})
-		$('#opener').click(function() {
-			$('#dialog').dialog('open');
-			return false;
-		});
-
-	});
-	
-	
