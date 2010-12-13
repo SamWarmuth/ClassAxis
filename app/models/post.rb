@@ -6,10 +6,8 @@ class Post < CouchRest::ExtendedDocument
   
   property :parent_id
   property :topic_id
-  
   property :date, :default => Proc.new{Time.now.to_i}
   view_by :date
-  
   property :content
   property :permalink
   view_by :permalink
