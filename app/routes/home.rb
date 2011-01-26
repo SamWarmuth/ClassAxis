@@ -244,7 +244,6 @@ class Main
   
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'
-    response['Expires'] = (Time.now + 3.years).httpdate
     sass :style
   end
   
