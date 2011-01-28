@@ -9,11 +9,18 @@ $(document).ready(function(){
   $("a.icon#"+selected).addClass("selected");
   
   $("a.icon").click(function(){
+    if (selected == $(this).attr('id')) return false;
     $("#s" + selected).hide('blind', 100);
     $("a.icon#"+selected).removeClass("selected");
     selected = $(this).attr('id');
     $("a.icon#"+selected).addClass("selected");
-    $("#s" + selected).show('blind', 250);
+    var sidebar = $(".secondary-navigation");
+    var content = $(".selected-content");
+    sidebar.height('auto');
+    $("#s" + selected).show('blind', 250, function(){
+      if (content.height() > sidebar.height()) sidebar.height(content.height());
+    });
+    
   });
   
   $(".secondary-row").click(function(){
