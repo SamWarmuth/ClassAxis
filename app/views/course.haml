@@ -1,15 +1,12 @@
-#page-header
-  %h1
-    = @course.name
-    -unless @course.user_ids.include?(@user.id)
-      %a.awesome.blue.medium{:href => "#{@course.permalink}/join", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
-        %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
-        Join
 .container_12
+  -unless @course.user_ids.include?(@user.id)
+    %a.awesome.blue.medium{:href => "#{@course.permalink}/join", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
+      %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
+      Join
   .grid_12
     -@calendar = Calendar.get(@course.calendar_id)
     -@events = @course.events
-    = haml :calendar
+    = haml :calendar, :layout => false
     %br.cl
 
   .grid_9

@@ -3,6 +3,11 @@ class Main
   
   get "/" do
     redirect "/welcome" unless logged_in?
+    @groups = @user.groups
+    @discussions = @user.discussions
+    @events = @user.events
+    @selected = "home"
+    @messages = @user.messages
     haml :index
   end
   get "/welcome" do
@@ -377,6 +382,42 @@ class Main
     
     return 200
   end
+  
+  #new AJAX UI routes
+  
+  
+  get "/ui/group/:permalink" do
+    redirect "/" unless logged_in?
+    @course = Group.by_permalink(:key => params[:permalink]).first
+    return 404 if @course.nil?
+    haml :course, :layout => false
+  end
+  
+  get "/ui/event/:permalink" do
+    redirect "/login" unless logged_in?
+    @event = Event.by_permalink(:key => params[:permalink]).first
+    return 404 if @event.nil?
+    haml :event, :layout => false
+  end
+  
+  
+  get "/ui/message/:id" do
+    redirect "/login" unless logged_in?
+    @message = Message.get(params[:id])
+    return 404 if @message.nil?
+    
+    haml :message, :layout => false
+  end
+  
+  get "/ui/discussion/:permalink" do
+    redirect "/login" unless logged_in?
+    @topic = Topic.by_permalink(:key => params[:permalink]).first
+    return 404 if @topic.nil?
+    haml :discussion, :layout => false
+  end
+  
+  
+  
   
 
 end

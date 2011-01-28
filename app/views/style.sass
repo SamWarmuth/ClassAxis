@@ -16,6 +16,7 @@ body
   min-width: 800px
   margin: auto
   
+  
 
 blockquote
   &:before, &:after
@@ -210,16 +211,144 @@ address
 #page-wrapper
   border-top: 1px solid #060606
   border-bottom: 1px solid #000000
-  background: #f4f4f4 url('../img/page-bg.gif') repeat-x top
+  background: #75878B url('/images/blue-pattern.png')
+  min-height: 600px
+  
+.spinner
+  background: url('/images/ajax-loader.gif') no-repeat
+  opacity: 0.8
+  position: absolute
+  left: 510px
+  top: 200px
+  width: 50px
+  height: 50px
+  z-index: 500
+  display: none
 
 .page
-  background: url('../img/sidebar-bg.png') repeat-y left
+  background: repeat-y left
+  
+.page-content
+  margin: 20px auto 50px auto
+  width: 830px
+  position: relative
+  
+.header-box
+  background: #fff
+  border-bottom: 1px solid #ccc
+  width: 745px
+  margin-left: 85px
+  height: 20px
+  padding-top: 5px
+  border-radius: 5px 5px 0 0 
+  text-align: center
+  font-weight: bold
+  background: #eee url('/images/title-gradient.png') repeat-x
+  
+.top-navigation
+  border-radius: 10px 0 0 10px
+  float: left
+  width: 75px
+  background: #444 url('/images/dark-noise.png')
+  height: 300px
+  padding: 5px
+  padding-top: 15px
+  -webkit-box-shadow: inset -2px 0px 5px #222
+  -moz-box-shadow: inset -2px 0px 5px #222
+  box-shadow: inset -2px 0px 5px #222
+  
+.secondary-navigation
+  float: left
+  width: 150px
+  background: #e7ebec url('/images/light-noise.png')
+  height: 100%
+  min-height: 320px
+  border-radius: 0 0 0 10px
+  padding-bottom: 40px
+  -webkit-box-shadow: inset -2px 0px 2px #ccd
+  -moz-box-shadow: inset -2px 0px 2px #ccd
+  box-shadow: inset -2px 0px 2px #ccd
+  
+.hidden
+  display: none
+  
+.secondary-row
+  border-top: 1px solid #f7fbfc
+  border-bottom: 1px solid #ddd
+  padding: 8px
+  cursor: pointer
+  &:hover
+    background: #eff3f5
+  &.selected
+    background: #fff
+
   
 
-#page-content
-  margin-left: 250px
-  padding: 25px 35px 25px 25px
-  color: #333
+  
+  
+.secondary-container
+  float: left
+  background: #fff
+  height: 100%
+  min-height: 320px
+  border-radius: 0 0 10px 10px
+  
+.selected-content
+  float: left
+  background: #fff
+  width: 555px
+  height: 100%
+  min-height: 320px
+  border-radius: 0 0 10px 0
+  padding: 20px
+  
+  
+  
+a.icon
+  display: block
+  width: 100%
+  height: 16px
+  padding: 30px 0 0 0
+  margin-bottom: 15px
+  border-radius: 5px
+  background-repeat: no-repeat
+  background-position: 22px 0
+  text-decoration: none
+  color: #111
+  text-shadow: 0 1px 1px #777
+  text-align: center
+  opacity: 0.6
+  cursor: pointer
+  &:hover
+    opacity: 1.0
+    
+  &#events
+    background-image: url('/images/calendar-small.png')
+  &#discussions
+    background-image: url('/images/discussion-small.png')
+  &#messages
+    background-image: url('/images/messages-small.png')
+  &#groups
+    background-image: url('/images/group-small.png')
+  &#home
+    background-image: url('/images/home-small.png')
+  &.selected
+    opacity: 1.0
+    color: white
+    text-shadow: 0 -1px 1px #444
+    &#events
+      background-image: url('/images/calendar-small-selected.png')
+    &#discussions
+      background-image: url('/images/discussion-small-selected.png')
+    &#messages
+      background-image: url('/images/messages-small-selected.png')
+    &#groups
+      background-image: url('/images/group-small-selected.png')
+    &#home
+      background-image: url('/images/home-small-selected.png')
+
+  
+  
   
   
 
@@ -414,28 +543,6 @@ html[xmlns] #nav
 
 /* sidebar
 
-#sidebar
-  float: left
-  width: 185px
-  color: #333
-  padding: 25px 25px
-  a
-    color: #333
-  ul
-    list-style-type: none
-    padding: 0
-    margin: 0 0 20px
-    li
-      border-top: 1px solid #f6f6f6
-      border-bottom: 1px solid #e0e0e0
-      padding: 6px
-      width: 175px
-      a
-        padding: 8px 25px 6px
-        text-decoration: none
-        &:hover
-          color: #333333
-          font-weight: bold
 
 .ul-header
   border-bottom: 1px solid #e0e0e0
@@ -582,6 +689,30 @@ html[xmlns] #nav
     padding: 0 5px
     &:hover
       color: #1f92ff
+
+.box-header-2
+  border: 1px solid #9d9d9d
+  font-weight: bold
+  font-size: 14px
+  background: #eee repeat-x top
+  padding: 10px 15px
+  color: #333333
+  -moz-border-radius-topleft: 3px
+  -moz-border-radius-topright: 3px
+  -webkit-border-top-left-radius: 3px
+  -webkit-border-top-right-radius: 3px
+  text-shadow: 1px 1px 1px #fff
+  .fr a
+    color: #333333
+    text-decoration: none
+    font-size: 12px
+    padding: 0 5px
+    &:hover
+      color: #1f92ff
+      
+.content-box
+  background: blue
+  padding: 5px
 
 .box
   h2

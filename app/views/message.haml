@@ -1,0 +1,7 @@
+%h4
+  = @message.subject
+  %small.fr
+    #{Time.at(@message.date).strftime("%b %d %l:%M%p")} to
+    -receiver = User.get(@message.receiver_id)
+    %a{:href => "/user/#{receiver.permalink}"}= receiver.name
+%p= @message.content

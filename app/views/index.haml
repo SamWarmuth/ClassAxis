@@ -1,53 +1,27 @@
-#page-header
-  %h1= @user.name
-.container_12
-  .grid_12
-    .box-header Headlines
-    .box
-      -@headlines = (Post.newest(10) + Topic.newest(10) + User.newest(10)).sort_by{|o| o.date*-1}[0...10]
-      -@headlines.each do |object|
-        -time = fuzzy_time_since(Time.at(object.date)).capitalize
-        -if object.class == Post
-          %img{:src => "/img/icons/small/comment.png", :style => "height: 16px; width: 16px;"}
-          = time
-          %b= object.creator.name
-          said
-          %b "#{object.content}"
-          in
-          %a{:href => "/discussion/#{object.topic.permalink}"}= object.topic.title
-        -if object.class == Topic
-          %img{:src => "/img/icons/small/comment_add.png", :style => "height: 16px; width: 16px;"}
-          = time
-          %b.icon-discussion= object.creator.name
-          started a discussion:
-          %a{:href => "/discussion/#{object.permalink}"}= object.title
-        -if object.class == User
-          %img{:src => "/img/icons/small/user.png", :style => "height: 16px; width: 16px;"}
-          = time
-          %a.icon-discussion{:style => "font-weight: bold;", :href => "/user/#{object.permalink}"}= object.name
-          joined ClassAxis!
-        %br
-  .grid_12
-    -@calendar = @user.calendar
-    -@events = @user.events
-    =haml :calendar
-    %br.cl
-  .grid_12
-    .box-header Your Discussions
-    .box
-      -@user.topics.reverse[0..5].each do |topic|
-        .grid_12
-          .box-header
-            %a.name{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold'}= topic.title
-            %span{:style => "margin-left: 10px;"}
-              %a.name{:href => "/user/#{topic.creator.permalink}"}= topic.creator.name
-              %small= topic.time_since
 
-          .box          
-            .colored-box.brown.head
-              = topic.content
-            %a{:href => "/discussion/#{topic.permalink}", :style => 'font-weight: bold;'} View Discussion
-      %br.cl
-  %br.cl
-  
+-@headlines = (Post.newest(10) + Topic.newest(10) + User.newest(10)).sort_by{|o| o.date*-1}[0...10]
+-@headlines.each do |object|
+  -time = fuzzy_time_since(Time.at(object.date)).capitalize
+  -if object.class == Post
+    %img{:src => "/img/icons/small/comment.png", :style => "height: 16px; width: 16px;"}
+    = time
+    %b= object.creator.name
+    said
+    %b "#{object.content}"
+    in
+    %a{:href => "/discussion/#{object.topic.permalink}"}= object.topic.title
+  -if object.class == Topic
+    %img{:src => "/img/icons/small/comment_add.png", :style => "height: 16px; width: 16px;"}
+    = time
+    %b.icon-discussion= object.creator.name
+    started a discussion:
+    %a{:href => "/discussion/#{object.permalink}"}= object.title
+  -if object.class == User
+    %img{:src => "/img/icons/small/user.png", :style => "height: 16px; width: 16px;"}
+    = time
+    %a.icon-discussion{:style => "font-weight: bold;", :href => "/user/#{object.permalink}"}= object.name
+    joined ClassAxis!
+  %br
+%br.cl
+
 
