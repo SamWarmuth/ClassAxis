@@ -57,7 +57,9 @@
                     %em Older Discussions
               #smessages.hidden
                 -@messages[0..9].each do |message|
-                  .secondary-row{:id => message.id, :href => "/ui/message/#{message.id}"}= message.subject
+                  .secondary-row{:id => message.id, :href => "/ui/message/#{message.id}"}
+                    = message.subject
+                    .fr{:style => "color: #999"}= message.time_since
                 -if @discussions.count > 9
                   .secondary-row{:href => "/ui/messages?page=2"}
                     %em Older Messages

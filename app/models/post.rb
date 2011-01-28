@@ -60,6 +60,6 @@ def fuzzy_time_since(time)
     return "yesterday" if days == 1
     return "#{days} day#{"s" unless days == 1} ago"
   else
-    return time.strftime("on %b %d %l:%M%p")
+    return time.strftime("%b %d")
   end
 end

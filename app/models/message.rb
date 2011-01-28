@@ -16,4 +16,8 @@ class Message < CouchRest::ExtendedDocument
   property :previous
   property :next
   
+  
+  def time_since
+    fuzzy_time_since(Time.at(self.date))
+  end
 end
