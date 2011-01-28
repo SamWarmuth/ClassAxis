@@ -1,5 +1,5 @@
 
--@headlines = (Post.newest(10) + Topic.newest(10) + User.newest(10)).sort_by{|o| o.date*-1}[0...10]
+-@headlines = (Post.newest(10) + Topic.newest(10) + User.newest(10)).sort_by{|o| o.date*-1}[0...15]
 -@headlines.each do |object|
   -time = fuzzy_time_since(Time.at(object.date)).capitalize
   -if object.class == Post

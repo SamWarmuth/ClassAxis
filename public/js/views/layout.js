@@ -1,5 +1,9 @@
 $(document).ready(function(){
-  var selected = $(".header-box").text();
+  var selected = $(".init-selected").text();
+  var sidebar = $(".secondary-navigation");
+  var content = $(".selected-content");
+  if (content.height() > sidebar.height()) sidebar.height(content.height());
+  
   
   $("#s" + selected).show();
   $("a.icon#"+selected).addClass("selected");
@@ -8,13 +12,13 @@ $(document).ready(function(){
     $("#s" + selected).hide('blind', 100);
     $("a.icon#"+selected).removeClass("selected");
     selected = $(this).attr('id');
-    $(".header-box").text(selected);
     $("a.icon#"+selected).addClass("selected");
     $("#s" + selected).show('blind', 250);
   });
   
   $(".secondary-row").click(function(){
     $(".secondary-row").removeClass("selected");
+    $(".header-box").text($(this).text());
     
     $(this).addClass("selected");
     var sidebar = $(".secondary-navigation");

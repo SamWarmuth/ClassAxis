@@ -385,7 +385,16 @@ class Main
   
   #new AJAX UI routes
   
-  
+  get "/ui/news" do
+    redirect "/login" unless logged_in?
+    
+    haml :index, :layout => false
+  end
+  get "/ui/profile" do
+    redirect "/login" unless logged_in?
+    @selected_user = @user
+    haml :user, :layout => false
+  end
   get "/ui/group/:permalink" do
     redirect "/" unless logged_in?
     @course = Group.by_permalink(:key => params[:permalink]).first
