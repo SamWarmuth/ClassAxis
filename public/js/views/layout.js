@@ -1,7 +1,12 @@
+var ZKEY = 122;
+var TKEY = 84;
+
 $(document).ready(function(){
   var selected = $(".init-selected").text();
   var sidebar = $(".secondary-navigation");
   var content = $(".selected-content");
+  $(".header-box").html($(".secondary-row.selected").children(".page-title").html());
+  
   if (content.height() > sidebar.height()) sidebar.height(content.height());
   
   
@@ -42,6 +47,29 @@ $(document).ready(function(){
       page.fadeIn(500);
       if (content.height() > sidebar.height()) sidebar.height(content.height());
     });
+  });
+  
+  $(document).keydown(function(e){
+    if (e.keyCode == '1'.charCodeAt(0)){
+      $("a.icon#home").click();
+      return false;
+    }
+    if (e.keyCode == '2'.charCodeAt(0)){
+      $("a.icon#discussions").click();
+      return false;
+    }
+    if (e.keyCode == '3'.charCodeAt(0)){
+      $("a.icon#groups").click();
+      return false;
+    }
+    if (e.keyCode == '4'.charCodeAt(0)){
+      $("a.icon#events").click();
+      return false;
+    }
+    if (e.keyCode == '5'.charCodeAt(0)){
+      $("a.icon#messages").click();
+      return false;
+    }
   });
 });
 

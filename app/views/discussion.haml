@@ -1,13 +1,13 @@
 .container_12
   .grid_12
-      
+    .mark-read.awesome.small.green{:style => "float: right;"}
+      Mark new posts read
     .colored-box.blue{:id => @topic.id, :style => "font-size: 1.5em;"}
       %b= @topic.title
       %span{:style => "margin-left: 10px; "}
         %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name
         %small= @topic.time_since
-      .mark-read.awesome.small.green{:style => "float: right;"}
-        Mark posts read
+      
       %br
       = @topic.content
     %form.indent.response.colored-box.yellow{:autocomplete => "off", :style => "display: none;", :id => "r" + @topic.id}
