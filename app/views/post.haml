@@ -13,4 +13,4 @@
     %br
     %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
   -@post.children.each do |@post|
-    = haml :post, :layout => false
+    = $rendered_posts[@post.id] ||= haml :post, :layout => false

@@ -31,6 +31,7 @@ Pusher.key = '84d6245235e5b198d8aa'
 Pusher.secret = 'a75d798c2cb2abd65dd1'
 
 $current_users = {}
+$rendered_posts = {}
 
 
 # Load all application files.

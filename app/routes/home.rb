@@ -376,7 +376,9 @@ class Main
     @post.save
     @post.permalink = generate_permalink(@post, @post.id)
     @post.save
+    @post.invalidate!
     @new_post = true #post.haml uses this -- the new post will be green.
+    
     content = haml :post, :layout => false
     Thread.new{Pusher[@topic.id].trigger('addPost', {:parentID => @parent.id, :content => content})}
     

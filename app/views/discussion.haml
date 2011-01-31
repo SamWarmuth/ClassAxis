@@ -16,7 +16,7 @@
       %br
       %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
     -@topic.children.each do |@post|
-      = haml :post, :layout => false
+      = $rendered_posts[@post.id] ||= haml :post, :layout => false
       
 %br.cl
 
@@ -48,7 +48,8 @@
   function addPost(parentID, content){
     $("<div>"+content+"</div>").hide().insertAfter("#r"+parentID).fadeIn(300);
   }
-  pusher = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
-  pusher.bind('addPost', function(data) {
+  if (typeof discussionListener != 'undefined') discussionListener.disconnect();
+  discussionListener = new Pusher('84d6245235e5b198d8aa', '#{@topic.id}');
+  discussionListener.bind('addPost', function(data) {
     addPost(data.parentID, data.content);
   });

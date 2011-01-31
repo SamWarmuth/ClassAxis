@@ -43,6 +43,12 @@ class Post < CouchRest::ExtendedDocument
   def self.newest(count)
     self.by_date(:endkey => Time.now.to_i).reverse[0...count]
   end
+  
+  def invalidate!
+    $rendered_posts[self.id] = nil
+    parent = Post.get(self.parent_id)
+    parent.invalidate! unless parent.nil?
+  end
 end
 
 def fuzzy_time_since(time)
