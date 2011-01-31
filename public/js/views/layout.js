@@ -24,8 +24,9 @@ $(document).ready(function(){
   });
   
   $(".secondary-row").click(function(){
+    if ($(this).children(".search-field").length != 0) return true;
     $(".secondary-row").removeClass("selected");
-    $(".header-box").text($(this).text());
+    $(".header-box").html($(this).children(".page-title").html());
     
     $(this).addClass("selected");
     var sidebar = $(".secondary-navigation");

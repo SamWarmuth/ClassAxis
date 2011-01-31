@@ -7,7 +7,7 @@ class Main
     @discussions = @user.discussions
     @events = @user.events
     @selected = "home"
-    @messages = @user.messages
+    @messages = @user.messages_by_sender
     haml :index
   end
   get "/welcome" do
@@ -432,6 +432,15 @@ class Main
     return 404 if @message.nil?
     
     haml :message, :layout => false
+  end
+  
+  get "/ui/messages/with/:sender_id" do
+    redirect "/login" unless logged_in?
+    @messages = @user.messages_with(params[:sender_id])
+    @collaborator = User.get(params[:sender_id])
+    return 404 if @messages.nil? || @collaborator.nil?
+    
+    haml :conversation, :layout => false
   end
   
   get "/ui/discussion/:permalink" do

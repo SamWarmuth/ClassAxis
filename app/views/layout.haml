@@ -36,35 +36,56 @@
               #shome.hidden
                 .secondary-row.no-select#profile{:href => "/ui/profile"}
                   Profile
+                  .page-title Profile
                 .secondary-row.no-select#news.selected{:href => "/ui/news"}
                   Recent News
+                  %img{:src => "/images/search-tiny.png"}
+                  .page-title Recent News
               #sgroups.hidden
+                .secondary-row
+                  %input.search-field{:placeholder => "find group"}
                 -@groups.each do |group|
-                  .secondary-row.no-select{:id => group.id, :href => "/ui/group/#{group.permalink}"}= group.name
+                  .secondary-row.no-select{:id => group.id, :href => "/ui/group/#{group.permalink}"}
+                    = truncate(group.name, 13)
+                    .page-title= group.name
+                  
                 .secondary-row.no-select{:href => "/ui/groups"}
                   %b Browse Groups
+                  .page-title Browse Groups
               #sevents.hidden
+                .secondary-row
+                  %input.search-field{:placeholder => "find event"}
                 -@events.reverse[0..9].each do |event|
                   .secondary-row.no-select{:id => event.id, :href => "/ui/event/#{event.permalink}"}
-                    = event.name[0..15] + (event.name.length > 15 ? "..." : "")
+                    = truncate(event.name, 15)
                     .fr{:style => "color: #999"}= event.fuzzy_date
+                    .page-title= event.name
+                    
                 -if @events.count > 9
                   .secondary-row.no-select{:href => "/ui/events?page=2"}
-                    %em Older Events
+                    %em Past Events
+                    .page-title Past Events
               #sdiscussions.hidden
+                .secondary-row
+                  %input.search-field{:placeholder => "find discussion"}
                 -@discussions[0..9].each do |topic|
-                  .secondary-row.no-select{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}= topic.title
+                  .secondary-row.no-select{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}
+                    = topic.title
+                    .page-title= topic.title
+                  
                 -if @discussions.count > 9
                   .secondary-row.no-select{:href => "/ui/discussions?page=2"}
                     %em Older Discussions
+                    .page-title Old Discussions
               #smessages.hidden
-                -@messages[0..9].each do |message|
-                  .secondary-row.no-select{:id => message.id, :href => "/ui/message/#{message.id}"}
-                    = message.subject
-                    .fr{:style => "color: #999"}= message.time_since
-                -if @discussions.count > 9
-                  .secondary-row.no-select{:href => "/ui/messages?page=2"}
-                    %em Older Messages
+                .secondary-row
+                  %input.search-field{:placeholder => "find message"}
+                -@messages.each_pair do |sender_id, messages|
+                  -sender = User.get(sender_id)
+                  .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
+                    = truncate(sender.name, 13)
+                    .page-title Conversation with #{sender.name}
+                    .fr{:style => "color: #999"}= messages.first.time_since
             .selected-content
               =yield
           %br.cl

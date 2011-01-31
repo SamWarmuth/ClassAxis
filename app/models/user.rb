@@ -2,6 +2,9 @@ class User < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
   
   property :name
+  def first_name
+    self.name.split(" ").first
+  end
   
   property :email
   property :date, :default => Proc.new{Time.now.to_i}
@@ -26,6 +29,23 @@ class User < CouchRest::ExtendedDocument
   end
   def courses
     Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
+  end
+  def messages_by_sender
+    messages = Message.by_receiver_id(:key => self.id).sort_by{|m| m.date}
+    senders = {}
+    messages.each do |message|
+      senders[message.sender_id] ||= []
+      senders[message.sender_id] << message
+    end
+    return senders
+  end
+  def messages_with(sender)
+    sender = sender.id if sender.is_a?(User)
+    received = Message.by_receiver_id(:key => self.id).find_all{|m| m.sender_id = sender}
+    
+    sent = Message.by_receiver_id(:key => sender).find_all{|m| m.sender_id = self.id}
+    
+    return (received + sent).sort_by{|m| m.date}
   end
   def messages
     Message.by_receiver_id(:key => self.id).sort_by{|m| m.date}

@@ -1,0 +1,20 @@
+-current_day = nil
+-@messages.each do |message|
+  -date = Time.at(message.date)
+  -if date.day != current_day
+    .date-box
+      -current_day = date.day
+      = date.strftime("%b %d")
+  -sent = @user.id == message.sender_id
+  .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
+    .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
+      = sent ? @user.first_name : @collaborator.first_name
+    .colored-box{:class => ( sent ? "green" : "brown"), :style => "display: inline-block; width: 219px;"}
+      = message.content
+      %small{:style => "color: #999", :class => (sent ? "fr" : "fl")}
+        #{Time.at(message.date).strftime("%l:%M%p")}
+        -receiver = User.get(message.receiver_id)
+%br.cl
+.new-message
+  .divider
+  %input{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px"}

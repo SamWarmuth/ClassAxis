@@ -1,20 +1,8 @@
 class Main
   helpers do
     
-    def random_question
-      question_words = %w{Who What When Where Why How}
-      verb_words = %w{can will do makes does}
-      pronouns = %w{he she they we}
-      action = %w{explode play hug kick throw}
-      return [question_words[rand(6)], verb_words[rand(5)], pronouns[rand(4)], action[rand(5)]].join(" ") + "?"
-    end
-    
-    def random_answer
-      answer_words = %w{Because}
-      pronouns = %w{he she they we}
-      verb_words = %w{can will do makes does}
-      action = %w{explode play hug kick throw}
-      return [answer_words[rand(1)], pronouns[rand(4)], verb_words[rand(5)], action[rand(5)]].join(" ") + "."
+    def truncate(string, length)
+      return string[0..length] + "#{'...' if string.length > length}"
     end
     
     def logged_in?
@@ -61,7 +49,6 @@ class Main
     
     def events_from_hour(events, date)
       #returns all events that are between date and date + 1 hour
-      
     end
     
     def events_by_day(events)

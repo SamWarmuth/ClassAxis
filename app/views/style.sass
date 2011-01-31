@@ -196,11 +196,10 @@ address
 
 .footer
   position: absolute
-  bottom: -75px
+  bottom: -50px
   left: 50%
   width: 625px
   margin-left: -295px
-  margin-bottom: 25px
   border-radius: 10px
   background: #608088
   padding: 10px 25px
@@ -233,13 +232,13 @@ address
   
 .page-content
   margin: 20px auto 50px auto
-  width: 830px
+  width: 840px
   position: relative
   
 .header-box
   background: #fff
   border-bottom: 1px solid #ccc
-  width: 745px
+  width: 755px
   margin-left: 85px
   height: 32px
   padding-top: 6px
@@ -248,6 +247,12 @@ address
   font-weight: bold
   font-size: 1.5em
   background: #eee url('/images/title-gradient.png') repeat-x
+  position: relative
+  .fr
+    position: absolute
+    right: 20px
+    top: 5px
+    
   
 .top-navigation
   border-radius: 10px 0 0 10px
@@ -263,7 +268,7 @@ address
   
 .secondary-navigation
   float: left
-  width: 150px
+  width: 160px
   background: #e7ebec url('/images/light-noise.png')
   height: 100%
   min-height: 320px
@@ -272,6 +277,16 @@ address
   -webkit-box-shadow: inset -2px 0px 2px #ccd
   -moz-box-shadow: inset -2px 0px 2px #ccd
   box-shadow: inset -2px 0px 2px #ccd
+  .search-field
+    font-size: 1em
+    background: #fff url('/images/search-tiny.png') no-repeat
+    background-position: 3px 3px
+    padding-left: 22px
+    padding-top: 5px
+    width: 115px
+    height: 15px
+.page-title
+  display: none
   
 .hidden
   display: none
@@ -336,6 +351,8 @@ a.icon
     background-image: url('/images/group-small.png')
   &#home
     background-image: url('/images/home-small.png')
+  &#search
+    background-image: url('/images/search-small.png')
   &.selected
     opacity: 1.0
     color: white
@@ -350,7 +367,8 @@ a.icon
       background-image: url('/images/group-small-selected.png')
     &#home
       background-image: url('/images/home-small-selected.png')
-
+    &#search
+      background-image: url('/images/search-small-selected.png')
   
   
   
@@ -771,9 +789,26 @@ html[xmlns] #nav
 .indent
   padding-left: 5%
   border-left: 1px dotted #ddf
-
+.divider
+  width: 80%
+  margin: 20px 10%
+  border-bottom: 1px solid #ccc
+.date-box
+  clear: both
+  float: left
+  width: 40px
+  height: 15px
+  padding: 5px 20px
+  margin: 10px 10px 10px 238px
   
-
+  background: #EEE
+  border-radius: 10px
+  
+.sender
+  width: 40px
+  height: 10px
+  padding: 10px
+  display: inline-block
 .colored-box
   &.green
     background: #effeb9
