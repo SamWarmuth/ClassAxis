@@ -26,42 +26,44 @@
           .init-selected{:style => "display: none;"}= @selected
           .header-box= @selected
           .top-navigation
-            %a.icon#home home
-            %a.icon#discussions discussions
-            %a.icon#groups groups
-            %a.icon#events events
-            %a.icon#messages messages
+            %a.icon.no-select#home home
+            %a.icon.no-select#discussions discussions
+            %a.icon.no-select#groups groups
+            %a.icon.no-select#events events
+            %a.icon.no-select#messages messages
           .secondary-container
             .secondary-navigation
               #shome.hidden
-                .secondary-row#profile{:href => "/ui/profile"}
+                .secondary-row.no-select#profile{:href => "/ui/profile"}
                   Profile
-                .secondary-row#news.selected{:href => "/ui/news"}
+                .secondary-row.no-select#news.selected{:href => "/ui/news"}
                   Recent News
               #sgroups.hidden
                 -@groups.each do |group|
-                  .secondary-row{:id => group.id, :href => "/ui/group/#{group.permalink}"}= group.name
-                .secondary-row{:href => "/ui/browse-groups"}
+                  .secondary-row.no-select{:id => group.id, :href => "/ui/group/#{group.permalink}"}= group.name
+                .secondary-row.no-select{:href => "/ui/groups"}
                   %b Browse Groups
               #sevents.hidden
-                -@events[0..9].each do |event|
-                  .secondary-row{:id => event.id, :href => "/ui/event/#{event.permalink}"}= event.name
+                -@events.reverse[0..9].each do |event|
+                  .secondary-row.no-select{:id => event.id, :href => "/ui/event/#{event.permalink}"}
+                    = event.name[0..15] + (event.name.length > 15 ? "..." : "")
+                    .fr{:style => "color: #999"}= event.fuzzy_date
                 -if @events.count > 9
-                  .secondary-row{:href => "/ui/events?page=2"}
+                  .secondary-row.no-select{:href => "/ui/events?page=2"}
                     %em Older Events
               #sdiscussions.hidden
                 -@discussions[0..9].each do |topic|
-                  .secondary-row{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}= topic.title
+                  .secondary-row.no-select{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}= topic.title
                 -if @discussions.count > 9
-                  .secondary-row{:href => "/ui/discussions?page=2"}
+                  .secondary-row.no-select{:href => "/ui/discussions?page=2"}
                     %em Older Discussions
               #smessages.hidden
                 -@messages[0..9].each do |message|
-                  .secondary-row{:id => message.id, :href => "/ui/message/#{message.id}"}
+                  .secondary-row.no-select{:id => message.id, :href => "/ui/message/#{message.id}"}
                     = message.subject
                     .fr{:style => "color: #999"}= message.time_since
                 -if @discussions.count > 9
-                  .secondary-row{:href => "/ui/messages?page=2"}
+                  .secondary-row.no-select{:href => "/ui/messages?page=2"}
                     %em Older Messages
             .selected-content
               =yield

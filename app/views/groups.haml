@@ -1,13 +1,10 @@
-#page-header
-  %h1 Groups
-.container_12
+%h2
   -Group.all.find_all{|g| g.course_number.nil? && g.is_public}.each do |group|
-    .grid_4
-      .box-header
-        %a.name{:href => "/group/#{group.permalink}"}
-          %b= group.name
-      .box          
-        %h2 Members
-        -group.members.each do |member|
-          %p= member.name
+    %a.name{:href => "/group/#{group.permalink}", :style => 'font-weight: bold; '}= group.name
+    %div{:style => "display: inline-block; width: 250px;"} (#{group.members.count} Member#{"s" unless group.members.count == 1})
+    -if group.user_ids.include?(@user.id)
+      %a.awesome.red.small{:href => "/group/#{group.permalink}/leave", :style => 'vertical-align: text-middle; font-size: 0.6em; width: 80px; text-align: center;'} Leave Group
+    -else
+      %a.awesome.green.small{:href => "/group/#{group.permalink}/join", :style => 'vertical-align: text-middle; font-size: 0.6em; width: 80px; text-align: center;'} Join Group
+    %br
 %br.cl

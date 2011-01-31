@@ -33,6 +33,15 @@ class Main
     redirect "/group/#{params[:permalink]}"
   end
   
+  get "/group/:permalink/leave" do
+    redirect "/login" unless logged_in?
+    @group = Group.by_permalink(:key => params[:permalink]).first
+    redirect "/group/#{params[:permalink]}" unless @group.user_ids.include?(@user.id)
+    @group.user_ids.delete(@user.id)
+    @group.save
+    redirect "/group/#{params[:permalink]}"
+  end
+  
   get "/edit-group" do
     redirect "/login" unless logged_in?
     haml :edit_group
@@ -398,10 +407,15 @@ class Main
     haml :user, :layout => false
   end
   get "/ui/group/:permalink" do
-    redirect "/" unless logged_in?
+    redirect "/login" unless logged_in?
     @course = Group.by_permalink(:key => params[:permalink]).first
     return 404 if @course.nil?
     haml :course, :layout => false
+  end
+  
+  get "/ui/groups" do
+    redirect "/login" unless logged_in?
+    haml :groups, :layout => false
   end
   
   get "/ui/event/:permalink" do

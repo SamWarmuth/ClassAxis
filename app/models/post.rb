@@ -23,7 +23,7 @@ class Post < CouchRest::ExtendedDocument
   end
   
   def time_since
-    fuzzy_time_since(Time.at(self.date))
+    fuzzy_time(Time.at(self.date))
   end
   
   def depth
@@ -51,20 +51,22 @@ class Post < CouchRest::ExtendedDocument
   end
 end
 
-def fuzzy_time_since(time)
+def fuzzy_time(time)
   since = Time.now - time
+  suffix = (since > 0 ? " ago" : "")
+  since = since.abs
   if since < 80.seconds
-    return since.to_i.to_s + " seconds ago"
+    return since.to_i.to_s + " seconds#{suffix}"
   elsif since < 1.hour
     minutes = (since/1.minute).to_i
-    return "#{minutes} minute#{"s" unless minutes == 1} ago"
+    return "#{minutes} minute#{"s" unless minutes == 1}#{suffix}"
   elsif since < (16.hours)
     hours = (since/(1.hour)).to_i
-    return "#{hours} hour#{"s" unless hours == 1} ago"
+    return "#{hours} hour#{"s" unless hours == 1}#{suffix}"
   elsif since < (5.days)
     days = (since/(1.day)).to_i + 1
     return "yesterday" if days == 1
-    return "#{days} day#{"s" unless days == 1} ago"
+    return "#{days} day#{"s" unless days == 1}#{suffix}"
   else
     return time.strftime("%b %d")
   end

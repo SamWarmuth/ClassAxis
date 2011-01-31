@@ -16,6 +16,7 @@ require "json"
 require "pusher"
 require "active_support"
 
+
 class Main < Monk::Glue
   set :app_file, __FILE__
   use Rack::Session::Cookie

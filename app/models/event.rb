@@ -28,4 +28,7 @@ class Event < CouchRest::ExtendedDocument
   def set_permalink
     self.permalink = generate_permalink(self, self.name)
   end
+  def fuzzy_date
+    fuzzy_time(Time.at(self.date))
+  end
 end

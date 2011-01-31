@@ -27,7 +27,7 @@
     .box-header
       %b Discussions Created
     .box          
-      -@selected_user.topics.reverse[0..10].each do |topic|
+      -@selected_user.topics.reverse[0..5].each do |topic|
         .colored-box.blue
           %a.name{:href => "/discussion/#{topic.permalink}", :style => "font-size: 1.3em"}= topic.title
           %small= topic.time_since
@@ -37,7 +37,7 @@
     .box-header
       %b Posts
     .box          
-      -@selected_user.posts.reverse[0..10].each do |post|
+      -@selected_user.posts.reverse[0..5].each do |post|
         .colored-box.blue
           %a.name{:href => "/discussion/#{post.topic.permalink}", :style => "font-weight: bold;"}= post.topic.title
           %small= post.time_since

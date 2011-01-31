@@ -18,6 +18,6 @@ class Message < CouchRest::ExtendedDocument
   
   
   def time_since
-    fuzzy_time_since(Time.at(self.date))
+    fuzzy_time(Time.at(self.date))
   end
 end
