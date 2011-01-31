@@ -35,7 +35,7 @@ a img
 
 html
   font-size: 100.01%
-  background: #f4f4f4
+  background: #709098 url('/images/blue-pattern.png')
 
 body
   font-size: 75%
@@ -195,11 +195,16 @@ address
     color: #6e7d87
 
 .footer
-  background: #313131 url('../img/header-bottom.gif') repeat-x bottom
-  border-top: 1px solid #545454
-  border-bottom: 1px solid #000
+  position: absolute
+  bottom: -75px
+  left: 50%
+  width: 630px
+  margin-left: -295px
+  margin-bottom: 25px
+  border-radius: 10px
+  background: #608088
   padding: 10px 25px
-  color: #fff
+  color: #ccc
   a
     color: #fff
     text-decoration: underline
@@ -209,9 +214,8 @@ address
 
 #page-wrapper
   border-top: 1px solid #060606
-  border-bottom: 1px solid #000000
-  background: #75878B url('/images/blue-pattern.png')
-  min-height: 600px
+  background: #709098 url('/images/blue-pattern.png')
+  position: relative
   
 .spinner
   background: url('/images/ajax-loader.gif') no-repeat
@@ -288,7 +292,7 @@ address
   
 .secondary-container
   float: left
-  background: #fff
+  background: #fff url('/images/main-bg.png')
   height: 100%
   min-height: 320px
   border-radius: 0 0 10px 10px
@@ -670,27 +674,8 @@ html[xmlns] #nav
   &.table
     padding: 0
 
-.box-header
-  border: 1px solid #9d9d9d
-  font-weight: bold
-  font-size: 14px
-  background: #cdcdcd url('../img/boxheader.gif') repeat-x top
-  padding: 10px 15px
-  color: #333333
-  -moz-border-radius-topleft: 3px
-  -moz-border-radius-topright: 3px
-  -webkit-border-top-left-radius: 3px
-  -webkit-border-top-right-radius: 3px
-  text-shadow: 1px 1px 1px #fff
-  .fr a
-    color: #333333
-    text-decoration: none
-    font-size: 12px
-    padding: 0 5px
-    &:hover
-      color: #1f92ff
 
-.box-header-2
+.box-header
   border: 1px solid #9d9d9d
   font-weight: bold
   font-size: 14px

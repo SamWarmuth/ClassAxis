@@ -1,25 +1,22 @@
 .container_12
   .grid_12
-    .box-header
+      
+    .colored-box.blue{:id => @topic.id, :style => "font-size: 1.5em;"}
       %b= @topic.title
       %span{:style => "margin-left: 10px; "}
         %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name
         %small= @topic.time_since
       .mark-read.awesome.small.green{:style => "float: right;"}
         Mark posts read
-      -@topic.tags.each do |tag|  
-        .badge.blue= tag
-      
-    .box
-      .colored-box.brown.head{:id => @topic.id}
-        = @topic.content
-      %form.indent.response.colored-box.yellow{:autocomplete => "off", :style => "display: none;", :id => "r" + @topic.id}
-        %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
-        %textarea.content{:style => "width: 70%; height: 75px", :name => 'content'}
-        %br
-        %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
-      -@topic.children.each do |@post|
-        = haml :post, :layout => false
+      %br
+      = @topic.content
+    %form.indent.response.colored-box.yellow{:autocomplete => "off", :style => "display: none;", :id => "r" + @topic.id}
+      %input{:type => "hidden", :name => 'parent_id', :value => @topic.id}
+      %textarea.content{:style => "width: 70%; height: 75px", :name => 'content'}
+      %br
+      %input.awesome.blue.medium.reply{:type => "submit", :value => "Reply"}
+    -@topic.children.each do |@post|
+      = haml :post, :layout => false
       
 %br.cl
 

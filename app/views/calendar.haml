@@ -67,7 +67,7 @@
       %p
         No Events.
       %a{:href => "/new-event?calendar_id=#{@calendar.id}", :style => "margin: auto 15px;"}
-        .awesome.red.large New Event
+        .awesome.red.medium New Event
     -else
       -events_by_day(@events).sort.each do |date, events|
         .calendar-page

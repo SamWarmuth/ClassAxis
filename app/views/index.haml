@@ -7,7 +7,7 @@
     = time
     %b= object.creator.name
     said
-    %b "#{object.content}"
+    %b "#{object.content.gsub("<br/>", "")[0..25] + (object.content.length > 25 ? "..." : "")}"
     in
     %a{:href => "/discussion/#{object.topic.permalink}"}= object.topic.title
   -if object.class == Topic

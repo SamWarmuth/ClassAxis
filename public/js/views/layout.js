@@ -35,7 +35,7 @@ $(document).ready(function(){
     $.get($(this).attr("href"), function(data){
       sidebar.height('auto');
       var page = $("<div style='display: none'>"+data+"</div>");
-      content.append(page);
+      content.html(page);
       $(".spinner").hide();
       
       page.fadeIn(500);
