@@ -22,7 +22,7 @@ class Group < CouchRest::ExtendedDocument
   
   
   def discussions
-    Topic.all.find_all{|t| t.tags.include?(self.permalink)}
+    Topic.by_group(:key => self.permalink)
   end
   def members
     self.user_ids.map{|u_id| User.get(u_id)}

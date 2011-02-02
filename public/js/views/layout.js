@@ -47,11 +47,12 @@ $(document).ready(function(){
       page.fadeIn(500);
       if (content.height() > sidebar.height()) sidebar.height(content.height());
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
+      $(".first-focus").focus();
     });
   });
   
   $(document).keydown(function(e){
-    if ($("input.focus").length != 0) return true;
+    if ($(".focus").length != 0) return true;
     //if currently in a text box/area, return true
     if (e.keyCode == '1'.charCodeAt(0)){
       $("a.icon#home").click();
@@ -95,6 +96,12 @@ $(document).ready(function(){
   
   $('input').live('blur', function(){
     $('input').removeClass("focus");
+  }).live('focus', function() {
+    $(this).addClass("focus");
+  });
+  
+  $('textarea').live('blur', function(){
+    $('textarea').removeClass("focus");
   }).live('focus', function() {
     $(this).addClass("focus");
   });

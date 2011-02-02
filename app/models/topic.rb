@@ -3,7 +3,10 @@ class Topic < CouchRest::ExtendedDocument
 
   property :title
   property :content, :default => ""
-  property :tags, :default => []
+
+  property :group
+  view_by :group
+  
   
   property :creator_id
   view_by :creator_id

@@ -1,5 +1,5 @@
 .colored-box{:id => @post.id, :class => (@new_post ? "green" : "gray")}
-  %h3{:style => "color: #444"}
+  %h3{:style => "color: #777; margin-bottom: 0;"}
     %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
     %small
       = @post.time_since

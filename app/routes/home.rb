@@ -491,8 +491,21 @@ class Main
     haml :discussion, :layout => false
   end
   
+  get "/ui/new-discussion" do
+    redirect "/login" unless logged_in?
+    haml :new_discussion, :layout => false
+  end
   
-  
-  
+  post "/ui/new-discussion" do
+    redirect "/login" unless logged_in?
+    topic = Topic.new
+    topic.title = params[:title]
+    topic.group = params[:group]
+    topic.content = params[:content]
+    topic.permalink = generate_permalink(topic, topic.title)
+    topic.creator_id = @user.id
+    topic.save
+    redirect "/#discussion/#{topic.permalink}"
+  end
 
 end

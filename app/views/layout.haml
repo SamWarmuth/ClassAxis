@@ -41,56 +41,14 @@
                   Recent News
                   .page-title
                     Recent News
-                    
               #sgroups.hidden
-                .secondary-row
-                  %input.search-field{:placeholder => "find group"}
-                -@groups.each do |group|
-                  .secondary-row.no-select{:id => group.id, :href => "/ui/group/#{group.permalink}"}
-                    = truncate(group.name, 13)
-                    .page-title= group.name
-                  
-                .secondary-row.no-select{:href => "/ui/groups"}
-                  %b Browse Groups
-                  .page-title Browse Groups
+                = haml :group_sidebar, :layout => false
               #sevents.hidden
-                .secondary-row
-                  %input.search-field{:placeholder => "find event"}
-                .secondary-row.no-select{:href => "/ui/new-event", :style => "text-align: center;"}
-                  %strong New Event
-                  .page-title New Event
-                -@events.reverse[0..9].each do |event|
-                  .secondary-row.no-select{:id => event.id, :href => "/ui/event/#{event.permalink}"}
-                    = truncate(event.name, 15)
-                    .fr{:style => "color: #999"}= event.short_date
-                    .page-title= event.name
-                    
-                -if @events.count > 9
-                  .secondary-row.no-select{:href => "/ui/events?page=2"}
-                    %em Past Events
-                    .page-title Past Events
+                = haml :event_sidebar, :layout => false
               #sdiscussions.hidden
-                .secondary-row
-                  %input.search-field{:placeholder => "find discussion"}
-                -@discussions[0..9].each do |topic|
-                  .secondary-row.no-select{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}
-                    = topic.title
-                    .page-title= topic.title
-                  
-                -if @discussions.count > 9
-                  .secondary-row.no-select{:href => "/ui/discussions?page=2"}
-                    %em Older Discussions
-                    .page-title Old Discussions
+                = haml :discussion_sidebar, :layout => false
               #smessages.hidden
-                .secondary-row
-                  %input.search-field{:placeholder => "find message"}
-                -@messages.each_pair do |sender_id, messages|
-                  -sender = User.get(sender_id)
-                  .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
-                    = truncate(sender.name, 13)
-                    .page-title Conversation with #{sender.name}
-                    .fr{:style => "color: #999"}
-                      = messages.sort_by{|m| m.date}.last.short_date
+                = haml :message_sidebar, :layout => false
             .selected-content
               =yield
           %br.cl

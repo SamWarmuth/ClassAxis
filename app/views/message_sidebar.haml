@@ -1,0 +1,9 @@
+.secondary-row
+  %input.search-field{:placeholder => "find message"}
+-@messages.each_pair do |sender_id, messages|
+  -sender = User.get(sender_id)
+  .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
+    = truncate(sender.name, 13)
+    .page-title Conversation with #{sender.name}
+    .fr{:style => "color: #999"}
+      = messages.sort_by{|m| m.date}.last.short_date

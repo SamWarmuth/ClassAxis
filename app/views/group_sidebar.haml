@@ -1,0 +1,10 @@
+.secondary-row
+  %input.search-field{:placeholder => "find group"}
+-@groups.each do |group|
+  .secondary-row.no-select{:id => group.id, :href => "/ui/group/#{group.permalink}"}
+    = truncate(group.name, 13)
+    .page-title= group.name
+  
+.secondary-row.no-select{:href => "/ui/groups"}
+  %b Browse Groups
+  .page-title Browse Groups

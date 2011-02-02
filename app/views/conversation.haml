@@ -1,11 +1,11 @@
 -current_day = nil
-.conversation-container.scroll-bottom
+.conversation-container.scroll-bottom{:style => "margin: -20px;"}
   -@messages.each do |message|
     -date = Time.at(message.date)
     -if date.day != current_day
       .date-box
         -current_day = date.day
-        = date.strftime("%b %d")
+        =date.strftime("%b %d")
     -sent = @user.id == message.sender_id
     .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
       .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
@@ -18,11 +18,10 @@
 %br.cl
 .new-message
   .divider
-  %input.input{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px", :href => "/ui/message/#{@collaborator.id}/"}
+  %input.input.first-focus{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px", :href => "/ui/message/#{@collaborator.id}/"}
 
 :javascript
   $(document).ready(function(){
-    
     var dual_id = '#{combine_ids(@collaborator.id, @user.id)}';
     console.log("joined channel: "+dual_id);
     if (typeof conversationListener != 'undefined') conversationListener.disconnect();
@@ -33,5 +32,6 @@
       $('.conversation-container').append(data.content);
       $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
     });
+        
   });
   
