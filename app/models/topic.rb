@@ -25,9 +25,8 @@ class Topic < CouchRest::ExtendedDocument
     Post.by_parent_id(:key => self.id).sort_by{|p| p.date}.reverse
   end
   def time_since
-    fuzzy_time(Time.at(self.date))
+    relative_time(Time.at(self.date))
   end
-  
   def self.newest(count)
     self.by_date(:endkey => Time.now.to_i).reverse[0...count]
   end

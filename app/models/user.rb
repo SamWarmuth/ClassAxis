@@ -72,7 +72,7 @@ class User < CouchRest::ExtendedDocument
   end
   
   def member_since
-    fuzzy_time(Time.at(self.date))
+    relative_time(Time.at(self.date))
   end
   
   

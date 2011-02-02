@@ -1,18 +1,10 @@
-#page-header
-  %h1 New Event
 .container_12
-  %form{:action => "/new-event", :method => "post"}
-    %input{:type => "hidden", :name => "calendar_id", :value => params[:calendar_id]}
-  
+  %form{:action => "/ui/new-event", :method => "post"}  
     .grid_12
-      .box-header Event
-      .box
+      .box.headless
         .row
           %label Title
           %input{:type => "text", :name => "name", :style => "width: 60%;"}
-        .row
-          %label Tags
-          %input{:type => "text", :name => "tags", :style => "width: 30%;", :value => params[:tag]}
         .row
           %label Location
           %input{:type => "text", :name => "location", :style => "width: 30%;"}

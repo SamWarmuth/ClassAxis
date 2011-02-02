@@ -56,10 +56,13 @@
               #sevents.hidden
                 .secondary-row
                   %input.search-field{:placeholder => "find event"}
+                .secondary-row.no-select{:href => "/ui/new-event", :style => "text-align: center;"}
+                  %strong New Event
+                  .page-title New Event
                 -@events.reverse[0..9].each do |event|
                   .secondary-row.no-select{:id => event.id, :href => "/ui/event/#{event.permalink}"}
                     = truncate(event.name, 15)
-                    .fr{:style => "color: #999"}= event.fuzzy_date
+                    .fr{:style => "color: #999"}= event.short_date
                     .page-title= event.name
                     
                 -if @events.count > 9

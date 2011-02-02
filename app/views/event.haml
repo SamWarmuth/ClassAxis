@@ -1,12 +1,10 @@
 .container_12
+  .grid_12
+    .box.headless
+      %h1{:style => "font-size: 2.75em;"}= @event.full_date
+      %h3{:style => "font-size: 1.25em; margin-bottom: 0;"} #{@event.full_time} (#{@event.relative_date})
   .grid_6
-    .box-header
-      =@event.calendar.name
-      -unless @event.attendee_ids.include?(@user.id)
-        %a.awesome.blue.medium{:href => "#{@event.permalink}/attend", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
-          %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}
-          Attend
-    .box
+    .box.headless
       -unless @event.attendee_ids.include?(@user.id)
         %a.awesome.blue.medium{:href => "#{@event.permalink}/attend", :style => 'vertical-align: text-top; font-size: 0.8em; margin-left: 20px;'}
           %img{:src => "/img/icons/small/add.png", :style => "padding: 0; height: 16px; width: 16px; position: relative; top: 1px;"}

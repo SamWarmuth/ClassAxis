@@ -19,6 +19,6 @@ class Message < CouchRest::ExtendedDocument
     Time.at(self.date).strftime("%b %d")
   end
   def time_since
-    fuzzy_time(Time.at(self.date))
+    relative_time(Time.at(self.date))
   end
 end

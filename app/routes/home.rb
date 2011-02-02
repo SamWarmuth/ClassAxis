@@ -424,6 +424,24 @@ class Main
     haml :event, :layout => false
   end
   
+  get "/ui/new-event" do
+    redirect "/login" unless logged_in?
+    haml :new_event, :layout => false
+  end
+  
+  post "/ui/new-event" do
+    redirect "/login" unless logged_in?
+    event = Event.new
+
+    event.name = params[:name]
+    event.location = params[:location]
+    event.date = Time.parse(params[:date] + " " + params[:time]).to_i
+    event.description = params[:description]
+    event.attendee_ids << @user.id
+    event.set_permalink
+    event.save
+    redirect "/#events"
+  end
   
   get "/ui/message/:id" do
     redirect "/login" unless logged_in?

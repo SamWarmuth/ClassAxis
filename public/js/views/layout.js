@@ -46,9 +46,7 @@ $(document).ready(function(){
       
       page.fadeIn(500);
       if (content.height() > sidebar.height()) sidebar.height(content.height());
-      
-      $(".scroll-bottom").stop(true,true).animate({ scrollTop: $(".scroll-bottom").attr("scrollHeight")}, 500, 'easeOutQuad');
-      
+      $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
     });
   });
   

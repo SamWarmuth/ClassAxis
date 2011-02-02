@@ -23,7 +23,7 @@ class Post < CouchRest::ExtendedDocument
   end
   
   def time_since
-    fuzzy_time(Time.at(self.date))
+    relative_time(Time.at(self.date))
   end
   
   def depth
@@ -51,10 +51,10 @@ class Post < CouchRest::ExtendedDocument
   end
 end
 
-def fuzzy_time(time)
-  since = Time.now - time
-  suffix = (since > 0 ? " ago" : "")
-  since = since.abs
+def relative_time(time)
+  past = (Time.now - time) > 0
+  suffix = (past ? " ago" : " from now")
+  since = (Time.now - time).abs
   if since < 80.seconds
     return since.to_i.to_s + " seconds#{suffix}"
   elsif since < 1.hour
@@ -65,9 +65,19 @@ def fuzzy_time(time)
     return "#{hours} hour#{"s" unless hours == 1}#{suffix}"
   elsif since < (5.days)
     days = (since/(1.day)).to_i + 1
-    return "yesterday" if days == 1
+    return (past ? "yesterday" : "tomorrow") if days == 1
     return "#{days} day#{"s" unless days == 1}#{suffix}"
+  elsif since < (4.weeks)
+    weeks = (since/(1.week)).to_i + 1
+    return (past ? "last" : "next") + " week" if weeks == 1
+    return "#{weeks} week#{"s" unless weeks == 1}#{suffix}"
+  elsif since < (12.months)
+    months = (since/(1.month)).to_i + 1
+    return (past ? "last" : "next") + " month" if months == 1
+    return "#{months} month#{"s" unless months == 1}#{suffix}"
   else
-    return time.strftime("%b %d")
+    years = (since/(1.year)).to_i + 1
+    return (past ? "last" : "next") + " year" if years == 1
+    return "#{years} year#{"s" unless years == 1}#{suffix}"
   end
 end
