@@ -1,7 +1,10 @@
-%h4
-  = @message.subject
-  %small.fr
-    #{Time.at(@message.date).strftime("%b %d %l:%M%p")} to
-    -receiver = User.get(@message.receiver_id)
-    %a{:href => "/user/#{receiver.permalink}"}= receiver.name
-%p= @message.content
+-date = Time.at(@message.date)
+-sent = @user.id == @message.sender_id
+.message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
+  .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
+    = sent ? @user.first_name : @collaborator.first_name
+  .colored-box.chat{:class => ( !@force_blue && sent ? "gray" : "blue")}
+    = @message.content
+    %small.fr{:style => "color: #999"}
+      #{Time.at(@message.date).strftime("%l:%M%p")}
+      -receiver = User.get(@message.receiver_id)

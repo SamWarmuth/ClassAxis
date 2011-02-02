@@ -9,7 +9,6 @@
       -@user.messages.each do |message|
         .message{:class => ("new" if message.unread)}
           %h4
-            = message.subject
             %small.fr
               #{Time.at(message.date).strftime("%b %d %l:%M%p")} from
               -sender = User.get(message.sender_id)
@@ -24,7 +23,6 @@
       -@user.sent_messages.each do |message|
         .message
           %h4
-            = message.subject
             %small.fr
               #{Time.at(message.date).strftime("%b %d %l:%M%p")} to
               -receiver = User.get(message.receiver_id)

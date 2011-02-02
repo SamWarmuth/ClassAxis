@@ -35,7 +35,7 @@ a img
 
 html
   font-size: 100.01%
-  background: #709098 url('/images/blue-pattern.png')
+  background: #788CA1 url('/images/blue-pattern.png')
 
 body
   font-size: 75%
@@ -201,9 +201,9 @@ address
   width: 625px
   margin-left: -295px
   border-radius: 10px
-  background: #608088
+  background: #63778C
   padding: 10px 25px
-  color: #95B0B8
+  color: #C3B7CC
   a
     color: #fff
     text-decoration: underline
@@ -663,6 +663,9 @@ html[xmlns] #nav
     margin: 0
     padding: 0
 
+
+  
+
 /* Page Blocks
 
 .box
@@ -792,6 +795,13 @@ html[xmlns] #nav
   width: 80%
   margin: 20px 10%
   border-bottom: 1px solid #ccc
+  
+  
+.conversation-container
+  max-height: 400px
+  overflow: auto
+  
+  
 .date-box
   clear: both
   float: left
@@ -804,7 +814,7 @@ html[xmlns] #nav
   border-radius: 10px
   
 .sender
-  width: 40px
+  width: 75px
   height: 10px
   padding: 10px
   display: inline-block
@@ -839,6 +849,9 @@ html[xmlns] #nav
     border-radius: 0
     border: none
     border-bottom: 1px solid #ccc
+  &.chat
+    display: inline-block
+    width: 317px
 
 
 /* Forms
@@ -1700,5 +1713,23 @@ html body *
   padding: 5px
   border-radius: 0 0 8px 8px
   background: #fff
+  
+
+input
+  padding: 5px
+  font-size: 15px
+  text-shadow: 0px 1px 0px #fff
+  outline: none
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  border-radius: 3px
+  border: 1px solid #ccc
+  -webkit-transition: .2s ease-in-out
+  -moz-transition: .2s ease-in-out
+  &.focus
+    border: 1px solid #fafafa
+    -webkit-box-shadow: 0px 0px 6px #007eff
+    -moz-box-shadow: 0px 0px 5px #007eff
+    box-shadow: 0px 0px 5px #007eff
 
 

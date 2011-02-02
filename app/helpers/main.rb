@@ -61,15 +61,19 @@ class Main
         dates[day] << event
       end
     end
+    
+    
+    def combine_ids(id1, id2)
+      #Take two ids, return unique third id.
+      #Currently just adds chars then divides by two. Make something better later.
+      
+      output = []
+      id1.length.times do |i|
+        output[i] = ((id1[i] + id2[i])/2).round
+      end
+      output.map(&:chr).join
+      
+    end
 
-
-    # Your helpers go here. You can also create another file in app/helpers with the same format.
-    # All helpers defined here will be available across all the application.
-    #
-    # @example A helper method for date formatting.
-    #
-    #   def format_date(date, format = "%d/%m/%Y")
-    #     date.strftime(format)
-    #   end
   end
 end

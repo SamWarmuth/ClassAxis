@@ -1,6 +1,5 @@
-var ZKEY = 122;
-var TKEY = 84;
-
+var EnterKey = 13;
+var thing = null;
 $(document).ready(function(){
   var selected = $(".init-selected").text();
   var sidebar = $(".secondary-navigation");
@@ -38,6 +37,7 @@ $(document).ready(function(){
     var content = $(".selected-content");
     content.html("");
     $(".spinner").show();
+    removeListeners();
     $.get($(this).attr("href"), function(data){
       sidebar.height('auto');
       var page = $("<div style='display: none'>"+data+"</div>");
@@ -46,10 +46,15 @@ $(document).ready(function(){
       
       page.fadeIn(500);
       if (content.height() > sidebar.height()) sidebar.height(content.height());
+      
+      $(".scroll-bottom").stop(true,true).animate({ scrollTop: $(".scroll-bottom").attr("scrollHeight")}, 500, 'easeOutQuad');
+      
     });
   });
   
   $(document).keydown(function(e){
+    if ($("input.focus").length != 0) return true;
+    //if currently in a text box/area, return true
     if (e.keyCode == '1'.charCodeAt(0)){
       $("a.icon#home").click();
       return false;
@@ -71,7 +76,40 @@ $(document).ready(function(){
       return false;
     }
   });
+  
+  $('input').live('keydown', function(e){
+    if ($(this).hasClass(".search-field")){
+      //instant search
+    }else if (e.keyCode == EnterKey){
+      //delayed content posting
+      var value = $(this).val();
+      $(this).val("");
+      $.post($(this).attr("href"),{content: value}, function(data){
+        data = JSON.parse(data);
+        $(data.container).append(data.content);
+        
+        //this probably doesn't work with more than one div. The second scroll-bottom will always be the first match
+        $(".scroll-bottom").stop(true,true).animate({ scrollTop: $(".scroll-bottom").attr("scrollHeight")}, 500, 'easeOutQuad');
+        
+      });
+    }
+  });
+  
+  $('input').live('blur', function(){
+    $('input').removeClass("focus");
+  }).live('focus', function() {
+    $(this).addClass("focus");
+  });
 });
+
+
+function removeListeners(){
+  if (typeof conversationListener != 'undefined') conversationListener.disconnect();
+  if (typeof discussionListener != 'undefined') discussionListener.disconnect();
+  
+}
+
+
 
 $(function(){
   $.extend($.fn.disableTextSelect = function() {

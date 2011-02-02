@@ -8,7 +8,6 @@ class Message < CouchRest::ExtendedDocument
   view_by :receiver_id
   
   property :date, :default => Proc.new{Time.now.to_i}
-  property :subject, :default => ""
   property :content, :default => ""
 
   property :unread, :default => true
@@ -16,7 +15,9 @@ class Message < CouchRest::ExtendedDocument
   property :previous
   property :next
   
-  
+  def short_date
+    Time.at(self.date).strftime("%b %d")
+  end
   def time_since
     fuzzy_time(Time.at(self.date))
   end

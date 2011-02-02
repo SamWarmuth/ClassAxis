@@ -31,11 +31,16 @@ class User < CouchRest::ExtendedDocument
     Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
   end
   def messages_by_sender
-    messages = Message.by_receiver_id(:key => self.id).sort_by{|m| m.date}
+    messages = Message.by_receiver_id(:key => self.id)
     senders = {}
     messages.each do |message|
       senders[message.sender_id] ||= []
       senders[message.sender_id] << message
+    end
+    sent = Message.by_sender_id(:key => self.id)
+    sent.each do |message|
+      senders[message.receiver_id] ||= []
+      senders[message.receiver_id] << message
     end
     return senders
   end

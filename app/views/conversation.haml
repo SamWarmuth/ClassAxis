@@ -1,20 +1,37 @@
 -current_day = nil
--@messages.each do |message|
-  -date = Time.at(message.date)
-  -if date.day != current_day
-    .date-box
-      -current_day = date.day
-      = date.strftime("%b %d")
-  -sent = @user.id == message.sender_id
-  .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
-    .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
-      = sent ? @user.first_name : @collaborator.first_name
-    .colored-box{:class => ( sent ? "green" : "brown"), :style => "display: inline-block; width: 219px;"}
-      = message.content
-      %small{:style => "color: #999", :class => (sent ? "fr" : "fl")}
-        #{Time.at(message.date).strftime("%l:%M%p")}
-        -receiver = User.get(message.receiver_id)
+.conversation-container.scroll-bottom
+  -@messages.each do |message|
+    -date = Time.at(message.date)
+    -if date.day != current_day
+      .date-box
+        -current_day = date.day
+        = date.strftime("%b %d")
+    -sent = @user.id == message.sender_id
+    .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
+      .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
+        = sent ? @user.first_name : @collaborator.first_name
+      .colored-box.chat{:class => ( sent ? "gray" : "blue")}
+        = message.content
+        %small.fr{:style => "color: #999"}
+          #{Time.at(message.date).strftime("%l:%M%p")}
+          -receiver = User.get(message.receiver_id)
 %br.cl
 .new-message
   .divider
-  %input{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px"}
+  %input.input{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px", :href => "/ui/message/#{@collaborator.id}/"}
+
+:javascript
+  $(document).ready(function(){
+    
+    var dual_id = '#{combine_ids(@collaborator.id, @user.id)}';
+    console.log("joined channel: "+dual_id);
+    if (typeof conversationListener != 'undefined') conversationListener.disconnect();
+    conversationListener = new Pusher('84d6245235e5b198d8aa', dual_id);
+    conversationListener.bind('addMessage', function(data) {
+      console.log("got message.");
+      if (data.user_id == '#{@user.id}') return true;
+      $('.conversation-container').append(data.content);
+      $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
+    });
+  });
+  

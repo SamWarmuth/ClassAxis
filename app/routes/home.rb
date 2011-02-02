@@ -250,7 +250,6 @@ class Main
     message = Message.new
     message.sender_id = @user.id
     message.receiver_id = @selected_user.id
-    message.subject = params[:subject]
     message.content = params[:message]
     message.save
     return 200 #this should eventually be an ajax call.
@@ -441,6 +440,30 @@ class Main
     return 404 if @messages.nil? || @collaborator.nil?
     
     haml :conversation, :layout => false
+  end
+  
+  post "/ui/message/:receiver_id/" do
+    redirect "/login" unless logged_in?
+    @collaborator = User.get(params[:receiver_id])
+    return 404 if @collaborator.nil?
+    
+    @message = Message.new
+    @message.sender_id = @user.id
+    @message.receiver_id = @collaborator.id
+    @message.content = params[:content]
+    @message.save
+    
+    dual_id = combine_ids(@user.id, @collaborator.id)
+    @force_blue = true
+    pusher_message = haml :message, :layout => false
+    Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
+    @force_blue = false
+    
+    puts "combined id: "+dual_id
+    
+    
+    return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
+    
   end
   
   get "/ui/discussion/:permalink" do
