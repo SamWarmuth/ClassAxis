@@ -1,20 +1,22 @@
 -current_day = nil
 .conversation-container.scroll-bottom{:style => "margin: -20px;"}
-  -@messages.each do |message|
+  -if @messages.length > 100
+    .date-box{:style => 'width: 150px; margin-left: 185px; color: #999'} Older messages not shown.
+  -@messages.last(100).each do |message|
     -date = Time.at(message.date)
     -if date.day != current_day
       .date-box
         -current_day = date.day
         =date.strftime("%b %d")
-    -sent = @user.id == message.sender_id
+    
+    -sent = (@user.id == message.sender_id)
     .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
       .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
         = sent ? @user.first_name : @collaborator.first_name
       .colored-box.chat{:class => ( sent ? "gray" : "blue")}
         = message.content
         %small.fr{:style => "color: #999"}
-          #{Time.at(message.date).strftime("%l:%M%p")}
-          -receiver = User.get(message.receiver_id)
+          #{date.strftime("%l:%M%p")}
 %br.cl
 .new-message
   .divider

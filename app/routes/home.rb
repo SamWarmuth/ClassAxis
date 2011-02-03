@@ -417,6 +417,11 @@ class Main
     haml :groups, :layout => false
   end
   
+  get "/ui/new-group" do
+    redirect "/login" unless logged_in?
+    haml :edit_group, :layout => false
+  end
+  
   get "/ui/event/:permalink" do
     redirect "/login" unless logged_in?
     @event = Event.by_permalink(:key => params[:permalink]).first
@@ -476,10 +481,6 @@ class Main
     pusher_message = haml :message, :layout => false
     Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     @force_blue = false
-    
-    puts "combined id: "+dual_id
-    
-    
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
     
   end
