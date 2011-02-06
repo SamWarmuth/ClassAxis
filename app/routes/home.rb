@@ -5,10 +5,10 @@ class Main
     redirect "/welcome" unless logged_in?
     @groups = @user.groups
     @discussions = @user.discussions
-    @events = @user.events
+    @events = @user.upcoming_events
     @selected = "home"
     @messages = @user.messages_by_sender
-    haml :index
+    haml :upcoming
   end
   get "/welcome" do
     logged_in?
@@ -397,8 +397,12 @@ class Main
   
   get "/ui/news" do
     redirect "/login" unless logged_in?
-    
     haml :index, :layout => false
+  end
+  get "/ui/upcoming" do
+    redirect "/login" unless logged_in?
+    @events = @user.events
+    haml :upcoming, :layout => false
   end
   get "/ui/profile" do
     redirect "/login" unless logged_in?
@@ -420,6 +424,12 @@ class Main
   get "/ui/new-group" do
     redirect "/login" unless logged_in?
     haml :edit_group, :layout => false
+  end
+  
+  get "/ui/past-events" do
+    redirect "/login" unless logged_in?
+    @events = @user.past_events
+    haml :events, :layout => false
   end
   
   get "/ui/event/:permalink" do

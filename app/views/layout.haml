@@ -37,10 +37,12 @@
                 .secondary-row.no-select#profile{:href => "/ui/profile"}
                   Profile
                   .page-title Profile
-                .secondary-row.no-select#news.selected{:href => "/ui/news"}
+                .secondary-row.no-select#news{:href => "/ui/news"}
                   Recent News
-                  .page-title
-                    Recent News
+                  .page-title Recent News
+                .secondary-row.no-select#upcoming.selected{:href => "/ui/upcoming"}
+                  This Week
+                  .page-title This Week
               #sgroups.hidden
                 = haml :group_sidebar, :layout => false
               #sevents.hidden

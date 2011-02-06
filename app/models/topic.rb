@@ -30,6 +30,10 @@ class Topic < CouchRest::ExtendedDocument
   def time_since
     relative_time(Time.at(self.date))
   end
+  def last_post_date
+    newest_post = Post.by_topic_id(:key => self.id).sort_by{|p| -p.date}.first
+    return newest_post ? newest_post.date : self.date
+  end
   def self.newest(count)
     self.by_date(:endkey => Time.now.to_i).reverse[0...count]
   end

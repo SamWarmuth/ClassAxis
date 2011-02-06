@@ -93,8 +93,9 @@ a
   text-decoration: underline
   &.name
     text-decoration: none
-    color: #777
+    color: #555
     &:hover
+      color: #333
       text-decoration: underline
 
 blockquote
@@ -1722,4 +1723,32 @@ input
     -moz-box-shadow: 0px 0px 5px #007eff
     box-shadow: 0px 0px 5px #007eff
 
-
+.split-box
+  padding: 5px
+  clear: both
+  .left
+    height: 38px
+    width: 140px
+    float: left
+    border: 1px solid #9d9d9d
+    font-weight: bold
+    font-size: 14px
+    background: #eee repeat-x top
+    padding: 2px 10px
+    color: #333333
+    -moz-border-radius-bottomleft: 3px
+    -moz-border-radius-topleft: 3px
+    -webkit-border-bottom-left-radius: 3px
+    -webkit-border-top-left-radius: 3px
+  .right
+    height: 38px
+    width: 335px
+    float: left
+    background: #fff
+    border: 1px solid #9d9d9d
+    border-left: 0
+    padding: 2px 10px
+    -moz-border-radius-bottomright: 3px
+    -moz-border-radius-topright: 3px
+    -webkit-border-bottom-right-radius: 3px
+    -webkit-border-top-right-radius: 3px

@@ -1,0 +1,50 @@
+-dates = events_by_day(@events)
+
+-today = Time.now.midnight
+%h1{:style => "font-size: 2.5em; margin-left: 5px;"}= today.strftime("Today is %A, %B %e.")
+-current_day = today
+-if dates[today.to_i].nil?
+  .suggestion{:style => "margin-left: 5px;"} You've got nothing going on today.
+-else
+  -dates[today.to_i].each do |event|
+    .split-box
+      .left
+        %a.name{:href => "/event/#{event.permalink}"}= truncate(event.name, 17)
+        %small{:style => "display: block;"}= Time.at(event.date).strftime("%l:%M%p")
+      .right
+        = truncate(event.description, 50)
+        %p
+          -if event.date > Time.now.to_i
+            %b Attending:
+          -else
+            %b Attended by
+          -if event.attendee_ids.length > 2
+            #{event.attendee_ids.length} people.
+          -event.attendees.each do |user|
+            %a{:href => "/user/#{user.permalink}"}= user.name
+      %br.cl
+-6.times do 
+  -current_day += 1.day
+  %h1{:style => 'margin: 15px 0 5px 5px;  color: #000'}
+    = current_day.strftime("%A")
+    %small{:style => "color: #999"}= current_day.strftime(" %B %e")
+  -if dates[current_day.to_i].nil?
+    .suggestion{:style => "margin-left: 5px;"} You've got nothing going on #{current_day.strftime("%A")}.
+  -else
+    -dates[current_day.to_i].each do |event|
+      .split-box
+        .left
+          %a.name{:href => "/event/#{event.permalink}"}= truncate(event.name, 17)
+          %small{:style => "display: block;"}= Time.at(event.date).strftime("%l:%M%p")
+        .right
+          = truncate(event.description, 50)
+          %p
+            -if event.date > Time.now.to_i
+              %b Attending:
+            -else
+              %b Attended by
+            -if event.attendee_ids.length > 2
+              #{event.attendee_ids.length} people.
+            -event.attendees.each do |user|
+              %a{:href => "/user/#{user.permalink}"}= user.name
+    %br.cl

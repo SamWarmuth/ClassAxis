@@ -1,4 +1,5 @@
 .colored-box{:id => @post.id, :class => (@new_post ? "green" : "gray")}
+  .date.hidden= @post.date
   %h3{:style => "color: #777; margin-bottom: 0;"}
     %a.name{:href => "/user/#{@post.creator.permalink}"}= @post.creator.name
     %small

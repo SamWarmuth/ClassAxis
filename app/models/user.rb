@@ -66,10 +66,18 @@ class User < CouchRest::ExtendedDocument
   end
   def discussions
     group_permalinks = self.groups.map(&:permalink)
-    (Topic.all.find_all{|t| group_permalinks.include?(t.group)} + self.posts.map{|p| p.topic}.uniq).sort_by{|t| -1*t.date}
+    (Topic.all.find_all{|t| group_permalinks.include?(t.group)} + self.posts.map{|p| p.topic}.uniq).uniq.sort_by{|t| -1*t.last_post_date}
   end
   def events
     Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| e.date}
+  end
+  def upcoming_events
+    now = Time.now.to_i
+    Event.all.find_all{|e| e.date > now && e.attendee_ids.include?(self.id)}.sort_by{|e| -e.date}
+  end
+  def past_events
+    now = Time.now.to_i
+    Event.all.find_all{|e| e.date < now && e.attendee_ids.include?(self.id)}.sort_by{|e| -e.date}
   end
   
   def member_since
