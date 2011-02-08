@@ -2,7 +2,7 @@
   .grid_12
     .mark-read.awesome.small.green{:style => "float: right;"}
       Mark posts read
-    .colored-box.blue{:id => @topic.id, :style => "font-size: 1.5em;"}
+    .colored-box.blue{:id => @topic.id, :style => "font-size: 1.25em;"}
       %b= @topic.title
       %span{:style => "margin-left: 10px; "}
         %a.name{:href => "/user/#{@topic.creator.permalink}"}= @topic.creator.name

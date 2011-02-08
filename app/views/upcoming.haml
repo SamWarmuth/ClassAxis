@@ -6,7 +6,7 @@
 -if dates[today.to_i].nil?
   .suggestion{:style => "margin-left: 5px;"} You've got nothing going on today.
 -else
-  -dates[today.to_i].each do |event|
+  -dates[today.to_i].sort_by{|e| e.date}.each do |event|
     .split-box
       .left
         %a.name{:href => "/event/#{event.permalink}"}= truncate(event.name, 17)
