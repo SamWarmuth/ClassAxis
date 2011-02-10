@@ -5,7 +5,7 @@ class Main
     redirect "/welcome" unless logged_in?
     @groups = @user.groups
     @discussions = @user.discussions
-    @events = @user.upcoming_events
+    @events = @user.events
     @selected = "home"
     @messages = @user.messages_by_sender
     haml :upcoming

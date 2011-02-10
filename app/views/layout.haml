@@ -19,8 +19,6 @@
           .notification{:class => broadcast.type}
             = broadcast.content.gsub("^^name^^", @user.name)
             .close{:id => broadcast.id}
-              
-        
         .page-content
           .spinner
           .init-selected{:style => "display: none;"}= @selected

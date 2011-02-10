@@ -65,8 +65,7 @@ class User < CouchRest::ExtendedDocument
     Post.by_creator_id(:key => self.id).sort_by{|p| p.date}
   end
   def discussions
-    group_permalinks = self.groups.map(&:permalink)
-    (Topic.all.find_all{|t| group_permalinks.include?(t.group)} + self.posts.map{|p| p.topic}.uniq).uniq.sort_by{|t| -1*t.last_post_date}
+    self.groups.map{|g| Topic.by_group(:key => g.permalink)}.flatten.compact.sort_by{|t| -1*t.last_post_date}
   end
   def events
     Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| e.date}

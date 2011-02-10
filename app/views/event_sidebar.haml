@@ -3,9 +3,9 @@
 .secondary-row.no-select{:href => "/ui/new-event", :style => "text-align: center;"}
   %strong New Event
   .page-title New Event
--@events[0..9].each do |event|
+-@events.find_all{|e| e.date > Time.now.to_i}[0..9].each do |event|
   .secondary-row.no-select{:id => event.id, :href => "/ui/event/#{event.permalink}"}
-    = truncate(event.name, 15)
+    = truncate(event.name, 13)
     .fr{:style => "color: #999"}= event.short_date
     .page-title= event.name
     
