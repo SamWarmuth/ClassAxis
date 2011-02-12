@@ -12,7 +12,7 @@
     %script{:src => "/js/functions.js", :type => "text/javascript"}
   %body
     
-    .welcome-container{:style => "margin: 0 auto 0 auto; width: 700px;  text-shadow: 1px 1px 1px #fff;"}
+    .welcome-container{:style => "margin: 0 auto 0 auto; width: 730px;  text-shadow: 1px 1px 1px #fff;"}
       .container_12
         %br
         .already-member{:style => 'text-align: right;'}
@@ -24,7 +24,7 @@
           %h1{:style => "text-align: center; font-size: 3em;"} Welcome to ClassAxis
         .grid_12{:style => "font-size: 2em; font-weight: bold;"}
           =(0..2).map{"<br/>"}
-          %ul
+          %ul{:style => "margin-left: 20px"}
             %li
               ClassAxis is a way to work on group projects with your classmates.
             
@@ -35,4 +35,5 @@
         .grid_12{:style => "text-align: center"}
           =(0..3).map{"<br/>"}
           %a.awesome.green.huge{:style => "font-size: 3em; font-weight: bold;", :href => "/signup"} Join Now
+      %br.cl
         
