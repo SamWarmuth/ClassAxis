@@ -9,6 +9,9 @@ class Main
     @selected = "discussions"
     @messages = @user.messages_by_sender
     @topic = @discussions.first
+    if @topic.nil?
+      return haml ""
+    end
     haml :discussion
   end
   get "/welcome" do
