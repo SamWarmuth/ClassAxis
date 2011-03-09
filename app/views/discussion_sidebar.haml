@@ -1,5 +1,4 @@
-.secondary-row
-  %input.search-field{:placeholder => "find discussion"}
+%input.search-field.d{:placeholder => "find/add discussion"}
 -@discussions[0..9].each do |topic|
   .secondary-row.no-select{:id => topic.id, :href => "/ui/discussion/#{topic.permalink}"}
     = topic.title

@@ -6,9 +6,10 @@ class Main
     @groups = @user.groups
     @discussions = @user.discussions
     @events = @user.events
-    @selected = "home"
+    @selected = "discussions"
     @messages = @user.messages_by_sender
-    haml :upcoming
+    @topic = @discussions.first
+    haml :discussion
   end
   get "/welcome" do
     logged_in?

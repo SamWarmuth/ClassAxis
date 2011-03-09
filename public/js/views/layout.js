@@ -77,8 +77,12 @@ $(document).ready(function(){
   });
   
   $('input').live('keydown', function(e){
-    if ($(this).hasClass(".search-field")){
-      //instant search
+    if ($(this).hasClass("search-field") && (e.keyCode == EnterKey)){
+      if ($(this).hasClass("d")){ // discussion
+        alert("new discussion!");
+      } else if ($(this).hasClass("m")){//event
+        alert("new message!");
+      }
     }else if (e.keyCode == EnterKey){
       //delayed content posting
       var value = $(this).val();

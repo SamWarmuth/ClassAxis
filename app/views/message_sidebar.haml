@@ -1,5 +1,4 @@
-.secondary-row
-  %input.search-field{:placeholder => "find message"}
+%input.search-field.m{:placeholder => "find/add message"}
 -@messages.each_pair do |sender_id, messages|
   -sender = User.get(sender_id)
   .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
