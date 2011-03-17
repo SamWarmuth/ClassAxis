@@ -10,6 +10,8 @@ class User < CouchRest::ExtendedDocument
   property :date, :default => Proc.new{Time.now.to_i}
   view_by :date
   
+  property :file_ids, :default => []
+  
   property :calendar_id
   
   property :permalink

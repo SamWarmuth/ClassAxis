@@ -9,9 +9,7 @@ class Main
     @selected = "discussions"
     @messages = @user.messages_by_sender
     @topic = @discussions.first
-    if @topic.nil?
-      return haml ""
-    end
+    return haml "" if @topic.nil?
     haml :discussion
   end
   get "/welcome" do
@@ -479,8 +477,9 @@ class Main
     haml :conversation, :layout => false
   end
   
+  
   post "/ui/message/:receiver_id/" do
-    redirect "/login" unless logged_in?
+    return 403 unless logged_in?
     @collaborator = User.get(params[:receiver_id])
     return 404 if @collaborator.nil?
     
@@ -496,9 +495,43 @@ class Main
     Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     @force_blue = false
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
-    
   end
   
+  post "/message/addfile/:receiver_id" do
+    return 403 unless logged_in?
+    @collaborator = User.get(params[:receiver_id])
+    return 404 if @collaborator.nil?
+    
+    file = Upload.new
+    file.name = params[:qqfile].gsub(" ", "")
+    extension = file.name.split(".").last
+    file.save
+    file.url = "/uploads/#{@user.id}/files/#{file.id}.#{extension}"
+    file.save
+    
+    FileUtils.mkdir_p "public/uploads/#{@user.id}/files/"
+    
+    file.file_path = "public/uploads/#{@user.id}/files/#{file.id}.#{extension}"
+    @user.file_ids ||= []
+    @user.file_ids << file.id
+    @user.save
+    
+    data = request.env['rack.input']
+    File.open(file.file_path, 'w') {|f| f.write(data.read)}
+    
+    @message = Message.new
+    @message.sender_id = @user.id
+    @message.receiver_id = @collaborator.id
+    @message.upload_id = file.id
+    @message.save
+    
+    
+    pusher_message = haml :message, :layout => false
+    dual_id = combine_ids(@user.id, @collaborator.id)
+    Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
+    
+    return '{"success":true}'
+  end
   get "/ui/discussion/:permalink" do
     redirect "/login" unless logged_in?
     @topic = Topic.by_permalink(:key => params[:permalink]).first

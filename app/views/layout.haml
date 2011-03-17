@@ -12,6 +12,8 @@
     %script{:src => "/js/excanvas.js", :type => "text/javascript"}
     %script{:src => "/js/visualize.jQuery.js", :type => "text/javascript"}
     %script{:src => "/js/functions.js", :type => "text/javascript"}
+    %script{:src => "/js/fileuploader.js", :type => "text/javascript"}
+    
     
     
     %script{:src => "/js/jquery.autoSuggest.packed.js", :type => "text/javascript"}
@@ -21,13 +23,10 @@
     :javascript
       var thing;
       $(document).ready(function(){
-        var data = {items: [
-        #{users}
-        ]};
-        $("input").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", selectionAdded: function(elem){
+        var data = {items: [#{users}]};
+        $(".search-field.m").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", selectionAdded: function(elem){
           var index = parseInt($(elem).attr('id').charAt($(elem).attr('id').length-1));
         }});
-        
       });
       
     

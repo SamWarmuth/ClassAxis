@@ -9,6 +9,7 @@ class Message < CouchRest::ExtendedDocument
   
   property :date, :default => Proc.new{Time.now.to_i}
   property :content, :default => ""
+  property :upload_id
 
   property :unread, :default => true
   

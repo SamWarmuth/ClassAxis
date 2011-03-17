@@ -2,25 +2,20 @@
 .conversation-container.scroll-bottom{:style => "margin: -20px;"}
   -if @messages.length > 100
     .date-box{:style => 'width: 150px; margin-left: 185px; color: #999'} Older messages not shown.
-  -@messages.last(100).each do |message|
-    -date = Time.at(message.date)
+  -@messages.last(100).each do |@message|
+    -date = Time.at(@message.date)
     -if date.day != current_day
       .date-box
         -current_day = date.day
         =date.strftime("%b %d")
-    
-    -sent = (@user.id == message.sender_id)
-    .message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
-      .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
-        = sent ? @user.first_name : @collaborator.first_name
-      .colored-box.chat{:class => ( sent ? "gray" : "blue")}
-        = message.content
-        %small.fr{:style => "color: #999"}
-          #{date.strftime("%l:%M%p")}
+    =haml :message, :layout => false
+
 %br.cl
 .new-message
   .divider
-  %input.input.first-focus{:style => "width: 400px; height: 20px; font-size: 1.3em; margin-left: 70px", :href => "/ui/message/#{@collaborator.id}/"}
+  #file-uploader{:style => 'float: left;'}
+    %noscript Please enable JavaScript to use file uploader.
+  %input.input.first-focus{:style => "float: left;width: 350px; height: 20px; font-size: 1.3em; margin-left: 10px; display: inline-block;", :href => "/ui/message/#{@collaborator.id}/"}
 
 :javascript
   $(document).ready(function(){
@@ -34,6 +29,22 @@
       $('.conversation-container').append(data.content);
       $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
     });
-        
+    
+    
+    var uploader = new qq.FileUploader({
+        // pass the dom node (ex. $(selector)[0] for jQuery users)
+        element: document.getElementById('file-uploader'),
+        // path to server-side upload script
+        action: '/message/addfile/#{@collaborator.id}',
+        onSubmit: function(id, fileName){
+          $('.conversation-container').append("<div class='loading'><div class='sender'></div><div class='colored-box chat gray'><img src='/images/loading.gif'/> Uploading File</div></div>");
+          $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
+          
+        },
+        onProgress: function(id, fileName, loaded, total){},
+        onComplete: function(id, fileName, responseJSON){
+          $('.loading').remove();
+        }
+    });
   });
   

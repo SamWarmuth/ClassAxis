@@ -1,10 +1,10 @@
 -date = Time.at(@message.date)
--sent = @user.id == @message.sender_id
-.message-container{:style => "float: #{sent ? "left" : "right"}; clear: both;"}
-  .sender{:style => "float: #{sent ? "left" : "right"}; text-align: #{!sent ? "left" : "right"};"}
+-sent = (@user.id == @message.sender_id)
+.message-container
+  .sender
     = sent ? @user.first_name : @collaborator.first_name
-  .colored-box.chat{:class => ( !@force_blue && sent ? "gray" : "blue")}
+  .colored-box.chat{:class => ( @message.upload_id ? "file-container" : !@force_blue && sent ? "gray" : "blue")}
+    .message-date= date.strftime("%l:%M%p")
+    -if @message.upload_id && (file = Upload.get(@message.upload_id))
+      %a.file{:href => file.url, :target => "_blank"}= file.name
     = @message.content
-    %small.fr{:style => "color: #999"}
-      #{Time.at(@message.date).strftime("%l:%M%p")}
-      -receiver = User.get(@message.receiver_id)

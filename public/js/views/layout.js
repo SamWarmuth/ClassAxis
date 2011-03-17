@@ -84,7 +84,7 @@ $(document).ready(function(){
         alert("new message!");
       }
     }else if (e.keyCode == EnterKey){
-      //delayed content posting
+      //delayed content posting for MESSAGES.
       var value = $(this).val();
       $(this).val("");
       $.post($(this).attr("href"),{content: value}, function(data){

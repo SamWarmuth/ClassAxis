@@ -815,6 +815,10 @@ html[xmlns] #nav
   max-height: 400px
   overflow: auto
   
+.message-container
+  float: left
+  clear: both
+  
   
 .date-box
   clear: both
@@ -832,25 +836,20 @@ html[xmlns] #nav
   height: 10px
   padding: 10px
   display: inline-block
+  float: left
+  text-align: right
+.file
+  display: block
+  text-decoration: none
+  font-weight: bold
+  text-align: center
+  font-size: 1.2em
+  color: #666
+  &:hover
+    color: #222
+
 .colored-box
-  &.green
-    background: #effeb9
-    border-color: #98c700
-  &.red
-    background: #fccac3
-    border-color: #ea5338
-  &.yellow
-    background: #ffeaa7
-    border-color: #f9b418
-  &.blue
-    background: #d1e4f3
-    border-color: #4d8fcc
-  &.brown
-    background: #feeac9
-    border-color: #d38e49
-  &.gray
-    background: #eee
-    border-color: #aaa
+  position: relative
   border-width: 1px
   border-style: solid
   padding: 10px 15px
@@ -866,6 +865,43 @@ html[xmlns] #nav
   &.chat
     display: inline-block
     width: 358px
+  
+  .message-date
+    position: absolute
+    right: 15px
+    top: 12px
+    font-size: 0.8em
+    color: #888
+  &.green
+    background: #effeb9
+    border-color: #98c700
+  &.red
+    background: #fccac3
+    border-color: #ea5338
+  &.yellow
+    background: #ffeaa7
+    border-color: #f9b418
+  &.blue
+    background: #d1e4f3
+    border-color: #4d8fcc
+  &.brown
+    background: #feeac9
+    border-color: #d38e49
+  &.file-container
+    background: #eee url(/images/file-gradient.png)
+    border-color: #bbb
+    border-radius: 25px
+    text-align: center
+    &:active
+      background: #eee url(/images/file-gradient-active.png)
+  &.purple
+    background: #C070FF
+    border-color: #8020C0
+    .message-date
+      color: #333
+  &.gray
+    background: #eee
+    border-color: #aaa
 
 
 /* Forms
@@ -915,6 +951,81 @@ form
 
 fieldset
   margin-bottom: 15px
+
+.qq-uploader
+  position: relative
+  width: 100%
+
+.qq-upload-button
+  display: inline-block
+  /* or inline-block
+  margin-left: 25px
+  width: 105px
+  padding: 7px 0
+  text-align: center
+  background: #880000
+  border-bottom: 1px solid #ddd
+  color: #fff
+
+.qq-upload-button-hover
+  background: #cc0000
+
+.qq-upload-button-focus
+  outline: 1px dotted black
+
+.qq-upload-drop-area
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  min-height: 70px
+  z-index: 2
+  background: #FF9797
+  text-align: center
+  span
+    display: block
+    position: absolute
+    top: 50%
+    width: 100%
+    margin-top: -8px
+    font-size: 16px
+
+.qq-upload-drop-area-active
+  background: #FF7171
+
+.qq-upload-list
+  display: none
+  margin: 10px 20px
+  padding: 0
+  list-style: disc
+  li
+    margin: 0
+    padding: 0
+    line-height: 15px
+    font-size: 12px
+
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text
+  margin-right: 7px
+
+.qq-upload-file
+
+.qq-upload-spinner
+  display: inline-block
+  background: url("/images/loading.gif")
+  width: 15px
+  height: 15px
+  vertical-align: text-bottom
+
+.qq-upload-size, .qq-upload-cancel
+  font-size: 11px
+
+.qq-upload-failed-text
+  display: none
+
+.qq-upload-fail .qq-upload-failed-text
+  display: inline
+
 
 /* Buttons
 
