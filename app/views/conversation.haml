@@ -42,7 +42,7 @@
           scrollToBottom();
         },
         onProgress: function(id, fileName, loaded, total){
-          $('.pcnt').text(loaded/total);
+          $('.pcnt').text((100*loaded/total).toFixed(2));
         },
         onComplete: function(id, fileName, responseJSON){
           $('.loading').remove();
