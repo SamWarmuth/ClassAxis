@@ -19,6 +19,7 @@
 
 :javascript
   $(document).ready(function(){
+    $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
     var dual_id = '#{combine_ids(@collaborator.id, @user.id)}';
     console.log("joined channel: "+dual_id);
     if (typeof conversationListener != 'undefined') conversationListener.disconnect();
@@ -27,7 +28,7 @@
       console.log("got message.");
       if (data.user_id == '#{@user.id}') return true;
       $('.conversation-container').append(data.content);
-      $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
+      scrollToBottom();
     });
     
     
@@ -38,8 +39,7 @@
         action: '/message/addfile/#{@collaborator.id}',
         onSubmit: function(id, fileName){
           $('.conversation-container').append("<div class='loading'><div class='sender'></div><div class='colored-box chat gray'><img src='/images/loading.gif'/> Uploading File</div></div>");
-          $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
-          
+          scrollToBottom();
         },
         onProgress: function(id, fileName, loaded, total){},
         onComplete: function(id, fileName, responseJSON){
@@ -50,4 +50,7 @@
       $('.qq-upload-drop-area').hide();
     });
   });
+  function scrollToBottom(){
+    $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
+  }
   
