@@ -1,10 +1,15 @@
 -date = Time.at(@message.date)
 -sent = (@user.id == @message.sender_id)
+-file = Upload.get(@message.upload_id) if @message.upload_id
 .message-container
   .sender
     = sent ? @user.first_name : @collaborator.first_name
-  .colored-box.chat{:class => ( @message.upload_id ? "file-container" : !@force_blue && sent ? "gray" : "blue")}
+  -if file&&['png', 'jpg', 'jpeg', 'gif'].include?(file.file_type)
+    .colored-box.chat.invisible
+      %img{:src => file.url, :style => "max-width: 350px"}
+    .sender
+  .colored-box.chat{:class => ( file ? "file-container" : !@force_blue && sent ? "gray" : "blue")}
     .message-date= date.strftime("%l:%M%p")
-    -if @message.upload_id && (file = Upload.get(@message.upload_id))
+    -if file
       %a.file{:href => file.url, :target => "_blank"}= file.name
     = @message.content

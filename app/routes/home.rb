@@ -505,13 +505,14 @@ class Main
     file = Upload.new
     file.name = params[:qqfile].gsub(" ", "")
     extension = file.name.split(".").last
+    file.file_type = extension
     file.save
     file.url = "/uploads/#{@user.id}/files/#{file.id}.#{extension}"
+    file.file_path = "public/uploads/#{@user.id}/files/#{file.id}.#{extension}"
     file.save
     
     FileUtils.mkdir_p "public/uploads/#{@user.id}/files/"
     
-    file.file_path = "public/uploads/#{@user.id}/files/#{file.id}.#{extension}"
     @user.file_ids ||= []
     @user.file_ids << file.id
     @user.save
