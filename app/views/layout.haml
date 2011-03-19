@@ -32,6 +32,7 @@
     
     %script{:src => "http://js.pusherapp.com/1.6/pusher.min.js", :type => "text/javascript"}
   %body
+    .shroud
     #page-wrapper
       .page
         -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
@@ -39,15 +40,21 @@
             = broadcast.content.gsub("^^name^^", @user.name)
             .close{:id => broadcast.id}
         .page-content
+          .modal-border
+          .modal
+            .modal-new.hide
+              New Room
+            .moda-browse.hide
+              Rooms
           .spinner
           .init-selected{:style => "display: none;"}= @selected
           .header-box= @selected
-          .top-navigation
+          -#.top-navigation
             //%a.icon.no-select#home home
-            %a.icon.no-select#discussions discussions
+            //%a.icon.no-select#discussions discussions
             //%a.icon.no-select#groups groups
             //%a.icon.no-select#events events
-            %a.icon.no-select#messages messages
+            //%a.icon.no-select#messages Conversations
           .secondary-container
             .secondary-navigation
               -if false
@@ -65,8 +72,8 @@
                   = haml :group_sidebar, :layout => false
                 #sevents.hidden
                   = haml :event_sidebar, :layout => false
-              #sdiscussions.hidden
-                = haml :discussion_sidebar, :layout => false
+                #sdiscussions.hidden
+                  = haml :discussion_sidebar, :layout => false
               #smessages.hidden
                 = haml :message_sidebar, :layout => false
             .selected-content

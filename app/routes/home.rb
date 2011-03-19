@@ -6,11 +6,11 @@ class Main
     @groups = @user.groups
     @discussions = @user.discussions
     @events = @user.events
-    @selected = "discussions"
+    @selected = "messages"
     @messages = @user.messages_by_sender
     @topic = @discussions.first
     return haml "" if @topic.nil?
-    haml :discussion
+    haml "Click an item to the left."
   end
   get "/welcome" do
     logged_in?

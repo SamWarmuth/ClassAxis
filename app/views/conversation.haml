@@ -13,11 +13,12 @@
 %br.cl
 .new-message
   .divider
-  #file-uploader{:style => 'float: left;'}
+  #file-uploader{:style => 'float: left; margin-left: 35px;'}
     %noscript Please enable JavaScript to use file uploader.
   %input.input.first-focus{:style => "float: left;width: 350px; height: 20px; font-size: 1.3em; margin-left: 10px; display: inline-block;", :href => "/ui/message/#{@collaborator.id}/"}
 
 :javascript
+  $(window).load(function(){$(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));});
   $(document).ready(function(){
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
     var dual_id = '#{combine_ids(@collaborator.id, @user.id)}';
@@ -31,12 +32,12 @@
       scrollToBottom();
     });
     
-    
     var uploader = new qq.FileUploader({
         // pass the dom node (ex. $(selector)[0] for jQuery users)
         element: document.getElementById('file-uploader'),
         // path to server-side upload script
         action: '/message/addfile/#{@collaborator.id}',
+        sizeLimit: 5200000,
         onSubmit: function(id, fileName){
           $('.conversation-container').append("<div class='loading'><div class='sender'></div><div class='colored-box chat gray'><img src='/images/loading.gif'/> Uploading File: <div class='pcnt' style='display: inline'>0</div>%</div></div>");
           scrollToBottom();

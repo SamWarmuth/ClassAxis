@@ -1,8 +1,45 @@
-%input.search-field.m{:placeholder => "find/add message"}
--@messages.each_pair do |sender_id, messages|
+.secondary-row-nohover.no-select
+  .new-button.flush-right.browse-rooms Browse Rooms
+  .new-button.flush-left.new-room New Room
+-@messages.to_a.sort_by{|s,m| -m.first.date}.each do |sender_id, messages|
   -sender = User.get(sender_id)
   .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
-    = truncate(sender.name, 13)
+    .badge-holder
+      -if rand(2) == 1
+        .badge.yellow= 88
+      -else
+        .badge.clear &nbsp;
+    = truncate(sender.name, 20)
     .page-title Conversation with #{sender.name}
     .fr{:style => "color: #999"}
       = messages.sort_by{|m| m.date}.last.short_date
+:javascript
+  $(document).ready(function(){
+    var modal = $(".modal");
+    $(".new-room").click(function(){
+      showModal();
+    });
+    $(".browse-rooms").click(function(){
+      showModal();
+    });
+    $(".shroud").click(function(){
+      hideModal();
+    });
+  });
+  function showModal(){
+    $(".shroud").fadeIn(100);
+    $(".modal-border").fadeIn(100);
+    $(".modal").fadeIn(100);
+  }
+  
+  function hideModal(){
+    $(".shroud").fadeOut(50);
+    $(".modal-border").fadeOut(50);
+    $(".modal").fadeOut(50);
+  }
+  
+  $(document).keydown(function(e){
+    if (e.keyCode == 27){ //escape
+      hideModal();
+    }
+  });
