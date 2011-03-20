@@ -12,7 +12,7 @@ class User < CouchRest::ExtendedDocument
   
   property :file_ids, :default => []
   
-  property :calendar_id
+  property :room_ids, :default => []
   
   property :permalink
   view_by :permalink
@@ -23,61 +23,18 @@ class User < CouchRest::ExtendedDocument
   
   property :picture_url
   
-  def calendar
-    Calendar.get(self.calendar_id)
+  def rooms
+    self.room_ids.map{|r_id| Room.get(r_id)}
   end
-  def groups
-    Group.all.find_all{|g| g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
-  end
-  def courses
-    Group.all.find_all{|g| !g.course_number.nil? && g.user_ids.include?(self.id)}.sort_by{|c| c.name}
-  end
-  def messages_by_sender
-    messages = Message.by_receiver_id(:key => self.id)
-    senders = {}
-    messages.each do |message|
-      senders[message.sender_id] ||= []
-      senders[message.sender_id] << message
-    end
-    sent = Message.by_sender_id(:key => self.id)
-    sent.each do |message|
-      senders[message.receiver_id] ||= []
-      senders[message.receiver_id] << message
-    end
-    return senders
-  end
-  def messages_with(sender)
-    sender = sender.id if sender.is_a?(User)
-    received = Message.by_receiver_id(:key => self.id).find_all{|m| m.sender_id == sender}
-    sent = Message.by_receiver_id(:key => sender).find_all{|m| m.sender_id == self.id}
-    return (received + sent).sort_by{|m| m.date}
-  end
+
+
   def messages
     Message.by_receiver_id(:key => self.id).sort_by{|m| m.date}
   end
   def sent_messages
     Message.by_sender_id(:key => self.id).sort_by{|m| m.date}
   end
-  def topics
-    Topic.by_creator_id(:key => self.id).sort_by{|t| t.date}
-  end
-  def posts
-    Post.by_creator_id(:key => self.id).sort_by{|p| p.date}
-  end
-  def discussions
-    self.groups.map{|g| Topic.by_group(:key => g.permalink)}.flatten.compact.sort_by{|t| -1*t.last_post_date}
-  end
-  def events
-    Event.all.find_all{|e| e.attendee_ids.include?(self.id)}.sort_by{|e| e.date}
-  end
-  def upcoming_events
-    now = Time.now.to_i
-    Event.all.find_all{|e| e.date > now && e.attendee_ids.include?(self.id)}.sort_by{|e| -e.date}
-  end
-  def past_events
-    now = Time.now.to_i
-    Event.all.find_all{|e| e.date < now && e.attendee_ids.include?(self.id)}.sort_by{|e| -e.date}
-  end
+
   
   def member_since
     relative_time(Time.at(self.date))

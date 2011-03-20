@@ -1,20 +1,23 @@
 .secondary-row-nohover.no-select
+  &nbsp;
   .new-button.flush-right.browse-rooms Find a Room
   .new-button.flush-left.new-room New Room
--@messages.to_a.sort_by{|s,m| -m.first.date}.each do |sender_id, messages|
-  -sender = User.get(sender_id)
-  .secondary-row.no-select{:id => sender.id, :href => "/ui/messages/with/#{sender.id}"}
+-@rooms.sort_by{|r| -r.last_message.date}.each do |room|
+  .secondary-row.no-select{:id => room.id, :href => "/ui/room/#{room.id}"}
     .badge-holder
       -if rand(2) == 1
         .badge.yellow= 88
       -else
         .badge.clear &nbsp;
-    = truncate(sender.name, 20)
-    .page-title Conversation with #{sender.name}
+    = truncate(room.name, 20)
+    .page-title= room.name
     .fr{:style => "color: #999"}
-      = messages.sort_by{|m| m.date}.last.short_date
+      = room.last_message.short_date
+      
+
 :javascript
   $(document).ready(function(){
+    $("#smessages").children(".secondary-row").first().click();
     var modal = $(".modal");
     $(".new-room").click(function(){
       $(".modal-new").show();

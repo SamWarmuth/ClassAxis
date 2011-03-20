@@ -14,7 +14,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 body
   line-height: 1.5
   min-width: 820px
-  margin: auto  
+  margin: auto 
   
 
 blockquote
@@ -238,8 +238,8 @@ address
 .header-box
   background: #fff
   border-bottom: 1px solid #ccc
-  width: 845px
-  margin-left: 0px //95px with top-level
+  width: 595px
+  margin-left: 220px
   height: 32px
   padding-top: 6px
   border-radius: 5px 5px 0 0 
@@ -269,24 +269,15 @@ address
   
 .secondary-navigation
   float: left
-  width: 250px
+  width: 220px
   background: #e7ebec url('/images/light-noise.png')
   height: 100%
   min-height: 320px
-  border-radius: 0 0 0 10px
-  -moz-border-radius: 0 0 0 10px
   padding-bottom: 40px
   -webkit-box-shadow: inset -2px 0px 2px #ccd
   -moz-box-shadow: inset -2px 0px 2px #ccd
   box-shadow: inset -2px 0px 2px #ccd
-  .search-field
-    font-size: 1em
-    background: #fff url('/images/search-tiny.png') no-repeat
-    background-position: 3px 3px
-    padding-left: 22px
-    padding-top: 5px
-    width: 115px
-    height: 15px
+
 .page-title
   display: none
   
@@ -318,7 +309,7 @@ address
 .new-button
   background: #eee url('/images/button-gradient.png') repeat-x
   display: inline-block
-  width: 103px
+  width: 85px
   height: 16px
   padding: 4px 5px
   text-align: center
@@ -330,7 +321,7 @@ address
   &.flush-left
     margin-left: 0
     border-radius: 0 10px 10px 0
-    -moz-border-radius: 10px 10px 0 0 
+    -moz-border-radius: 0 10px 10px 0 
     border-left: none
   &.flush-right
     margin-right: -3px
@@ -349,9 +340,9 @@ address
   float: left
   background: #fff url('/images/main-bg.png')
   height: 100%
-  min-height: 320px
-  border-radius: 0 0 10px 10px
-  -moz-border-radius: 0 0 10px 10px
+  overflow: hidden
+  border-radius: 10px 0 10px 10px
+  -moz-border-radius: 10px 0 10px 10px
   
 .selected-content
   float: left
@@ -847,7 +838,7 @@ html[xmlns] #nav
   
   
 .conversation-container
-  max-height: 500px
+  height: 700px
   overflow: auto
   
 .message-container
@@ -865,6 +856,8 @@ html[xmlns] #nav
   background-color: #f2f2f2
   color: #555
   border-radius: 10px
+  -moz-border-radius: 10px
+  
   
 .sender
   width: 75px
@@ -879,6 +872,7 @@ html[xmlns] #nav
   font-weight: bold
   text-align: center
   font-size: 1.2em
+  padding: 10px 15px
   color: #666
   &:hover
     color: #222
@@ -929,6 +923,9 @@ html[xmlns] #nav
     border-radius: 25px
     text-align: center
     opacity: 0.8
+    padding: 0
+    width: 418px
+    
     &:hover
       opacity: 1.0
     &:active

@@ -3,14 +3,8 @@ class Main
   
   get "/" do
     redirect "/welcome" unless logged_in?
-    @groups = @user.groups
-    @discussions = @user.discussions
-    @events = @user.events
-    @selected = "messages"
-    @messages = @user.messages_by_sender
-    @topic = @discussions.first
-    return haml "" if @topic.nil?
-    haml "Click an item to the left."
+    @rooms = @user.rooms
+    haml "" #loads layout.haml
   end
   get "/welcome" do
     logged_in?
@@ -467,40 +461,38 @@ class Main
     
     haml :message, :layout => false
   end
-  
-  get "/ui/messages/with/:sender_id" do
+
+  get "/ui/room/:room_id" do
     redirect "/login" unless logged_in?
-    @messages = @user.messages_with(params[:sender_id])
-    @collaborator = User.get(params[:sender_id])
-    return 404 if @messages.nil? || @collaborator.nil?
-    
+    @room = Room.get(params[:room_id])
+    return "Room not found." if @room.nil?
+    @messages = @room.messages
     haml :conversation, :layout => false
   end
   
   
-  post "/ui/message/:receiver_id/" do
+  post "/ui/message/:room_id/" do
     return 403 unless logged_in?
-    @collaborator = User.get(params[:receiver_id])
-    return 404 if @collaborator.nil?
+    @room = Room.get(params[:room_id])
+    return 404 if @room.nil?
     
     @message = Message.new
     @message.sender_id = @user.id
-    @message.receiver_id = @collaborator.id
+    @message.room_id = @room.id
     @message.content = params[:content]
     @message.save
     
-    dual_id = combine_ids(@user.id, @collaborator.id)
     @force_blue = true
     pusher_message = haml :message, :layout => false
-    Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
+    Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     @force_blue = false
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
   end
   
-  post "/message/addfile/:receiver_id" do
+  post "/message/addfile/:room_id" do
     return 403 unless logged_in?
-    @collaborator = User.get(params[:receiver_id])
-    return 404 if @collaborator.nil?
+    @room = Room.get(params[:room_id])
+    return 404 if @room.nil?
     
     file = Upload.new
     file.name = params[:qqfile].gsub(" ", "")
@@ -522,15 +514,14 @@ class Main
     
     @message = Message.new
     @message.sender_id = @user.id
-    @message.receiver_id = @collaborator.id
+    @message.room_id = @room.id
     @message.upload_id = file.id
     @message.save
     
     
     pusher_message = haml :message, :layout => false
-    dual_id = combine_ids(@user.id, @collaborator.id)
-    Thread.new{Pusher[dual_id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
-    
+    Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
+
     return '{"success":true}'
   end
   get "/ui/discussion/:permalink" do

@@ -1,10 +1,11 @@
 -date = Time.at(@message.date)
 -sent = (@user.id == @message.sender_id)
 -file = Upload.get(@message.upload_id) if @message.upload_id
+-sender = User.get(@message.sender_id)
 .message-container
   .sender
-    = sent ? @user.first_name : @collaborator.first_name
-  -if file&&['png', 'jpg', 'jpeg', 'gif'].include?(file.file_type)
+    = sender.first_name
+  -if file && ['png', 'jpg', 'jpeg', 'gif'].include?(file.file_type)
     .colored-box.chat.invisible
       %img{:src => file.url, :style => "max-width: 350px"}
     .sender

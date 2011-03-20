@@ -31,13 +31,3 @@ class Group < CouchRest::ExtendedDocument
     Calendar.get(self.calendar_id).events
   end
 end
-
-def generate_permalink(object, string)
-  #remove all characters that aren't a-z or 0-9
-  permalink = string.downcase.gsub(/[^a-z^0-9]/,'')
-  object_class = CouchRest.constantize(object['couchrest-type'])
-  until (object_class.by_permalink(:key => permalink).empty?)
-    permalink += rand(10).to_s #add a number to the end.
-  end
-  return permalink
-end
