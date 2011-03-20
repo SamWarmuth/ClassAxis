@@ -23,7 +23,7 @@
     });
   });
   
-  $(".join-room").click(function(){
+  $(".join-room").live("click", function(){
     $.post($(this).attr("href"), function(data){
       $("#smessages").append(data);
       hideModal();

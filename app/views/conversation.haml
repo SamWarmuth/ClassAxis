@@ -20,7 +20,9 @@
 :javascript
   $(window).load(function(){$(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));});
   $(document).ready(function(){
-    $('.conversation-container').css("height", $(window).height() - 200);
+    var coversationHeight = $(window).height() - 200;
+    if (coversationHeight < 350 ) conversationHeight = 350;
+    $('.conversation-container').css("height", conversationHeight);
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
     var roomID = '#{@room.id}';
     console.log("joined channel: "+ roomID);
