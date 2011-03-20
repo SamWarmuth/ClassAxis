@@ -120,14 +120,7 @@ class Main
     haml :message, :layout => false
   end
   
-  post "/ui/join-room/:room_id" do
-    redirect "/login" unless logged_in?
-    @room = Room.get(params[:room_id])
-    return "Room not found." if @room.nil?
-    @user.room_ids << @room.id
-    @user.save
-    haml :room_row, :layout => false
-  end
+
 
   get "/ui/room/:room_id" do
     redirect "/login" unless logged_in?
@@ -135,6 +128,15 @@ class Main
     return "Room not found." if @room.nil?
     @messages = @room.messages
     haml :conversation, :layout => false
+  end
+  
+  post "/ui/join-room/:room_id" do
+    redirect "/login" unless logged_in?
+    @room = Room.get(params[:room_id])
+    return "Room not found." if @room.nil?
+    @user.room_ids << @room.id unless @user.room_ids.include?(@room.id)
+    @user.save
+    haml :room_row, :layout => false
   end
   
   

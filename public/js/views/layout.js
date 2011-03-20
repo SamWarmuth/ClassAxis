@@ -29,12 +29,6 @@ $(document).ready(function(){
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
       $(".first-focus").focus();
     });
-    
-    $(".join-room").click(function(){
-      $.post($(this).attr("href"), function(data){
-        $("#smessages").append(data);
-      });
-    });
   });
   
   $(document).keydown(function(e){

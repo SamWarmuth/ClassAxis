@@ -25,13 +25,6 @@
     var roomID = '#{@room.id}';
     console.log("joined channel: "+ roomID);
     if (typeof conversationListener != 'undefined') conversationListener.disconnect();
-    conversationListener = new Pusher('84d6245235e5b198d8aa', roomID);
-    conversationListener.bind('addMessage', function(data) {
-      console.log("got message.");
-      if (data.user_id == '#{@user.id}') return true;
-      $('.conversation-container').append(data.content);
-      scrollToBottom();
-    });
     
     var uploader = new qq.FileUploader({
         // pass the dom node (ex. $(selector)[0] for jQuery users)
@@ -58,4 +51,14 @@
   function scrollToBottom(){
     $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
   }
+  
+  $(document).ready(function(){
+    conversationListener = new Pusher('84d6245235e5b198d8aa', roomID);
+    conversationListener.bind('addMessage', function(data) {
+      console.log("got message.");
+      if (data.user_id == '#{@user.id}') return true;
+      $('.conversation-container').append(data.content);
+      scrollToBottom();
+    });
+  });
   
