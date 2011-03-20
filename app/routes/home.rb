@@ -10,7 +10,7 @@ class Main
     logged_in?
     haml :welcome, :layout => false
   end
-   
+
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'
     sass :style
