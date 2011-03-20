@@ -83,7 +83,7 @@ $(document).ready(function(){
       } else if ($(this).hasClass("m")){//event
         alert("new message!");
       }
-    }else if (e.keyCode == EnterKey){
+    }else if (e.keyCode == EnterKey && !$(this).hasClass("auto-users")){
       //delayed content posting for MESSAGES.
       var value = $(this).val();
       $(this).val("");

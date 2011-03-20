@@ -19,14 +19,36 @@
     %script{:src => "/js/jquery.autoSuggest.packed.js", :type => "text/javascript"}
     
     %script{:src => "/js/views/layout.js", :type => "text/javascript"}
-    -users = User.all.delete_if{|u| u.id == @user.id}.map{|user| "{value: '#{user.id}', name: '#{user.name}'}"}.join(",")
+    -#users = User.all.delete_if{|u| u.id == @user.id}.map{|user| "{value:'#{user.id}', name: '#{user.name}'}"}.join(",")
+    -users = User.all.delete_if{|u| u.id == @user.id}.map{|user| "{label:'#{user.name}', id:'#{user.id}'}"}.join(",")
+    
+    
     :javascript
       var thing;
       $(document).ready(function(){
-        var data = {items: [#{users}]};
-        $(".search-field.m").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", selectionAdded: function(elem){
-          var index = parseInt($(elem).attr('id').charAt($(elem).attr('id').length-1));
-        }});
+        var storedUsers = [#{users}];
+        var users = storedUsers; //never modify storedUsers
+        
+        $(".auto-users").autocomplete({
+          source: users,
+          highlightItem: true,
+          select: function( event, ui ) {
+            var userList = $(".added-users");
+            var idList = $(".added-ids");
+            idList.val(idList.val() + " " + ui.item.id);
+            thing = ui;
+            
+            if (userList.text() != "") userList.append(", ")
+            userList.append(ui.item.label);
+            return false;
+          },
+          change: function(event, ui) { return false;}
+        });
+
+          
+        //$(".auto-users").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", selectionAdded: function(elem){
+        //  var index = parseInt($(elem).attr('id').charAt($(elem).attr('id').length-1));
+        //}});
       });
       
     
@@ -41,11 +63,48 @@
             .close{:id => broadcast.id}
         .page-content
           .modal-border
-          .modal
-            .modal-new.hide
-              New Room
-            .moda-browse.hide
-              Rooms
+            .modal
+              .modal-new.hide
+                %h1.center{:style => "margin-top: 30px"} Create a New Room
+                %form{:style => "margin: 25px; text-align: left;"}
+                  .space{:style => "margin: 10px"}
+                  %label.form-label Invite (name or email)
+                  
+                  %input.form-input.auto-users{:type => "text", :placeholder => "Who?", :style => "width: 125px; clear: both;"}
+                  .added-users{:style => "display: inline-block; margin-left: 10px;"}
+                  %input.added-ids{:type => "hidden"}
+                  .space{:style => "margin: 10px"}
+                  %label.form-label Room Name (optional)
+                  %input.form-input{:type => "text", :placeholder => "What should it be called?"}
+                  %br
+                  %br
+                  %br
+                  .new-button.create-room.center{:style => "display: block;"} Create Room
+              .modal-browse.hide
+                %h1.center Find a Room
+                %form{:style => "margin: 0px 15px;"}
+                  %label.form-label Search
+                  %input.form-input{:type => "text", :placeholder => "What subjects are you interested in?"}
+                  .space{:style => "margin: 10px"}
+                  .heading{:style => "display: inline-block; width: 165px; margin-left: 5px;"} Room Name
+                  .heading{:style => "display: inline-block; width: 90px"} # Members
+                  .heading{:style => "display: inline-block; width: 150px"} Last Message
+                  
+                  
+                  .tableholder{:style => " height: 190px; width: 102%; overflow: auto;"}
+                    %table
+                      %tr
+                        %th
+                        %th{:style => "width: 70px"}
+                        %th
+                        %th{:style => 'width: 60px'}
+                      -15.times do
+                        %tr
+                          %td{:style => "font-weight: bold"} Senior Design
+                          %td{:style => "text-align: center"} 13
+                          %td March 21st
+                          %td 
+                            .new-button.small Join
           .spinner
           .init-selected{:style => "display: none;"}= @selected
           .header-box= @selected

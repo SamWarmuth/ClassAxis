@@ -49,9 +49,7 @@ class User < CouchRest::ExtendedDocument
   def messages_with(sender)
     sender = sender.id if sender.is_a?(User)
     received = Message.by_receiver_id(:key => self.id).find_all{|m| m.sender_id == sender}
-    
     sent = Message.by_receiver_id(:key => sender).find_all{|m| m.sender_id == self.id}
-    
     return (received + sent).sort_by{|m| m.date}
   end
   def messages

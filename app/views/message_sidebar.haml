@@ -1,5 +1,5 @@
 .secondary-row-nohover.no-select
-  .new-button.flush-right.browse-rooms Browse Rooms
+  .new-button.flush-right.browse-rooms Find a Room
   .new-button.flush-left.new-room New Room
 -@messages.to_a.sort_by{|s,m| -m.first.date}.each do |sender_id, messages|
   -sender = User.get(sender_id)
@@ -17,9 +17,11 @@
   $(document).ready(function(){
     var modal = $(".modal");
     $(".new-room").click(function(){
+      $(".modal-new").show();
       showModal();
     });
     $(".browse-rooms").click(function(){
+      $(".modal-browse").show();
       showModal();
     });
     $(".shroud").click(function(){
@@ -35,7 +37,10 @@
   function hideModal(){
     $(".shroud").fadeOut(50);
     $(".modal-border").fadeOut(50);
-    $(".modal").fadeOut(50);
+    $(".modal").fadeOut(50, function(){
+      $(".modal-new").hide();
+      $(".modal-browse").hide();
+    });
   }
   
   $(document).keydown(function(e){

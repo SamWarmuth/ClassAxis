@@ -336,13 +336,13 @@ address
     margin-right: -3px
     border-radius: 10px 0 0 10px
     -moz-border-radius: 10px 0 0 10px 
-
   &:hover
     border-color: #888
-    
   &:active
     background: #eee url('/images/button-gradient-hover.png') repeat-x
-
+  &.small
+    font-size: 0.8em
+    width: 45px
   
   
 .secondary-container
@@ -1950,17 +1950,13 @@ input
 
   
 .modal
-  position: absolute
-  left: 50%
-  top: 60px
   width: 500px
-  margin-left: -250px
-  height: 300px
   z-index: 1001
-  display: none
   background: #fff
   -webkit-border-radius: 5px
   -moz-border-radius: 5px
+  padding: 10px
+
   
 .modal-border
   position: absolute
@@ -1968,13 +1964,12 @@ input
   top: 50px
   width: 520px
   margin-left: -260px
-  height: 320px
   z-index: 1000
   display: none
-  background: #333
-  opacity: 0.7
+  background: rgba(0, 0, 0, 0.7)
   -webkit-border-radius: 10px
   -moz-border-radius: 10px
+  padding: 10px
   
 .shroud
   position: absolute
@@ -1989,3 +1984,14 @@ input
 
 .hide
   display: none
+.center
+  text-align: center
+  margin: auto
+  
+  
+.form-label
+  display: block
+  width: 100%
+.form-input
+  display: inline-block
+  width: 100%
