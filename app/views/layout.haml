@@ -87,12 +87,13 @@
                         %th{:style => "width: 132px;"}
                         %th{:style => 'width: 60px'}
                       -Room.all.each do |room|
+                        -next if @user.room_ids.include?(room.id)
                         %tr
                           %td{:style => "font-weight: bold"}= room.name
                           %td{:style => "text-align: center"}= room.user_count
                           %td= Time.at(room.last_message.date).strftime("%b %e %l:%M%p")
                           %td 
-                            .new-button.small.no-select Join
+                            .join-room.new-button.small.no-select{:href => "/ui/join-room/#{room.id}"} Join
           .spinner
           .header-box= @selected
           .secondary-container

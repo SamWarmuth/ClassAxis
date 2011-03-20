@@ -7,8 +7,7 @@ $(document).ready(function(){
   
   if (content.height() > sidebar.height()) sidebar.height(content.height());
   
-  
-  $(".secondary-row").click(function(){
+  $(".secondary-row").live("click", function(){
     if ($(this).children(".search-field").length != 0) return true;
     $(".secondary-row").removeClass("selected");
     $(".header-box").html($(this).children(".page-title").html());
@@ -29,6 +28,12 @@ $(document).ready(function(){
       if (content.height() > sidebar.height()) sidebar.height(content.height());
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
       $(".first-focus").focus();
+    });
+    
+    $(".join-room").click(function(){
+      $.post($(this).attr("href"), function(data){
+        $("#smessages").append(data);
+      });
     });
   });
   

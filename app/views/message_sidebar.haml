@@ -2,17 +2,8 @@
   &nbsp;
   .new-button.flush-right.browse-rooms Find a Room
   .new-button.flush-left.new-room New Room
--@rooms.sort_by{|r| -r.last_message.date}.each do |room|
-  .secondary-row.no-select{:id => room.id, :href => "/ui/room/#{room.id}"}
-    .badge-holder
-      -if rand(2) == 1
-        .badge.yellow= 88
-      -else
-        .badge.clear &nbsp;
-    = truncate(room.name, 20)
-    .page-title= room.name
-    .fr{:style => "color: #999"}
-      = room.last_message.short_date
+-@rooms.sort_by{|r| -r.last_message.date}.each do |@room|
+  =haml :room_row, :layout => false
       
 
 :javascript

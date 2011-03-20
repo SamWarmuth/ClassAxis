@@ -111,68 +111,6 @@ class Main
     return 200 #success
   end
   
-  get "/ui/news" do
-    redirect "/login" unless logged_in?
-    haml :index, :layout => false
-  end
-  get "/ui/upcoming" do
-    redirect "/login" unless logged_in?
-    @events = @user.events
-    haml :upcoming, :layout => false
-  end
-  get "/ui/profile" do
-    redirect "/login" unless logged_in?
-    @selected_user = @user
-    haml :user, :layout => false
-  end
-  get "/ui/group/:permalink" do
-    redirect "/login" unless logged_in?
-    @course = Group.by_permalink(:key => params[:permalink]).first
-    return 404 if @course.nil?
-    haml :course, :layout => false
-  end
-  
-  get "/ui/groups" do
-    redirect "/login" unless logged_in?
-    haml :groups, :layout => false
-  end
-  
-  get "/ui/new-group" do
-    redirect "/login" unless logged_in?
-    haml :edit_group, :layout => false
-  end
-  
-  get "/ui/past-events" do
-    redirect "/login" unless logged_in?
-    @events = @user.past_events
-    haml :events, :layout => false
-  end
-  
-  get "/ui/event/:permalink" do
-    redirect "/login" unless logged_in?
-    @event = Event.by_permalink(:key => params[:permalink]).first
-    return 404 if @event.nil?
-    haml :event, :layout => false
-  end
-  
-  get "/ui/new-event" do
-    redirect "/login" unless logged_in?
-    haml :new_event, :layout => false
-  end
-  
-  post "/ui/new-event" do
-    redirect "/login" unless logged_in?
-    event = Event.new
-
-    event.name = params[:name]
-    event.location = params[:location]
-    event.date = Time.parse(params[:date] + " " + params[:time]).to_i
-    event.description = params[:description]
-    event.attendee_ids << @user.id
-    event.set_permalink
-    event.save
-    redirect "/#events"
-  end
   
   get "/ui/message/:id" do
     redirect "/login" unless logged_in?
@@ -180,6 +118,15 @@ class Main
     return 404 if @message.nil?
     
     haml :message, :layout => false
+  end
+  
+  post "/ui/join-room/:room_id" do
+    redirect "/login" unless logged_in?
+    @room = Room.get(params[:room_id])
+    return "Room not found." if @room.nil?
+    @user.room_ids << @room.id
+    @user.save
+    haml :room_row, :layout => false
   end
 
   get "/ui/room/:room_id" do
@@ -206,6 +153,8 @@ class Main
     pusher_message = haml :message, :layout => false
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     @force_blue = false
+    Thread.new{Pusher[@room.id+"listen"].trigger('newMessage', {})}
+    
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
   end
   
@@ -243,29 +192,6 @@ class Main
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
 
     return '{"success":true}'
-  end
-  get "/ui/discussion/:permalink" do
-    redirect "/login" unless logged_in?
-    @topic = Topic.by_permalink(:key => params[:permalink]).first
-    return 404 if @topic.nil?
-    haml :discussion, :layout => false
-  end
-  
-  get "/ui/new-discussion" do
-    redirect "/login" unless logged_in?
-    haml :new_discussion, :layout => false
-  end
-  
-  post "/ui/new-discussion" do
-    redirect "/login" unless logged_in?
-    topic = Topic.new
-    topic.title = params[:title]
-    topic.group = params[:group]
-    topic.content = params[:content]
-    topic.permalink = generate_permalink(topic, topic.title)
-    topic.creator_id = @user.id
-    topic.save
-    redirect "/#discussion/#{topic.permalink}"
   end
 
 end

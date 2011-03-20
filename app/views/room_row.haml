@@ -1,0 +1,10 @@
+.secondary-row.no-select{:id => @room.id, :href => "/ui/room/#{@room.id}"}
+  .badge-holder
+    -if rand(2) == 1
+      .badge.yellow= 88
+    -else
+      .badge.clear &nbsp;
+  = truncate(@room.name, 20)
+  .page-title= @room.name
+  .fr{:style => "color: #999"}
+    = @room.last_message.short_date
