@@ -20,8 +20,8 @@
 :javascript
   $(window).load(function(){$(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));});
   $(document).ready(function(){
-    var coversationHeight = $(window).height() - 200;
-    if (coversationHeight < 350 ) conversationHeight = 350;
+    var conversationHeight = $(window).height() - 200;
+    if (conversationHeight < 250 ) conversationHeight = 250;
     $('.conversation-container').css("height", conversationHeight);
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
     var roomID = '#{@room.id}';
