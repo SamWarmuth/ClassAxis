@@ -24,8 +24,7 @@
     if (conversationHeight < 250 ) conversationHeight = 250;
     $('.conversation-container').css("height", conversationHeight);
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
-    var roomID = '#{@room.id}';
-    console.log("joined channel: "+ roomID);
+
     if (typeof conversationListener != 'undefined') conversationListener.disconnect();
     
     var uploader = new qq.FileUploader({
@@ -55,6 +54,8 @@
   }
   
   $(document).ready(function(){
+    var roomID = '#{@room.id}';
+    console.log("joined channel: "+ roomID);
     conversationListener = new Pusher('84d6245235e5b198d8aa', roomID);
     conversationListener.bind('addMessage', function(data) {
       console.log("got message.");
