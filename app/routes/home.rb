@@ -88,11 +88,28 @@ class Main
     user.name = params[:name]
     user.email = params[:email].downcase
     user.set_password(params[:password])
-    user.calendar_id = Calendar.create(:name => user.name).id
     user.permalink = generate_permalink(user, user.name)
     user.broadcast_ids = Broadcast.all.find_all{|b| b.announce_to_new_users == true}.map(&:id)
     user.save
-    redirect "/login?success=created"
+    
+    user.challenges ||= []
+    user.challenges = user.challenges[0...4]
+    user.challenges.unshift((Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s)
+    user.save
+    
+    response.set_cookie("user", {
+      :path => "/",
+      :expires => Time.now + 2**20, #two weeks
+      :httponly => true,
+      :value => user.id
+    })
+    response.set_cookie("user_challenge", {
+      :path => "/",
+      :expires => Time.now + 2**20,
+      :httponly => true,
+      :value => user.challenges.first
+    })
+    redirect "/"
   end
   
   get "/stats" do
