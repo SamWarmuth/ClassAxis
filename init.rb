@@ -15,6 +15,7 @@ require "sass"
 require "json"
 require "pusher"
 require "active_support"
+require "image_size"
 
 
 class Main < Monk::Glue

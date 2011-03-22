@@ -211,16 +211,18 @@ class Main
     file.save
     file.url = "/uploads/#{@user.id}/files/#{file.id}.#{extension}"
     file.file_path = "public/uploads/#{@user.id}/files/#{file.id}.#{extension}"
-    file.save
     
     FileUtils.mkdir_p "public/uploads/#{@user.id}/files/"
+    data = request.env['rack.input']
+    File.open(file.file_path, 'w') {|f| f.write(data.read)}    
+    file.save
+    
     
     @user.file_ids ||= []
     @user.file_ids << file.id
     @user.save
     
-    data = request.env['rack.input']
-    File.open(file.file_path, 'w') {|f| f.write(data.read)}
+
     
     @message = Message.new
     @message.sender_id = @user.id

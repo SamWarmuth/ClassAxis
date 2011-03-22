@@ -5,9 +5,10 @@
 .message-container
   .sender
     = sender.first_name
-  -if file && ['png', 'jpg', 'jpeg', 'gif'].include?(file.file_type)
+  -if file && file.preview_supported?
+    -file.set_size if file.image_size.nil?
     .colored-box.chat.invisible
-      %img{:src => file.url, :style => "max-width: 350px"}
+      %img{:src => file.url, :style => "width: #{file.chat_size[0]}px; height: #{file.chat_size[1]}px;"}
     .sender
   .colored-box.chat{:class => ( file ? "file-container" : !@force_blue && sent ? "gray" : "blue")}
     .message-date= date.strftime("%l:%M%p")
