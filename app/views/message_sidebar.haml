@@ -7,6 +7,7 @@
       
 
 :javascript
+  var t;
   $(document).ready(function(){
     $("#smessages").children(".secondary-row").first().click();
     var modal = $(".modal");
@@ -14,12 +15,30 @@
       $(".modal-new").show();
       showModal();
     });
+    $(".create-room").click(function(){
+      var addedIDs = $(".added-ids").val();
+      var newName = $(".new-name").val();
+      $.post("/ui/create-room/", {'name': newName, 'ids': addedIDs}, function(data){
+        $("#smessages").append(data);
+        hideModal();
+      });
+    });
     $(".browse-rooms").click(function(){
       $(".modal-browse").show();
       showModal();
     });
     $(".shroud").click(function(){
       hideModal();
+    });
+    
+    newListener = new Pusher('84d6245235e5b198d8aa', 'new_messages');
+    newListener.bind('newMessage', function(data) {
+      console.log("New message.");
+      var room = data.room;
+      var badge = $("#"+room).find(".badge");
+      if ($("#"+room).hasClass("selected") || badge.length == 0) return false;
+      badge.text(parseInt(badge.text()) + 1);
+      badge.removeClass("clear").addClass("green");
     });
   });
   

@@ -55,7 +55,7 @@
             .modal
               .modal-new.hide
                 %h1.center{:style => "margin-top: 30px"} Create a New Room
-                %form{:style => "margin: 25px; text-align: left;"}
+                %form.new-room-form{:action => "/ui/new-room", :method => "post", :style => "margin: 25px; text-align: left;"}
                   .space{:style => "margin: 10px"}
                   %label.form-label Invite ( name or email )
                   
@@ -63,8 +63,8 @@
                   .added-users{:style => "display: inline-block; margin-left: 10px;"}
                   %input.added-ids{:type => "hidden"}
                   .space{:style => "margin: 10px"}
-                  %label.form-label Room Name ( optional )
-                  %input.form-input{:type => "text", :placeholder => "What should it be called?"}
+                  %label.form-label Room Name
+                  %input.form-input.new-name{:type => "text", :placeholder => "What should it be called?"}
                   %br
                   %br
                   %br

@@ -1,9 +1,6 @@
 .secondary-row.no-select{:id => @room.id, :href => "/ui/room/#{@room.id}"}
   .badge-holder
-    -if rand(2) == 1
-      .badge.yellow= 88
-    -else
-      .badge.clear &nbsp;
+    .badge.clear 0
   = truncate(@room.name, 20)
   .page-title= @room.name
   .fr{:style => "color: #999"}

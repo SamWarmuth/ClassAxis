@@ -2,12 +2,13 @@ class Room < CouchRest::ExtendedDocument
   use_database COUCHDB_SERVER
 
   property :name
+  view_by :name
+  
   property :is_public, :default => true
   
   property :date, :default => Proc.new{Time.now.to_i}
   
   property :admin_id
-  
   
   property :permalink
   view_by :permalink
@@ -24,7 +25,7 @@ class Room < CouchRest::ExtendedDocument
   end
   def last_message
     messages = Message.by_room_id(:key => self.id)
-    return 0 if messages.empty?
+    return Message.new if messages.empty?
     messages.sort_by{|m| m.date}.last
   end
 end

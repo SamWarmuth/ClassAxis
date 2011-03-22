@@ -9,6 +9,8 @@ $(document).ready(function(){
   
   $(".secondary-row").live("click", function(){
     if ($(this).children(".search-field").length != 0) return true;
+    $(this).find(".badge").removeClass("green").addClass("clear").text("0");
+    
     $(".secondary-row").removeClass("selected");
     $(".header-box").html($(this).children(".page-title").html());
     
