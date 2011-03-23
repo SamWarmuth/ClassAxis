@@ -21,47 +21,10 @@ class Main
       return true
     end
     
-    def events_from_visible_month(events, date)
-      #returns all events that will be visible date's month view
-      
-      start_date = (date.beginning_of_month.beginning_of_week).to_i
-      end_date = (start_date + 35.days).to_i
-      return events.find_all{|e| e.date > start_date && e.date < end_date}
+    def find_urls(string)
+      string.gsub(/\S+@\S+[.]\S+/, "<a href='mailto:\\0'>\\0</a>")
+      string.gsub(/\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/) {|m| "<a target='_blank' href=#{'http://' unless $2.include?('http')}"+$1+'>'+$1+'</a>'}
     end
-    
-    def events_from_month(events, date)
-      #returns all events that will be visible date's month view
-      
-      start_date = (date.beginning_of_month)
-      return events.find_all{|e| Time.at(e.date).beginning_of_month == start_date}
-    end
-    
-    def events_from_week(events, date)
-      #returns all events within a given week
-      start_date = (date.beginning_of_week).to_i
-      end_date = (start_date + 7.days).to_i
-      return events.find_all{|e| e.date > start_date && e.date < end_date}
-    end
-    
-    def events_from_day(events, date)
-      #returns all events that are on the same day as date
-    end
-    
-    def events_from_hour(events, date)
-      #returns all events that are between date and date + 1 hour
-    end
-    
-    def events_by_day(events)
-      #returns events split up into days
-      #dates[day] = events on that day
-      
-      return events.each_with_object({}) do |event, dates|
-        day = Time.at(event.date).midnight.to_i
-        dates[day] ||= []
-        dates[day] << event
-      end
-    end
-    
     
     def combine_ids(id1, id2)
       #Take two ids, return unique third id.
