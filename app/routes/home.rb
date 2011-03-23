@@ -97,6 +97,8 @@ class Main
     user.challenges.unshift((Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s)
     user.save
     
+
+    
     response.set_cookie("user", {
       :path => "/",
       :expires => Time.now + 2**20, #two weeks
@@ -109,6 +111,10 @@ class Main
       :httponly => true,
       :value => user.challenges.first
     })
+    
+    user.room_ids << Room.by_permalink(:key => "thelobby").first.id
+    user.save
+    
     redirect "/"
   end
   
