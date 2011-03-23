@@ -13,7 +13,7 @@
         Sign Up For Class Axis
         %small
           %a{:style => "float: right", :href => "/login"} Back To Login
-      .box
+      .box{:style => "margin-bottom: 0;"}
         -if params[:error]
           -if params[:error] == "email"
             .notification.error
@@ -45,5 +45,5 @@
             %label Repeat Password
             %input{:type => "password", :name => "password2"}
           .row.tr
-            %input.button{:type => "submit", :value => "Create Account"}
+            %input.new-button{:style => "height: 30px; width: 150px;", :type => "submit", :value => "Create Account"}
 
