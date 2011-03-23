@@ -184,7 +184,7 @@ class Main
     return 403 unless logged_in?
     @room = Room.get(params[:room_id])
     return 404 if @room.nil?
-    
+    return 403 if params[:content].empty?
     @message = Message.new
     @message.sender_id = @user.id
     @message.room_id = @room.id

@@ -1,7 +1,7 @@
 .secondary-row.no-select{:id => @room.id, :href => "/ui/room/#{@room.id}"}
   .badge-holder
     .badge.clear 0
-  = truncate(@room.name, 20)
+  = truncate(@room.name, 18)
   .page-title= @room.name
   .fr{:style => "color: #999"}
     = @room.last_message.short_date

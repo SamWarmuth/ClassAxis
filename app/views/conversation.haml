@@ -1,7 +1,7 @@
 -current_day = nil
 .conversation-container.scroll-bottom{:style => "margin: -20px;"}
   -if @messages.length > 100
-    .date-box{:style => 'width: 150px; margin-left: 185px; color: #999'} Older messages not shown.
+    .date-box{:style => 'width: 180px; margin-left: 205px; color: #999; text-align: center;'} Older messages not shown.
   -@messages.last(100).each do |@message|
     -date = Time.at(@message.date)
     -if date.day != current_day
@@ -25,7 +25,6 @@
     $('.conversation-container').css("height", conversationHeight);
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
 
-    if (typeof conversationListener != 'undefined') conversationListener.disconnect();
     
     var uploader = new qq.FileUploader({
         // pass the dom node (ex. $(selector)[0] for jQuery users)
@@ -56,7 +55,9 @@
   $(document).ready(function(){
     var roomID = '#{@room.id}';
     console.log("joined channel: "+ roomID);
-    conversationListener = new Pusher('84d6245235e5b198d8aa', roomID);
+    if (typeof conversationListener != 'undefined') conversationListener.disconnect();
+    
+    var conversationListener = pusher.subscribe(roomID);
     conversationListener.bind('addMessage', function(data) {
       console.log("got message.");
       if (data.user_id == '#{@user.id}') return true;

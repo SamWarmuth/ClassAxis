@@ -7,7 +7,7 @@
       
 
 :javascript
-  var t;
+  var pusher = new Pusher('84d6245235e5b198d8aa');
   $(document).ready(function(){
     $("#smessages").children(".secondary-row").first().click();
     var modal = $(".modal");
@@ -30,8 +30,7 @@
     $(".shroud").click(function(){
       hideModal();
     });
-    
-    newListener = new Pusher('84d6245235e5b198d8aa', 'new_messages');
+    var newListener = pusher.subscribe('new_messages');
     newListener.bind('newMessage', function(data) {
       console.log("New message.");
       var room = data.room;
