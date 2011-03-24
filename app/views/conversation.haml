@@ -51,18 +51,5 @@
   function scrollToBottom(){
     $(".conversation-container").stop(true,true).animate({ scrollTop: $(".conversation-container").attr("scrollHeight")}, 500, 'easeOutQuad');
   }
-  
-  $(document).ready(function(){
-    var roomID = '#{@room.id}';
-    console.log("joined channel: "+ roomID);
-    if (typeof conversationListener != 'undefined') conversationListener.disconnect();
-    
-    var conversationListener = pusher.subscribe(roomID);
-    conversationListener.bind('addMessage', function(data) {
-      console.log("got message.");
-      if (data.user_id == '#{@user.id}') return true;
-      $('.conversation-container').append(data.content);
-      scrollToBottom();
-    });
-  });
+
   

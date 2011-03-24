@@ -18,7 +18,6 @@
     -users = User.all.delete_if{|u| u.id == @user.id}.map{|user| "{label:'#{user.name}', id:'#{user.id}'}"}.join(",")
     
     :javascript
-      var thing;
       $(document).ready(function(){
         var storedUsers = [#{users}];
         var users = storedUsers; //never modify storedUsers
@@ -31,7 +30,6 @@
             var userList = $(".added-users");
             var idList = $(".added-ids");
             idList.val(idList.val() + " " + ui.item.id);
-            thing = ui;
             
             if (userList.text() != "") userList.append(", ")
             userList.append(ui.item.label);
@@ -40,10 +38,10 @@
           change: function(event, ui) { return true;}
         });
       });
-      
     
     %script{:src => "http://js.pusherapp.com/1.8/pusher.min.js", :type => "text/javascript"}
   %body
+    #user-id{:style => "display: none"}= @user.id
     .shroud
     #page-wrapper
       .page
@@ -106,4 +104,4 @@
           %br.cl
         
       .footer
-        Copyright ©2011 Class Axis
+        ©2011 Class Axis

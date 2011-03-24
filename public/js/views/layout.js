@@ -6,10 +6,12 @@ $(document).ready(function(){
   $(".header-box").html($(".secondary-row.selected").children(".page-title").html());
   
   if (content.height() > sidebar.height()) sidebar.height(content.height());
+  var pusher = new Pusher('84d6245235e5b198d8aa');
   
   $(".secondary-row").live("click", function(){
     if ($(this).children(".search-field").length != 0) return true;
     $(this).find(".badge").removeClass("green").addClass("clear").text("0");
+    var oldRoomID = $(".secondary-row.selected").attr('id');
     
     $(".secondary-row").removeClass("selected");
     $(".header-box").html($(this).children(".page-title").html());
@@ -31,7 +33,19 @@ $(document).ready(function(){
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
       $(".first-focus").focus();
     });
+    var roomID = $(this).attr('id');
+    console.log("joined channel: "+ roomID);
+    pusher.unsubscribe(oldRoomID);
+    
+    var conversationListener = pusher.subscribe(roomID);
+    conversationListener.bind('addMessage', function(data) {
+      console.log("got message.");
+      if (data.user_id == $('#user-id').text()) return true;
+      $('.conversation-container').append(data.content);
+      scrollToBottom();
+    });
   });
+
   
   $(document).keydown(function(e){
     if ($(".focus").length != 0) return true;
