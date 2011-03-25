@@ -2,6 +2,11 @@
   .badge-holder
     .badge.clear 0
   = truncate(@room.name, 18)
-  .page-title= @room.name
+  -if @room.private?
+    %img{:src => "/images/private.png",:style => "width: 10px; height: 12px; vertical-align: text-top;"}
+  .page-title
+    -if @room.private?
+      %img{:src => "/images/private.png", :style => "width: 12px; height: 15px; vertical-align: text-middle; opacity: 0.7;", :title => "this room is private."}
+    = @room.name
   .fr{:style => "color: #999"}
     = @room.last_message.short_date

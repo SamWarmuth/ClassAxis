@@ -3,7 +3,7 @@ var thing = null;
 $(document).ready(function(){
   var sidebar = $(".secondary-navigation");
   var content = $(".selected-content");
-  $(".header-box").html($(".secondary-row.selected").children(".page-title").html());
+  $(".titlebar").html($(".secondary-row.selected").children(".page-title").html());
   
   if (content.height() > sidebar.height()) sidebar.height(content.height());
   var pusher = new Pusher('84d6245235e5b198d8aa');
@@ -14,7 +14,7 @@ $(document).ready(function(){
     var oldRoomID = $(".secondary-row.selected").attr('id');
     
     $(".secondary-row").removeClass("selected");
-    $(".header-box").html($(this).children(".page-title").html());
+    $(".titlebar").html($(this).children(".page-title").html());
     
     $(this).addClass("selected");
     var sidebar = $(".secondary-navigation");

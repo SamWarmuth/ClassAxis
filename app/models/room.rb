@@ -5,6 +5,7 @@ class Room < CouchRest::ExtendedDocument
   view_by :name
   
   property :is_public, :default => true
+  view_by :is_public
   
   property :date, :default => Proc.new{Time.now.to_i}
   
@@ -13,12 +14,21 @@ class Room < CouchRest::ExtendedDocument
   property :permalink
   view_by :permalink
   
+  def public?
+    return self.is_public
+  end
+  def private?
+    return !self.is_public
+  end
   def set_permalink
     self.permalink = generate_permalink(self, self.name)
   end
   
   def messages
     Message.by_room_id(:key => self.id).sort_by{|m| m.date}
+  end
+  def files
+    self.messages.map(&:upload_id).compact.map{|u_id| Upload.get(u_id)}
   end
   def user_count
     User.all.find_all{|u| u.room_ids.include?(self.id)}.count #needs optimization.

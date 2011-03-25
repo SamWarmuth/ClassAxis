@@ -1,0 +1,26 @@
+%h1.center{:style => "margin-top: 30px"} Create a New Room
+%form.new-room-form{:action => "/ui/new-room", :method => "post", :style => "margin: 25px; text-align: left;"}
+  .space{:style => "margin: 10px"}
+  %label.form-label Invite ( name or email )
+  
+  %input.form-input.auto-users{:type => "text", :placeholder => "Who?", :style => "width: 125px; clear: both;"}
+  .added-users{:style => "display: inline-block; margin-left: 10px;"}
+  %input.added-ids{:type => "hidden"}
+  .space{:style => "margin: 10px"}
+  %label.form-label Room Name
+  %input.form-input.new-name{:type => "text", :placeholder => "What should it be called?"}
+  .space{:style => "margin: 10px"}
+  %label.form-label Visibility
+  .radio-holder
+    %input#public{:type => "radio", :name => "visibility", :value => "Public", :checked => true}
+    %label{:for => "public", :style => "display: inline-block; margin-left: 5px;"}
+      Public
+    %img{:src => "/images/globe.png", :style => "height: 16px; width: 16px; vertical-align: text-top;"}
+  .radio-holder{:style => "margin-left: 50px"}
+    %input#private{:type => "radio", :name => "visibility", :value => "Private"}
+    %label{:for => "private", :style => "display: inline-block; margin-left: 5px;"}
+      Private
+    %img{:src => "/images/lock.png", :style => "height: 16px; width: 16px; vertical-align: text-top;"}
+  %br
+  %br
+  .new-button.create-room.center{:style => "display: block;"} Create Room

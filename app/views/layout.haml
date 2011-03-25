@@ -35,7 +35,7 @@
             userList.append(ui.item.label);
             return true;
           },
-          change: function(event, ui) { return true;}
+          change: function(event, ui) { return true; }
         });
       });
     
@@ -52,56 +52,30 @@
         .page-content
           .modal-border
             .modal
-              .modal-new.hide
-                %h1.center{:style => "margin-top: 30px"} Create a New Room
-                %form.new-room-form{:action => "/ui/new-room", :method => "post", :style => "margin: 25px; text-align: left;"}
-                  .space{:style => "margin: 10px"}
-                  %label.form-label Invite ( name or email )
-                  
-                  %input.form-input.auto-users{:type => "text", :placeholder => "Who?", :style => "width: 125px; clear: both;"}
-                  .added-users{:style => "display: inline-block; margin-left: 10px;"}
-                  %input.added-ids{:type => "hidden"}
-                  .space{:style => "margin: 10px"}
-                  %label.form-label Room Name
-                  %input.form-input.new-name{:type => "text", :placeholder => "What should it be called?"}
-                  %br
-                  %br
-                  %br
-                  .new-button.create-room.center{:style => "display: block;"} Create Room
-              .modal-browse.hide
-                %h1.center Find a Room
-                %form{:style => "margin: 0px 15px;"}
-                  %label.form-label Search
-                  %input.form-input{:type => "text", :placeholder => "What subjects are you interested in?"}
-                  .space{:style => "margin: 10px"}
-                  .heading{:style => "display: inline-block; width: 166px; margin-left: 8px;"} Room Name
-                  .heading{:style => "display: inline-block; width: 79px"} # Members
-                  .heading{:style => "display: inline-block; width: 150px"} Last Message
-                  
-                  .tableholder{:style => " height: 190px; width: 102.5%; overflow: auto;"}
-                    %table
-                      %tr
-                        %th
-                        %th{:style => "width: 70px"}
-                        %th{:style => "width: 132px;"}
-                        %th{:style => 'width: 60px'}
-                      -Room.all.each do |room|
-                        -next if @user.room_ids.include?(room.id)
-                        %tr
-                          %td{:style => "font-weight: bold"}= room.name
-                          %td{:style => "text-align: center"}= room.user_count
-                          %td= Time.at(room.last_message.date).strftime("%b %e %l:%M%p")
-                          %td 
-                            .join-room.new-button.small.no-select{:href => "/ui/join-room/#{room.id}"} Join
+              .modal-pane.modal-new-room.hide= haml :new_room, :layout => false
+              .modal-pane.modal-browse-rooms.hide= haml :browse_rooms, :layout => false
+              .modal-pane.modal-files.hide
+                %h1.center Files from this room
+                .files-content.modal-content
+              .modal-pane.modal-settings.hide
+                %h1.center Settings for this room
+                .settings-content.modal-content
+              .modal-pane.modal-users.hide
+                %h1.center Users in this room
+                .users-content.modal-content
           .spinner
-          .header-box= @selected
+          .header-box
+            .titlebar= @selected
+            .room-controls
+              .hud-button.downloads.no-select
+              .hud-button.settings.no-select
+              .hud-button.users.no-select
           .secondary-container
             .secondary-navigation
               #smessages
                 = haml :message_sidebar, :layout => false
             .selected-content
-              =yield
+              = yield
           %br.cl
-        
-      .footer
-        ©2011 Class Axis
+          .footer
+            ©2011 Class Axis

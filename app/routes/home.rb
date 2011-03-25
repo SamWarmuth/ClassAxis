@@ -137,8 +137,6 @@ class Main
     
     haml :message, :layout => false
   end
-  
-
 
   get "/ui/room/:room_id" do
     redirect "/login" unless logged_in?
@@ -161,6 +159,7 @@ class Main
     redirect "/login" unless logged_in?
     @room = Room.new
     @room.name = params[:name]
+    @room.is_public = (params[:visibility] == "Public")
     @room.set_permalink
     @room.save
     params[:ids].split(" ").each do |id|
@@ -178,7 +177,6 @@ class Main
     @user.save
     haml :room_row, :layout => false
   end
-
   
   post "/ui/message/:room_id/" do
     return 403 unless logged_in?
@@ -198,6 +196,28 @@ class Main
     Thread.new{Pusher["new_messages"].trigger('newMessage', {:room => @room.id})}
     
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
+  end
+  
+  get "/ui/file-list/:room_id" do
+    @room = Room.get(params[:room_id])
+    return 404 if @room.nil?
+    
+    @files = @room.files
+    haml :files, :layout => false
+  end
+  
+  get "/ui/settings/:room_id" do
+    @room = Room.get(params[:room_id])
+    return 404 if @room.nil?
+    
+    haml :settings, :layout => false
+  end
+  
+  get "/ui/user-list/:room_id" do
+    @room = Room.get(params[:room_id])
+    return 404 if @room.nil?
+    
+    haml :user_list, :layout => false
   end
   
   post "/message/addfile/:room_id" do
@@ -222,8 +242,6 @@ class Main
     @user.file_ids ||= []
     @user.file_ids << file.id
     @user.save
-    
-
     
     @message = Message.new
     @message.sender_id = @user.id

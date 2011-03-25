@@ -1,0 +1,24 @@
+%h1.center Find a Room
+%form{:style => "margin: 0px 15px;"}
+  %label.form-label Search
+  %input.form-input{:type => "text", :placeholder => "What subjects are you interested in?"}
+  .space{:style => "margin: 10px"}
+  .heading{:style => "display: inline-block; width: 166px; margin-left: 8px;"} Room Name
+  .heading{:style => "display: inline-block; width: 79px"} # Members
+  .heading{:style => "display: inline-block; width: 150px"} Last Message
+  
+  .tableholder{:style => " height: 190px; width: 102.5%; overflow: auto;"}
+    %table
+      %tr
+        %th
+        %th{:style => "width: 70px"}
+        %th{:style => "width: 132px;"}
+        %th{:style => 'width: 60px'}
+      -Room.by_is_public(:key => true).each do |room|
+        -next if @user.room_ids.include?(room.id)
+        %tr
+          %td{:style => "font-weight: bold"}= room.name
+          %td{:style => "text-align: center"}= room.user_count
+          %td= Time.at(room.last_message.date).strftime("%b %e %l:%M%p")
+          %td 
+            .join-room.new-button.small.no-select{:href => "/ui/join-room/#{room.id}"} Join

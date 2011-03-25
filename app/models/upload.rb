@@ -12,6 +12,7 @@ class Upload < CouchRest::ExtendedDocument
   property :file_path
   property :date_created
   
+  
   def set_size
     self.image_size = ImageSize.new(File.read(self.file_path)).get_size
     self.save
