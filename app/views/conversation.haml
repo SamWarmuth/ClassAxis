@@ -3,7 +3,7 @@
   -if @room.message_ids.length > 50
     .date-box{:style => 'width: 180px; margin-left: 205px; color: #999; text-align: center;'} Older messages not shown.
   -@room.message_ids.last(50).each do |@message_id|
-    = $rendered_posts[@message_id] ||= haml :message, :layout => false
+    = $rendered_messages[@message_id] ||= haml :message, :layout => false
 
 %br.cl
 .new-message

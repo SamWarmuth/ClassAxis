@@ -2,10 +2,10 @@
 -date = Time.at(@message.date)
 -sent = (@user.id == @message.sender_id)
 -file = Upload.get(@message.upload_id) if @message.upload_id
--sender_name = User.get(@message.sender_id).name
+-sender = User.get(@message.sender_id)
 
 .message-container
-  .sender= truncate(sender_name, 20)
+  .sender= truncate(sender.name, 20)
   -if file && file.preview_supported?
     -file.set_size if file.image_size.nil?
     .colored-box.chat.invisible
@@ -13,7 +13,7 @@
         .image-bg
           %img.image{:src => file.url, :style => "width: #{file.chat_size[0]}px; height: #{file.chat_size[1]}px;"}
     .sender
-  .colored-box.chat{:class => ( file ? "file-container" : !@force_blue && sent ? "gray" : "blue")}
+  .colored-box.chat{:class =>  ( file ? "file-container" : "blue") + " m"+ sender.id}
     .message-date= date.strftime("%l:%M%p")
     -if file
       %a.file{:href => file.url, :target => "_blank"}= file.name

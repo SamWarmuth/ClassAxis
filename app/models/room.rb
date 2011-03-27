@@ -39,9 +39,7 @@ class Room < CouchRest::ExtendedDocument
     User.all.find_all{|u| u.room_ids.include?(self.id)}.count #needs optimization.
   end
   def last_message
-    messages = Message.by_room_id(:key => self.id)
-    return Message.new if messages.empty?
-    messages.sort_by{|m| m.date}.last
+    Message.get(self.message_ids.last)
   end
 end
 
