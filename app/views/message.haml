@@ -1,9 +1,11 @@
+-@message = Message.get(@message_id)
 -date = Time.at(@message.date)
 -sent = (@user.id == @message.sender_id)
 -file = Upload.get(@message.upload_id) if @message.upload_id
--sender = User.get(@message.sender_id)
+-sender_name = User.get(@message.sender_id).name
+
 .message-container
-  .sender= truncate(sender.name, 20)
+  .sender= truncate(sender_name, 20)
   -if file && file.preview_supported?
     -file.set_size if file.image_size.nil?
     .colored-box.chat.invisible

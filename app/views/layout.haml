@@ -67,15 +67,18 @@
           .header-box
             .titlebar= @selected
             .room-controls
-              .hud-button.downloads.no-select
-              .hud-button.settings.no-select
-              .hud-button.users.no-select
+              .hud-button.downloads.no-select{:title => "Files in this room"}
+              .hud-button.users.no-select{:title => "Users in this room"}
           .secondary-container
             .secondary-navigation
               #smessages
                 = haml :message_sidebar, :layout => false
+              //.control-panel
+              //.new-button.flush-right.no-select{:style => "text-align: center;"} Settings
+              //.new-button.flush-left.no-select{:style => "text-align: center;"} Log Out
             .selected-content
               = yield
+            
           %br.cl
           .footer
             ©2011 Class Axis

@@ -2,7 +2,7 @@ class Main
   helpers do
     
     def truncate(string, length)
-      return string[0..length] + "#{'...' if string.length > length}"
+      return string[0...length] + "#{'...' if string.length > length}"
     end
     
     def logged_in?

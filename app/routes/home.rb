@@ -142,7 +142,8 @@ class Main
     redirect "/login" unless logged_in?
     @room = Room.get(params[:room_id])
     return "Room not found." if @room.nil?
-    @messages = @room.messages
+    #@messages = @room.messages
+    
     haml :conversation, :layout => false
   end
   
@@ -154,13 +155,23 @@ class Main
     @user.save
     haml :room_row, :layout => false
   end
+  post "/ui/leave-room/:room_id" do
+    redirect "/login" unless logged_in?
+    @room = Room.get(params[:room_id])
+    return "Room not found." if @room.nil?
+    @user.room_ids.delete(@room.id)
+    @user.save
+    haml :room_row, :layout => false
+  end
   
   post "/ui/create-room/" do
     redirect "/login" unless logged_in?
     @room = Room.new
     @room.name = params[:name]
-    @room.is_public = (params[:visibility] == "Public")
+    puts "++((#{params[:public].inspect}))++"
+    @room.is_public = params[:public] == 'true'
     @room.set_permalink
+    @room.admin_id = @user.id
     @room.save
     params[:ids].split(" ").each do |id|
       user = User.get(id)
@@ -180,9 +191,9 @@ class Main
   
   post "/ui/message/:room_id/" do
     return 403 unless logged_in?
+    return 403 if params[:content].empty?
     @room = Room.get(params[:room_id])
     return 404 if @room.nil?
-    return 403 if params[:content].empty?
     @message = Message.new
     @message.sender_id = @user.id
     @message.room_id = @room.id
@@ -194,7 +205,6 @@ class Main
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     @force_blue = false
     Thread.new{Pusher["new_messages"].trigger('newMessage', {:room => @room.id})}
-    
     return {:content => (haml :message, :layout => false), :container => ".conversation-container"}.to_json
   end
   

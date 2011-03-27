@@ -269,9 +269,6 @@ address
   &.users
     width: 34px
     background-image: url('/images/users.png')
-  &.settings
-    width: 25px
-    background-image: url('/images/settings.png')
   &:hover
     opacity: 1.0
     
@@ -300,6 +297,19 @@ address
   box-shadow: inset -2px 0px 2px #ccd
   border-radius: 10px 0 0 10px
   -moz-border-radius: 10px 0 0 10px
+  position: relative
+  .control-panel
+    position: absolute
+    bottom: 0
+    left: 0px
+    padding: 5px
+    padding-left: 15px
+    width: 200px
+    height: 28px
+    border-radius: 0 0 0 9px
+    -moz-border-radius: 0 0 0 9px
+    background: #ccc
+    
 
 .page-title
   display: none
@@ -343,6 +353,19 @@ address
   margin: auto
   border: 1px solid #bbb
   cursor: pointer
+  vertical-align: top
+  &.tall
+    height: 22px
+    width: 55px
+    background-image: url('/images/title-gradient.png')
+    &:active
+      background-image: url('/images/title-gradient-hover.png')
+  &.double-flush
+    margin-left: 0
+    margin-right: -3px
+    border-radius: 0
+    -moz-border-radius: 0
+    border-left: none
   &.flush-left
     margin-left: 0
     border-radius: 0 10px 10px 0
@@ -378,6 +401,8 @@ address
   border-radius: 0 0 10px 0
   -moz-border-radius: 0 0 10px 0
   padding: 20px
+  
+
   
   
   
@@ -1751,18 +1776,23 @@ html body *
   margin: 0
   min-width: 4px
   vertical-align: text-bottom
-  border-radius: 10px
-  -moz-border-radius: 10px
+  border-radius: 15px
+  -moz-border-radius: 15px
   font-size: 9px
   font-weight: bold
-  padding: 0 3px
+  padding: 0 3px 0 4px
   border: 1px solid #777
   font-weight: normal
   color: black
   text-align: center
+  font-family: monospace
   &.green
     background: #effeb9
     border-color: #98c700
+  &.dark-green
+    background: #02711B
+    border-color: #02711B
+    color: white
   &.red
     background: #fccac3
     border-color: #ea5338
@@ -1984,6 +2014,13 @@ input
   background: #fff
   border-radius: 4px
   -moz-border-radius: 4px
+.close-room
+  opacity: 0.5
+  height: 16px
+  width: 16px
+  margin-right: 5px
+  &:hover
+    opacity: 1.0
   
 
 ::-webkit-scrollbar 

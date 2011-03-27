@@ -1,7 +1,7 @@
 .secondary-row.no-select{:id => @room.id, :href => "/ui/room/#{@room.id}"}
   .badge-holder
     .badge.clear 0
-  = truncate(@room.name, 18)
+  .room-name{:style => "display: inline-block; width: 123px;"}= truncate(@room.name, 17)
   -if @room.private?
     %img{:src => "/images/private.png",:style => "width: 10px; height: 12px; vertical-align: text-top;"}
   .page-title
@@ -9,4 +9,5 @@
       %img{:src => "/images/private.png", :style => "width: 12px; height: 15px; vertical-align: text-middle; opacity: 0.7;", :title => "this room is private."}
     = @room.name
   .fr{:style => "color: #999"}
-    = @room.last_message.short_date
+    .room-date= @room.last_message.short_date
+    %img.close-room.hide{:src => "/images/close.png", :href => "/ui/leave-room/#{@room.id}"}

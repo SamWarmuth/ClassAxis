@@ -14,6 +14,8 @@ class Room < CouchRest::ExtendedDocument
   property :permalink
   view_by :permalink
   
+  property :message_ids, :default => []
+  
   def public?
     return self.is_public
   end

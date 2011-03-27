@@ -6,7 +6,6 @@ $(document).ready(function(){
   $(".titlebar").html($(".secondary-row.selected").children(".page-title").html());
   
   if (content.height() > sidebar.height()) sidebar.height(content.height());
-  var pusher = new Pusher('84d6245235e5b198d8aa');
   
   $(".secondary-row").live("click", function(){
     if ($(this).children(".search-field").length != 0) return true;
@@ -33,17 +32,37 @@ $(document).ready(function(){
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
       $(".first-focus").focus();
     });
-    var roomID = $(this).attr('id');
-    console.log("joined channel: "+ roomID);
-    pusher.unsubscribe(oldRoomID);
-    
-    var conversationListener = pusher.subscribe(roomID);
-    conversationListener.bind('addMessage', function(data) {
-      console.log("got message.");
-      if (data.user_id == $('#user-id').text()) return true;
-      $('.conversation-container').append(data.content);
-      scrollToBottom();
+    $(".secondary-row").live("mouseenter", function(){
+      $(this).find(".room-date").fadeOut(0);
+      $(this).find(".close-room").fadeIn(0);
     });
+    $(".secondary-row").live("mouseleave", function(){
+      $(this).find(".room-date").fadeIn(0);
+      $(this).find(".close-room").fadeOut(0);
+    });
+    $(".close-room").live('click', function(){
+      var row = $(this).parent().parent();
+      $.post($(this).attr("href"));
+      var selected = false;
+      if (row.hasClass("selected")) selected = true;
+      row.remove();
+      if (selected) $("#smessages").children(".secondary-row").first().click();
+      return false;
+    });
+    var roomID = $(this).attr('id');
+    if (typeof Pusher !== 'undefined'){
+      console.log("joining channel "+ roomID);
+      var pusher = new Pusher('84d6245235e5b198d8aa');
+      pusher.unsubscribe(oldRoomID);
+      
+      var conversationListener = pusher.subscribe(roomID);
+      conversationListener.bind('addMessage', function(data) {
+        console.log("got message.");
+        if (data.user_id == $('#user-id').text()) return true;
+        $('.conversation-container').append(data.content);
+        scrollToBottom();
+      });
+    }
   });
 
   
