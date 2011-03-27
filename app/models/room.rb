@@ -26,8 +26,11 @@ class Room < CouchRest::ExtendedDocument
     self.permalink = generate_permalink(self, self.name)
   end
   
-  def messages
-    Message.by_room_id(:key => self.id).sort_by{|m| m.date}
+  def messages(newest = nil)
+    return self.message_ids.map{|m_id| Message.get(m_id)} if last.nil?
+    
+    self.message_ids.last(newest).map{|m_id| Message.get(m_id)}
+    
   end
   def files
     self.messages.map(&:upload_id).compact.map{|u_id| Upload.get(u_id)}

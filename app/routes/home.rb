@@ -141,9 +141,7 @@ class Main
   get "/ui/room/:room_id" do
     redirect "/login" unless logged_in?
     @room = Room.get(params[:room_id])
-    return "Room not found." if @room.nil?
-    #@messages = @room.messages
-    
+    return "Room not found." if @room.nil?    
     haml :conversation, :layout => false
   end
   
