@@ -12,5 +12,5 @@ defaults: &defaults
 
 :production:
   :couchdb:
-    :url: http://localhost:5984/class_axis_production
+    :url: http://localhost:5984/class_axis_development
     <<: *defaults

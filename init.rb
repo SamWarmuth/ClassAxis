@@ -8,6 +8,9 @@ rescue LoadError
   require "dependencies"
 end
 
+CACHE_CSS = false
+ARGV.each {|a| CACHE_CSS = true if a.downcase == "production"}
+
 require "monk/glue"
 require "couchrest"
 require "haml"
@@ -16,6 +19,8 @@ require "json"
 require "pusher"
 require "active_support"
 require "image_size"
+
+
 
 
 class Main < Monk::Glue

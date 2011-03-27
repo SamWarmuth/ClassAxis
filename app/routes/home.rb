@@ -13,7 +13,9 @@ class Main
 
   get "/css/style.css" do
     content_type 'text/css', :charset => 'utf-8'
-    sass :style
+    return $style ||= (sass :style) if CACHE_CSS
+    
+    return sass :style
   end
   
   get "/css/jqui.css" do
