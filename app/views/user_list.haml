@@ -7,7 +7,8 @@
     -next
   -else
     %h2= user.name
-%h3 And #{guest_count} guests.
+-if guest_count != 0
+  %h3 And #{guest_count} guests.
 %br
 %br
 %h2 Invite more users
