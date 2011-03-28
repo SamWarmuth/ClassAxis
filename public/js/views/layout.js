@@ -1,5 +1,6 @@
 var EnterKey = 13;
 var thing = null;
+var pusher;
 $(document).ready(function(){
   var sidebar = $(".secondary-navigation");
   var content = $(".selected-content");
@@ -52,7 +53,7 @@ $(document).ready(function(){
     var roomID = $(this).attr('id');
     if (typeof Pusher !== 'undefined'){
       if (window.console) console.log("joining channel "+ roomID);
-      var pusher = new Pusher('84d6245235e5b198d8aa');
+      if (typeof pusher === 'undefined') pusher = new Pusher('84d6245235e5b198d8aa');
       pusher.unsubscribe(oldRoomID);
       
       var conversationListener = pusher.subscribe(roomID);
