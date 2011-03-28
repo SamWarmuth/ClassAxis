@@ -273,13 +273,13 @@ class Main
     
     @room.file_ids ||= []
     @room.file_ids << file.id
-    @room.save
     
     @message = Message.new
     @message.sender_id = @user.id
-    @message.room_id = @room.id
     @message.upload_id = file.id
     @message.save
+    @room.message_ids << @message.id
+    @room.save
     
     
     @message_id = @message.id
