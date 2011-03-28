@@ -189,10 +189,9 @@ class Main
     message = Message.new
     message.content = "Room created."
     message.sender_id = @user.id
-    message.room_id = @room.id
     message.save
-    @room.message_ids << message.id
     
+    @room.message_ids << message.id
     @room.save
     params[:ids].split(" ").each do |id|
       user = User.get(id)
