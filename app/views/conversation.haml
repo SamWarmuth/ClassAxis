@@ -13,8 +13,11 @@
       You need an account to post messages.
       .awesome.medium.green{:style => 'position: relative; top: -3px'} Sign up
   -else
-    #file-uploader{:style => 'float: left; margin-left: 46px; min-height: 10px;'}
-      %noscript Please enable JavaScript to use file uploader.
+    -if @user.file_ids.count >= @user.max_file_count
+      .upload-blocked{:style => "float: left; margin-left: 20px; position: relative; top: 5px;"} Upload Limit Reached.
+    -else
+      #file-uploader{:style => 'float: left; margin-left: 46px; min-height: 10px;'}
+        %noscript Please enable JavaScript to use file uploader.
     %input.input.first-focus{:style => "float: left;width: 350px; height: 20px; font-size: 1.3em; margin-left: 10px; display: inline-block;", :href => "/ui/message/#{@room.id}/"}
 
 :javascript

@@ -123,6 +123,7 @@ class Main
     redirect "/signup?error=empty" if params[:name].empty? || params[:email].empty? || params[:password].empty?
     
     user = User.new
+    user.temporary = false
     user.name = params[:name]
     user.email = params[:email].downcase
     user.set_password(params[:password])
