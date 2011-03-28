@@ -219,6 +219,7 @@ address
 .spinner
   background: url('/images/ajax-loader.gif') no-repeat
   opacity: 0.8
+  filter: alpha(opacity=80)
   position: absolute
   left: 517px
   top: 200px
@@ -260,6 +261,7 @@ address
   display: inline-block
   height: 24px
   opacity: 0.5
+  filter: alpha(opacity=50)
   background-repeat: no-repeat
   background-position: 2px 2px
   margin: 2px 3px
@@ -274,6 +276,7 @@ address
     background-image: url('/images/users.png')
   &:hover
     opacity: 1.0
+    filter: alpha(opacity=100)
     
 .top-navigation
   border-radius: 10px 0 0 10px
@@ -424,9 +427,11 @@ a.icon
   text-shadow: 0 1px 1px #777
   text-align: center
   opacity: 0.6
+  filter: alpha(opacity=60)
   cursor: pointer
   &:hover
     opacity: 1.0
+    filter: alpha(opacity=60)
     
   &#events
     background-image: url('/images/calendar-small.png')
@@ -442,6 +447,7 @@ a.icon
     background-image: url('/images/search-small.png')
   &.selected
     opacity: 1.0
+    filter: alpha(opacity=100)
     color: white
     text-shadow: 0 -1px 1px #444
     &#events
@@ -828,9 +834,11 @@ html[xmlns] #nav
     height: 16px
     margin-top: 2px
     opacity: 0.7
+    filter: alpha(opacity=70)
     width: 16px
     &:hover
       opacity: 1
+      filter: alpha(opacity=100)
       
 .indent
   padding-left: 5%
@@ -932,12 +940,15 @@ html[xmlns] #nav
     border-radius: 25px
     text-align: center
     opacity: 0.8
+    filter: alpha(opacity=80)
     padding: 0
     width: 438px
     &:hover
       opacity: 1.0
+      filter: alpha(opacity=100)
     &:active
       opacity: 1.0
+      filter: alpha(opacity=100)
       background: #eee url(/images/file-gradient-active.png)
   &.invisible
     background: none
@@ -1206,6 +1217,7 @@ form.login
     top: -20px
     right: 10px
     opacity: .8
+    filter: alpha(opacity=80)
   .visualize-title
     display: block
     color: #333
@@ -1983,6 +1995,7 @@ input
   height: 100%
   background: #000
   opacity: 0.2
+  filter: alpha(opacity=20)
   display: none
   z-index: 999
 
@@ -2020,11 +2033,13 @@ input
   -moz-border-radius: 4px
 .close-room
   opacity: 0.5
+  filter: alpha(opacity=50)
   height: 16px
   width: 16px
   margin-right: 5px
   &:hover
     opacity: 1.0
+    filter: alpha(opacity=100)
   
 
 ::-webkit-scrollbar 
