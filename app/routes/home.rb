@@ -319,7 +319,6 @@ class Main
     @message_id = @message.id
     pusher_message = haml :message, :layout => false
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
-
     return '{"success":true}'
   end
   get "/ui/heartbeat" do
