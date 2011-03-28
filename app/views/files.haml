@@ -2,5 +2,5 @@
   ="No files in this room." if @files.empty?
   -@files.each do |file|
     .colored-box.chat.file-container
-      .message-date= Time.at(file.date).strftime("%l:%M%p")
+      .message-date= Time.at(file.date).strftime("%b %e %l:%M%p")
       %a.file{:href => file.url, :target => "_blank", :style => ' text-align: left;'}= file.name

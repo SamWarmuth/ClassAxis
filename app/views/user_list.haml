@@ -1,1 +1,2 @@
-Users in this room!
+-$rooms_users[@room.id].map{|u_id| User.get(u_id)}.each do |user|
+  %p= user.name

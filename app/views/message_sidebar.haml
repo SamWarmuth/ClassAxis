@@ -59,14 +59,26 @@
     if (typeof Pusher !== 'undefined'){
       var pusher = new Pusher('84d6245235e5b198d8aa');
 
-      var newListener = pusher.subscribe('new_messages');
-      newListener.bind('newMessage', function(data) {
-        console.log("New message.");
+      var updates = pusher.subscribe('updates');
+      updates.bind('newMessage', function(data) {
+        if (window.console) console.log("New message.");
         var room = data.room;
         var badge = $("#"+room).find(".badge");
         if ($("#"+room).hasClass("selected") || badge.length == 0) return false;
         badge.text(parseInt(badge.text()) + 1);
         badge.removeClass("clear").addClass("dark-green");
+      });
+      updates.bind('userMove', function(data) {
+        if (window.console) console.log("User Moved.");
+        // from, to, fcount, tcount
+        if ($("#" + data.from).hasClass("selected")){ // user left my room
+          $("#user-count").text(data.fcount);
+        }
+        
+        if ($("#" + data.to).hasClass("selected")){ // user joined my room
+          $("#user-count").text(data.tcount);
+        }
+
       });
     }
 

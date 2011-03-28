@@ -143,7 +143,21 @@ class Main
   get "/ui/room/:room_id" do
     redirect "/login" unless logged_in?
     @room = Room.get(params[:room_id])
-    return "Room not found." if @room.nil?    
+    return "Room not found." if @room.nil?
+    from = nil
+    $rooms_users.each_pair do |key,v|
+      if v.include?(@user.id)
+        from = key 
+        v.delete(@user.id)
+      end
+    end
+    $rooms_users[@room.id] ||= []
+    $rooms_users[@room.id] << @user.id
+    
+    from_count = from ? $rooms_users[from].count : 0
+    to_count = $rooms_users[@room.id].count
+    Thread.new{Pusher["updates"].trigger('userMove', {:from => from, :to => @room.id, :fcount => from_count, :tcount => to_count})}
+    
     haml :conversation, :layout => false
   end
   
@@ -208,7 +222,7 @@ class Main
     @message_id = @message.id
     pusher_message = haml :message, :layout => false
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
-    Thread.new{Pusher["new_messages"].trigger('newMessage', {:room => @room.id})}
+    Thread.new{Pusher["updates"].trigger('newMessage', {:room => @room.id})}
     return {:content => pusher_message, :container => ".conversation-container"}.to_json
   end
   
@@ -216,7 +230,7 @@ class Main
     @room = Room.get(params[:room_id])
     return 404 if @room.nil?
     
-    @files = @room.files
+    @files = @room.file_ids.map{|f| Upload.get(f)}
     haml :files, :layout => false
   end
   
@@ -256,6 +270,10 @@ class Main
     @user.file_ids ||= []
     @user.file_ids << file.id
     @user.save
+    
+    @room.file_ids ||= []
+    @room.file_ids << file.id
+    @room.save
     
     @message = Message.new
     @message.sender_id = @user.id

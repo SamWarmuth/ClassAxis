@@ -51,13 +51,13 @@ $(document).ready(function(){
     });
     var roomID = $(this).attr('id');
     if (typeof Pusher !== 'undefined'){
-      console.log("joining channel "+ roomID);
+      if (window.console) console.log("joining channel "+ roomID);
       var pusher = new Pusher('84d6245235e5b198d8aa');
       pusher.unsubscribe(oldRoomID);
       
       var conversationListener = pusher.subscribe(roomID);
       conversationListener.bind('addMessage', function(data) {
-        console.log("got message.");
+        if (window.console) console.log("got message.");
         if (data.user_id == $('#user-id').text()) return true;
         $('.conversation-container').append(data.content);
         scrollToBottom();

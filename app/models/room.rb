@@ -15,6 +15,7 @@ class Room < CouchRest::ExtendedDocument
   view_by :permalink
   
   property :message_ids, :default => []
+  property :file_ids, :default => []
   
   def public?
     return self.is_public
@@ -27,10 +28,9 @@ class Room < CouchRest::ExtendedDocument
   end
   
   def messages(newest = nil)
-    return self.message_ids.map{|m_id| Message.get(m_id)} if last.nil?
+    return self.message_ids.map{|m_id| Message.get(m_id)} if newest.nil?
     
     self.message_ids.last(newest).map{|m_id| Message.get(m_id)}
-    
   end
   def files
     self.messages.map(&:upload_id).compact.map{|u_id| Upload.get(u_id)}

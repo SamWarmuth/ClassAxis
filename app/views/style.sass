@@ -199,6 +199,7 @@ address
   width: 100px
   margin-top: 5px
   border-radius: 10px
+  margin-right: 50px
   -moz-border-radius: 10px
   background: #70889A
   padding: 10px 25px
@@ -262,6 +263,8 @@ address
   background-repeat: no-repeat
   background-position: 2px 2px
   margin: 2px 3px
+  position: relative
+  cursor: pointer
   &.downloads
     margin-right: 5px
     width: 15px
@@ -863,8 +866,7 @@ html[xmlns] #nav
 .sender
   width: 95px
   height: 10px
-  padding-top: 15px
-  padding-right: 3px
+  padding: 15px 5px 0 5px
   display: inline-block
   float: left
   text-align: right
@@ -886,7 +888,7 @@ html[xmlns] #nav
   position: relative
   border-width: 1px
   border-style: solid
-  padding: 5px 15px
+  padding: 5px 15px 5px 15px
   margin-top: 6px
   -moz-border-radius: 3px
   -webkit-border: 3px
@@ -897,8 +899,9 @@ html[xmlns] #nav
     border: none
     border-bottom: 1px solid #ccc
   &.chat
+    padding: 5px 44px 5px 10px
     display: inline-block
-    width: 408px
+    width: 391px
     min-height: 15px
   
   .message-date

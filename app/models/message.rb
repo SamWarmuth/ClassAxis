@@ -4,9 +4,6 @@ class Message < CouchRest::ExtendedDocument
   property :sender_id
   view_by :sender_id
   
-  property :room_id
-  view_by :room_id
-  
   property :date, :default => Proc.new{Time.now.to_i}
   property :content, :default => ""
   property :upload_id

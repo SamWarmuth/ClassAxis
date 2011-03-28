@@ -2,7 +2,7 @@
 .conversation-container.scroll-bottom{:style => "margin: -20px;"}
   -if @room.message_ids.length > 50
     .date-box{:style => 'width: 180px; margin-left: 205px; color: #999; text-align: center;'} Older messages not shown.
-  -@room.message_ids.last(50).each do |@message_id|
+  -@room.message_ids.last(100).each do |@message_id|
     = $rendered_messages[@message_id] ||= haml :message, :layout => false
 
 %br.cl
@@ -16,10 +16,10 @@
   $(window).load(function(){$(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));});
   $(document).ready(function(){
     var conversationHeight = $(window).height() - 200;
-    if (conversationHeight < 250 ) conversationHeight = 250;
+    if (conversationHeight < 300 ) conversationHeight = 300;
     $('.conversation-container').css("height", conversationHeight);
     $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
-
+    $("#user-count").text('#{$rooms_users[@room.id].size}');
     
     var uploader = new qq.FileUploader({
         // pass the dom node (ex. $(selector)[0] for jQuery users)
