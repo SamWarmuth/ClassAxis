@@ -11,7 +11,7 @@
   -if @user.temporary
     .create-account{:style => "margin-left: 120px; margin-top: 20px;"}
       You need an account to post messages.
-      .awesome.medium.green{:style => 'position: relative; top: -3px'} Sign up
+      %a.awesome.medium.green{:style => 'position: relative; top: -3px', :href => "/signup"} Sign up
   -else
     -if @user.file_ids.count >= @user.max_file_count
       .upload-blocked{:style => "float: left; margin-left: 20px; position: relative; top: 5px;"} Upload Limit Reached.

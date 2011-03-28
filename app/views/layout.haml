@@ -53,7 +53,7 @@
           .modal-border
             .modal
               .modal-pane.modal-new-room.hide= haml :new_room, :layout => false
-              .modal-pane.modal-browse-rooms.hide
+              .modal-pane.modal-browse-rooms
               .modal-pane.modal-files.hide
                 %h1.center Files from this room
                 .files-content.modal-content
@@ -83,4 +83,5 @@
             
           %br.cl
           .footer
-            ©2011 Class Axis
+            ©2011 Class Axis.
+            %a{:href => "http://github.com/samwarmuth/classaxis"} Source

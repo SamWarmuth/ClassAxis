@@ -113,7 +113,7 @@ class Main
   end
 
   get "/signup" do
-    redirect "/" if logged_in?
+    redirect "/" if logged_in? && !@user.temporary
     haml :signup, :layout => false
   end
   
@@ -121,8 +121,8 @@ class Main
     redirect "/signup?error=email" unless User.all.find{|u| u.email == params[:email].downcase}.nil?
     redirect "/signup?error=password" unless params[:password] == params[:password2]
     redirect "/signup?error=empty" if params[:name].empty? || params[:email].empty? || params[:password].empty?
-    
-    user = User.new
+    user = @user if logged_in?
+    user ||= User.new
     user.temporary = false
     user.name = params[:name]
     user.email = params[:email].downcase

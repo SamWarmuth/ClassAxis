@@ -24,6 +24,10 @@
     });
     $(".browse-rooms").click(function(){
       $(".modal-browse-rooms").show();
+      $(".modal-browse-rooms").html("<img src='/images/loading.gif'/>");
+      $.get("/ui/browse-rooms", function(data){
+        $(".modal-browse-rooms").html(data);
+      });
       showModal();
     });
     $(".hud-button.downloads").click(function(){
@@ -32,15 +36,6 @@
       
       $.get("/ui/file-list/" + $(".secondary-row.selected").attr("id"), function(data){
         $(".files-content").html(data);
-      });
-      showModal();
-    });
-    $(".hud-button.settings").click(function(){
-      $(".modal-settings").show();
-      $(".settings-content").html("<img src='/images/loading.gif'/>");
-      
-      $.get("/ui/settings/" + $(".secondary-row.selected").attr("id"), function(data){
-        $(".settings-content").html(data);
       });
       showModal();
     });
