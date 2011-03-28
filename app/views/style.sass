@@ -934,7 +934,7 @@ html[xmlns] #nav
     background: #feeac9
     border-color: #d38e49
   &.file-container
-    background: #eee url(/images/file-gradient.png)
+    background: #eee url(/images/file-gradient.png) !important
     border-color: #bbb
     -moz-border-radius: 25px
     border-radius: 25px
@@ -942,20 +942,22 @@ html[xmlns] #nav
     opacity: 0.8
     filter: alpha(opacity=80)
     padding: 0
-    width: 438px
+    width: 445px
     &:hover
       opacity: 1.0
       filter: alpha(opacity=100)
     &:active
       opacity: 1.0
       filter: alpha(opacity=100)
-      background: #eee url(/images/file-gradient-active.png)
+      background: #eee url(/images/file-gradient-active.png) !important
   &.invisible
     background: none
     border: none
     text-align: center
     margin-bottom: 0
-    padding-bottom: 4px
+    width: 430px
+    padding: 5px 15px 0 15px
+    
   &.purple
     background: #C070FF
     border-color: #8020C0

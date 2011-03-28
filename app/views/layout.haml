@@ -49,15 +49,11 @@
     .shroud
     #page-wrapper
       .page
-        -@user.broadcast_ids.map{|b_id| Broadcast.get(b_id)}.each do |broadcast|
-          .notification{:class => broadcast.type}
-            = broadcast.content.gsub("^^name^^", @user.name)
-            .close{:id => broadcast.id}
         .page-content
           .modal-border
             .modal
               .modal-pane.modal-new-room.hide= haml :new_room, :layout => false
-              .modal-pane.modal-browse-rooms.hide= haml :browse_rooms, :layout => false
+              .modal-pane.modal-browse-rooms.hide
               .modal-pane.modal-files.hide
                 %h1.center Files from this room
                 .files-content.modal-content
@@ -73,7 +69,7 @@
             .room-controls
               .hud-button.downloads.no-select{:title => "Files in this room"}
               .hud-button.users.no-select{:title => "Users in this room"}
-                .badge-holder{:style => "position: absolute; left: 8px; top: 16px;"}
+                .badge-holder{:style => "position: absolute; left: 8px; top: 17px;"}
                   #user-count.badge.gray{:style => "border: none"}
           .secondary-container
             .secondary-navigation

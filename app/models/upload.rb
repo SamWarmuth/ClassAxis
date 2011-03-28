@@ -5,7 +5,7 @@ class Upload < CouchRest::ExtendedDocument
   property :file_type
   property :date, :default => Proc.new{Time.now.to_i}
   
-  
+  property :file_size
   property :image_size
   
   property :url

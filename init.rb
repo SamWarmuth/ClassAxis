@@ -39,7 +39,6 @@ Pusher.secret = 'a75d798c2cb2abd65dd1'
 
 $current_users = {}
 $rooms_users = {}
-$users_names = {}
 $rendered_messages = {}
 
 

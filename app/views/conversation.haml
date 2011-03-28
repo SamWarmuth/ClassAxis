@@ -8,9 +8,14 @@
 %br.cl
 .new-message
   .divider
-  #file-uploader{:style => 'float: left; margin-left: 46px; min-height: 10px;'}
-    %noscript Please enable JavaScript to use file uploader.
-  %input.input.first-focus{:style => "float: left;width: 350px; height: 20px; font-size: 1.3em; margin-left: 10px; display: inline-block;", :href => "/ui/message/#{@room.id}/"}
+  -if @user.temporary
+    .create-account{:style => "margin-left: 120px; margin-top: 20px;"}
+      You need an account to post messages.
+      .awesome.medium.green{:style => 'position: relative; top: -3px'} Sign up
+  -else
+    #file-uploader{:style => 'float: left; margin-left: 46px; min-height: 10px;'}
+      %noscript Please enable JavaScript to use file uploader.
+    %input.input.first-focus{:style => "float: left;width: 350px; height: 20px; font-size: 1.3em; margin-left: 10px; display: inline-block;", :href => "/ui/message/#{@room.id}/"}
 
 :javascript
   $(window).load(function(){$(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));});
@@ -26,7 +31,7 @@
         element: document.getElementById('file-uploader'),
         // path to server-side upload script
         action: '/message/addfile/#{@room.id}',
-        sizeLimit: 5200000,
+        sizeLimit: #{@user.max_file_size * 1040000},
         onSubmit: function(id, fileName){
           $('.conversation-container').append("<div class='loading'><div class='sender'></div><div class='colored-box chat gray'><img src='/images/loading.gif'/> Uploading File: <div class='pcnt' style='display: inline'>0</div>%</div></div>");
           scrollToBottom();

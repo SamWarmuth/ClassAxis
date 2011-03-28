@@ -80,6 +80,10 @@
         }
 
       });
+      updates.bind('heartbeat', function(data) {
+        if (window.console) console.log("Heartbeat.");
+        $.get("/ui/heartbeat");
+      });
     }
 
   });

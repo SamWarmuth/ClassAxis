@@ -1,2 +1,16 @@
+%br
+-$rooms_users[@room.id] ||= []
+-guest_count = 0
 -$rooms_users[@room.id].map{|u_id| User.get(u_id)}.each do |user|
-  %p= user.name
+  -if user.temporary
+    -guest_count += 1
+    -next
+  -else
+    %h2= user.name
+%h3 And #{guest_count} guests.
+%br
+%br
+%h2 Invite more users
+%h3
+  Room Link:
+  http://classaxis.com/room/#{@room.permalink}

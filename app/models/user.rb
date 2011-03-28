@@ -12,14 +12,19 @@ class User < CouchRest::ExtendedDocument
   
   property :file_ids, :default => []
   
+  #standard user is allowed five files < 500k.
+  property :max_file_count, :default => 5
+  property :max_file_size, :default => 0.5
+  
   property :room_ids, :default => []
   
   property :permalink
   view_by :permalink
   
+  property :temporary, :default => true
+  
 
   property :is_admin, :default => false
-  property :broadcast_ids, :default => []
   
   property :picture_url
   

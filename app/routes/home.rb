@@ -60,6 +60,42 @@ class Main
     end
   end
   
+  get "/room/:room_permalink" do
+    logged_in?
+    if @user.nil?
+      @room = Room.by_permalink(:key => params[:room_permalink]).first
+      return '404' if @room.nil?
+      @user = User.new
+      @user.challenges ||= []
+      @user.challenges = @user.challenges[0...4]
+      @user.challenges.unshift((Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s)
+      @user.room_ids << @room.id
+      @user.save
+      
+
+
+
+      response.set_cookie("user", {
+        :path => "/",
+        :expires => Time.now + 2**20, #two weeks
+        :httponly => true,
+        :value => @user.id
+      })
+      response.set_cookie("user_challenge", {
+        :path => "/",
+        :expires => Time.now + 2**20,
+        :httponly => true,
+        :value => @user.challenges.first
+      })
+      
+       
+      @rooms = [@room]
+      haml "" #run normal layout.haml
+    else
+      #user exists, just put them there somehow.
+    end
+  end
+  
   get "/logout" do
     response.set_cookie("user", {
       :path => "/",
@@ -91,7 +127,6 @@ class Main
     user.email = params[:email].downcase
     user.set_password(params[:password])
     user.permalink = generate_permalink(user, user.name)
-    user.broadcast_ids = Broadcast.all.find_all{|b| b.announce_to_new_users == true}.map(&:id)
     user.save
     
     user.challenges ||= []
@@ -121,15 +156,6 @@ class Main
   end
   
   ## AJAX routes
-  
-  post "/ajax/hide-broadcast/:broadcast_id" do
-    return 403 unless logged_in? #forbidden
-    broadcast = Broadcast.get(params[:broadcast_id])
-    return 404 if broadcast.nil? #not found
-    @user.broadcast_ids.delete(broadcast.id)
-    @user.save
-    return 200 #success
-  end
   
   
   get "/ui/message/:id" do
@@ -247,10 +273,17 @@ class Main
     haml :user_list, :layout => false
   end
   
+  get "/ui/browse-rooms" do
+    return "Not logged in." unless logged_in?
+    haml :browse_rooms, :layout => false
+  end
+  
   post "/message/addfile/:room_id" do
     return 403 unless logged_in?
     @room = Room.get(params[:room_id])
     return 404 if @room.nil?
+    return 403 if @user.file_ids.length >= @user.max_file_count
+    puts "-=-" + params.inspect + " -=-"
     
     file = Upload.new
     file.name = params[:qqfile].gsub(" ", "")
@@ -262,7 +295,8 @@ class Main
     
     FileUtils.mkdir_p "public/uploads/#{@user.id}/files/"
     data = request.env['rack.input']
-    File.open(file.file_path, 'w') {|f| f.write(data.read)}    
+    File.open(file.file_path, 'w') {|f| f.write(data.read)}
+    file.file_size = File.size(file.file_path)    
     file.save
     
     
@@ -287,5 +321,8 @@ class Main
 
     return '{"success":true}'
   end
-
+  get "/ui/heartbeat" do
+    return 403 unless logged_in? #this updates their logged in time.
+    return 200
+  end
 end

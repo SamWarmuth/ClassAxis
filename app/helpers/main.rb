@@ -16,7 +16,7 @@ class Main
       @user = user
       current_time = Time.now.to_i
       $current_users[@user.id] = current_time
-      $current_users.delete_if{|u_id, time| (time + 5.minutes) < current_time}
+      $current_users.delete_if{|u_id, time| (time + 10.minutes) < current_time}
       
       return true
     end
