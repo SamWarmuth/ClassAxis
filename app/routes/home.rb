@@ -71,9 +71,6 @@ class Main
       @user.challenges.unshift((Digest::SHA2.new(512) << (64.times.map{|l|('a'..'z').to_a[rand(25)]}.join)).to_s)
       @user.room_ids << @room.id
       @user.save
-      
-
-
 
       response.set_cookie("user", {
         :path => "/",
@@ -88,12 +85,14 @@ class Main
         :value => @user.challenges.first
       })
       
-       
       @rooms = [@room]
-      haml "" #run normal layout.haml
     else
+      @user.room_ids << @room.id unless @user.room_ids.include?(@room.id)
+      
       #user exists, just put them there somehow.
     end
+    @selected_room = @room.id
+    haml "" #run normal layout.haml
   end
   
   get "/logout" do
@@ -171,15 +170,10 @@ class Main
     redirect "/login" unless logged_in?
     @room = Room.get(params[:room_id])
     return "Room not found." if @room.nil?
-    from = nil
-    $rooms_users.each_pair do |key,v|
-      if v.include?(@user.id)
-        from = key 
-        v.delete(@user.id)
-      end
-    end
+    from = params[:fromroom] #can be nil
     $rooms_users[@room.id] ||= []
-    $rooms_users[@room.id] << @user.id
+    $rooms_users[@room.id] << @user.id unless $rooms_users[@room.id].include?(@user.id)
+    $rooms_users[from].delete(@user.id) if from && $rooms_users[from]
     
     from_count = from ? $rooms_users[from].count : 0
     to_count = $rooms_users[@room.id].count
@@ -196,6 +190,7 @@ class Main
     @user.save
     haml :room_row, :layout => false
   end
+  
   post "/ui/leave-room/:room_id" do
     redirect "/login" unless logged_in?
     @room = Room.get(params[:room_id])

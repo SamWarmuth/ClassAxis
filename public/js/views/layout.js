@@ -22,7 +22,8 @@ $(document).ready(function(){
     content.html("");
     $(".spinner").show();
     removeListeners();
-    $.get($(this).attr("href"), function(data){
+    
+    $.get($(this).attr("href"), {'fromroom': oldRoomID}, function(data){
       sidebar.height('auto');
       var page = $("<div style='display: none'>"+data+"</div>");
       content.html(page);
@@ -33,23 +34,7 @@ $(document).ready(function(){
       $(".scroll-bottom").attr("scrollTop",$(".scroll-bottom").attr("scrollHeight"));
       $(".first-focus").focus();
     });
-    $(".secondary-row").live("mouseenter", function(){
-      $(this).find(".room-date").fadeOut(0);
-      $(this).find(".close-room").fadeIn(0);
-    });
-    $(".secondary-row").live("mouseleave", function(){
-      $(this).find(".room-date").fadeIn(0);
-      $(this).find(".close-room").fadeOut(0);
-    });
-    $(".close-room").live('click', function(){
-      var row = $(this).parent().parent();
-      $.post($(this).attr("href"));
-      var selected = false;
-      if (row.hasClass("selected")) selected = true;
-      row.remove();
-      if (selected) $("#smessages").children(".secondary-row").first().click();
-      return false;
-    });
+
     var roomID = $(this).attr('id');
     if (typeof Pusher !== 'undefined'){
       if (window.console) console.log("joining channel "+ roomID);
@@ -64,6 +49,26 @@ $(document).ready(function(){
         scrollToBottom();
       });
     }
+  });
+  
+  $(".secondary-row").live("mouseenter", function(){
+    $(this).find(".room-date").fadeOut(0);
+    $(this).find(".close-room").fadeIn(0);
+  });
+  
+  $(".secondary-row").live("mouseleave", function(){
+    $(this).find(".room-date").fadeIn(0);
+    $(this).find(".close-room").fadeOut(0);
+  });
+  
+  $(".close-room").live('click', function(){
+    var row = $(this).parent().parent();
+    $.post($(this).attr("href"));
+    var selected = false;
+    if (row.hasClass("selected")) selected = true;
+    row.remove();
+    if (selected) $("#smessages").children(".secondary-row").first().click();
+    return false;
   });
 
   
