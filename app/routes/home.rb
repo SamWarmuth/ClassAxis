@@ -175,7 +175,7 @@ class Main
     $rooms_users[@room.id] << @user.id unless $rooms_users[@room.id].include?(@user.id)
     $rooms_users[from].delete(@user.id) if from && $rooms_users[from]
     
-    from_count = from ? $rooms_users[from].count : 0
+    from_count = from&&$rooms_users[from] ? $rooms_users[from].count : 0
     to_count = $rooms_users[@room.id].count
     Thread.new{Pusher["updates"].trigger('userMove', {:from => from, :to => @room.id, :fcount => from_count, :tcount => to_count})}
     

@@ -22,14 +22,12 @@
             Your account has been created. Please log in.
         %form.login{:action => "/login", :method => "post"}
           .row
-            %label Email
+            %label{:style => "display: inline-block; width: 80px"} Email
             %input{:type => "text", :name => "email"}
           .row
-            %label Password
+            %label{:style => "display: inline-block; width: 80px"} Password
             %input{:type => "password", :name => "password"}
           .row.tr
-            %input#rememberme.checkbox{:checked => "checked", :type => "checkbox"}
-            %label.checkbox.tl.strong{:for => "rememberme", :style => "width:105px"} Remember me
             %input.new-button{:style => "height: 30px; width: 100px;", :type => "submit", :value => "Login"}
             
       .colored-box.green{:style => "text-align: center; font-size: 1.3em; margin-bottom: 0;"}
