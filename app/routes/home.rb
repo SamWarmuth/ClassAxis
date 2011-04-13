@@ -149,7 +149,7 @@ class Main
       :value => user.challenges.first
     })
     
-    user.room_ids << Room.by_permalink(:key => "thelobby").first.id
+    user.room_ids << Room.all.sort_by{|r| r.date}.first.id
     user.save
     
     redirect "/"
