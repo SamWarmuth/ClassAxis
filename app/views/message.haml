@@ -1,4 +1,4 @@
--@message = Message.get(@message_id)
+-@message = Message.get(message_id)
 -date = Time.at(@message.date)
 -sent = (@user.id == @message.sender_id)
 -file = Upload.get(@message.upload_id) if @message.upload_id

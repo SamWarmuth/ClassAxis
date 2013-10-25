@@ -18,10 +18,7 @@ require "sass"
 require "json"
 require "pusher"
 require "active_support"
-require "image_size"
-
-
-
+require 'mini_magick'
 
 class Main < Monk::Glue
   set :app_file, __FILE__

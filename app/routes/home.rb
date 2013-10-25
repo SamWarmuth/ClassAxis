@@ -149,7 +149,7 @@ class Main
       :value => user.challenges.first
     })
     
-    user.room_ids << Room.all.sort_by{|r| r.date}.first.id
+    user.room_ids << Room.all.sort_by{|r| r.date}.first.id if Room.count != 0
     user.save
     
     redirect "/"
@@ -188,7 +188,7 @@ class Main
     return "Room not found." if @room.nil?
     @user.room_ids << @room.id unless @user.room_ids.include?(@room.id)
     @user.save
-    haml :room_row, :layout => false
+    haml :room_row, :layout => false, :locals => {:room => @room}
   end
   
   post "/ui/leave-room/:room_id" do
@@ -197,7 +197,7 @@ class Main
     return "Room not found." if @room.nil?
     @user.room_ids.delete(@room.id)
     @user.save
-    haml :room_row, :layout => false
+    haml :room_row, :layout => false, :locals => {:room => @room}
   end
   
   post "/ui/create-room/" do
@@ -225,7 +225,7 @@ class Main
     
     @user.room_ids << @room.id
     @user.save
-    haml :room_row, :layout => false
+    haml :room_row, :layout => false, :locals => {:room => @room}
   end
   
   post "/ui/message/:room_id/" do
@@ -240,8 +240,7 @@ class Main
     @room.message_ids << @message.id
     @room.save
     
-    @message_id = @message.id
-    pusher_message = haml :message, :layout => false
+    pusher_message = haml :message, :layout => false, :locals => {:message_id => @message.id}
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => @user.id})}
     Thread.new{Pusher["updates"].trigger('newMessage', {:room => @room.id})}
     return {:content => pusher_message, :container => ".conversation-container"}.to_json
@@ -310,9 +309,7 @@ class Main
     @room.message_ids << @message.id
     @room.save
     
-    
-    @message_id = @message.id
-    pusher_message = haml :message, :layout => false
+    pusher_message = haml :message, :layout => false, :locals => {:message_id => @message.id}
     Thread.new{Pusher[@room.id].trigger('addMessage', {:content => pusher_message, :user_id => false})}
     return '{"success":true}'
   end

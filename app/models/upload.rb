@@ -14,7 +14,8 @@ class Upload < CouchRest::ExtendedDocument
   
   
   def set_size
-    self.image_size = ImageSize.new(File.read(self.file_path)).get_size
+    image = MiniMagick::Image.open(self.file_path)
+    self.image_size = [image[:width], image[:height]]
     self.save
   end
   
