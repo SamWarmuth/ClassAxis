@@ -2,7 +2,8 @@
 .conversation-container.scroll-bottom{:style => "margin: -20px;"}
   -if @room.message_ids.length > 50
     .date-box{:style => 'width: 180px; margin-left: 205px; color: #999; text-align: center;'} Older messages not shown.
-  -@room.message_ids.last(100).each do |@message_id|
+  -@room.message_ids.last(100).each do |message_id|
+    @message_id = message_id
     = $rendered_messages[@message_id] ||= haml :message, :layout => false
 
 %br.cl

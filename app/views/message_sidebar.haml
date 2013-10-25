@@ -2,7 +2,8 @@
   &nbsp;
   .new-button.flush-right.browse-rooms Find a Room
   .new-button.flush-left.new-room New Room
--@rooms.sort_by{|r| -r.last_message.date}.each do |@room|
+-@rooms.sort_by{|r| -r.last_message.date}.each do |room|
+  @room = room
   =haml :room_row, :layout => false
       
 
